@@ -3,6 +3,9 @@
 The website for Bluemont Children Foundation: volunteers sign up, learn to
 crochet, request kits, and track the plushies they make.
 
+**New builder?** Start with the [Builder Setup Guide](https://claude.ai/code/artifact/5390f8a6-c5d6-4482-affa-2cf2014e14c4).
+Tasks live on the [Issues page](https://github.com/MeganKong/Bluemont-website/issues).
+
 ## Run it on your computer
 
 1. Install [Node.js](https://nodejs.org) (the LTS version).
