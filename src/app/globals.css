@@ -1,26 +1,23 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Bluemont brand colors, from the pitch deck. Use them as Tailwind classes,
+   e.g. bg-navy, text-terracotta, border-line. Only Sophia edits this file. */
+@theme {
+  --color-navy: #1c2b45;
+  --color-cream: #f7f1e6;
+  --color-card: #fffbf4;
+  --color-sand: #f3ebdd;
+  --color-line: #e4d9c6;
+  --color-terracotta: #b04a26;
+  --color-gold: #e8b04a;
+  --color-ink: #4a4f5c;
+  --color-muted: #5f6370;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-dm-sans);
+  --font-display: var(--font-fraunces);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-navy);
 }

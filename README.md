@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bluemont website
 
-## Getting Started
+The website for Bluemont Children Foundation: volunteers sign up, learn to
+crochet, request kits, and track the plushies they make.
 
-First, run the development server:
+## Run it on your computer
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Install [Node.js](https://nodejs.org) (the LTS version).
+2. In a terminal, inside this folder:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   npm install     # once, downloads the libraries
+   npm run dev     # starts the site
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Open http://localhost:3000. Pages reload as you save files.
+   Press Ctrl+C in the terminal to stop.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Where things are
 
-## Learn More
+Each folder under `src/app` is a page. Folders in parentheses, like `(public)`,
+group pages without changing the web address.
 
-To learn more about Next.js, take a look at the following resources:
+| Page                        | Folder                          | Owner  |
+| --------------------------- | ------------------------------- | ------ |
+| Home, About                 | `src/app/(public)/`             | Iris   |
+| Sign in, Sign up            | `src/app/(auth)/`               | Sophia |
+| Dashboard                   | `src/app/(app)/dashboard/`      | Sophia |
+| Lessons                     | `src/app/(app)/lessons/`        | Nika   |
+| Kit requests, Stock         | `src/app/(app)/kits/`           | Adhya  |
+| News, Officer check-ins     | `src/app/(app)/news/`, `check-ins/` | Iris |
+| Shared colors, fonts, menus, data shapes | `layout.tsx` files, `globals.css`, `src/lib/` | Sophia |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Only edit your own folders. For a shared file, ask Sophia.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Weekly workflow
 
-## Deploy on Vercel
+1. `git switch main && git pull`: get everyone's latest work.
+2. `git switch -c yourname/what-youre-building`: make your own branch.
+3. Build with Claude Code. Save progress with `git add` and `git commit`.
+4. `git push`, then open a pull request on GitHub.
+5. A teammate reviews it, and it merges at the weekly sync.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Coming next
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Supabase: real logins, parent consent, and the database
+- Vercel: put the site online
+- Month 2: donate page, badges, service-hour certificates, pickup slots
