@@ -3,6 +3,8 @@
 The website for Bluemont Children Foundation: volunteers sign up, learn to
 crochet, request kits, and track the plushies they make.
 
+**Live site:** https://bluemontfoundation.vercel.app (updates on every merge to `main`)
+
 **New builder?** Start with the [Builder Setup Guide](https://claude.ai/code/artifact/5390f8a6-c5d6-4482-affa-2cf2014e14c4).
 Tasks live on the [Issues page](https://github.com/MeganKong/Bluemont-website/issues).
 
@@ -58,5 +60,4 @@ and paste them into a new `.env.local` file.
 ## Coming next
 
 - Supabase is connected; logins and tables come as each owner builds
-- Vercel: put the site online
 - Month 2: donate page, badges, service-hour certificates, pickup slots
