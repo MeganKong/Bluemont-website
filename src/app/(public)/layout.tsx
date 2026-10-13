@@ -1,4 +1,4 @@
-// Owner: Iris. Header and footer for the public pages.
+// Owner: unassigned (to be split). Header and footer for the public pages.
 import Link from "next/link";
 
 const links = [

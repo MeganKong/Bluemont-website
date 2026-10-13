@@ -1,8 +1,13 @@
 // Owner: Nika. One lesson, at "/lessons/<lesson id>".
+//
+// What this page will do (month 1 build plan):
+// - Show the lesson video (unlisted YouTube, embedded), the steps, and "Mark complete".
+// Done when: 10 real volunteers finish lesson 1 in the week 4 pilot.
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { lessons } from "../_placeholder";
+import { SampleNote } from "@/components/sample-note";
 
 // Tells Next.js which lesson pages exist, so it can build them ahead of time.
 export function generateStaticParams() {
@@ -15,6 +20,7 @@ type Params = PageProps<"/lessons/[lessonId]">["params"];
 export default function LessonPage({ params }: { params: Params }) {
   return (
     <div className="flex max-w-2xl flex-col gap-6">
+      <SampleNote />
       <Link href="/lessons" className="text-sm text-muted">
         ← All lessons
       </Link>

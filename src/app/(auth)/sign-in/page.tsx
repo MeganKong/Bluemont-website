@@ -1,12 +1,18 @@
-// Owner: Sophia. Sign-in form. Not connected yet: Supabase login comes next.
+// Owner: Sophia. The sign-in page at "/sign-in". Not connected yet.
+//
+// What this page will do (month 1 build plan):
+// - Volunteers and officers sign in with Supabase's built-in login.
+// Done when: volunteers and officers can sign in.
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SampleNote } from "@/components/sample-note";
 
 export const metadata: Metadata = { title: "Sign in" };
 
 export default function SignInPage() {
   return (
     <main className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center gap-6 px-4 py-12">
+      <SampleNote />
       <h1 className="font-display text-3xl font-semibold">Sign in</h1>
       <form className="flex flex-col gap-4">
         <label className="flex flex-col gap-1">

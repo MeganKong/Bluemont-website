@@ -1,12 +1,18 @@
-// Owner: Sophia. Sign-up form with parent consent. Not connected yet.
+// Owner: Sophia. The sign-up page at "/sign-up". Not connected yet.
+//
+// What this page will do (month 1 build plan):
+// - Create an account; volunteers under 18 give a parent email for consent.
+// Done when: sign-up takes under 3 minutes and consent is recorded.
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SampleNote } from "@/components/sample-note";
 
 export const metadata: Metadata = { title: "Sign up" };
 
 export default function SignUpPage() {
   return (
     <main className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center gap-6 px-4 py-12">
+      <SampleNote />
       <h1 className="font-display text-3xl font-semibold">Become a volunteer</h1>
       <form className="flex flex-col gap-4">
         <label className="flex flex-col gap-1">

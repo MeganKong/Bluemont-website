@@ -1,15 +1,18 @@
-// Owner: Sophia. The volunteer dashboard at "/dashboard":
-// lesson progress, kit status and the latest news.
+// Owner: Sophia. The volunteer dashboard at "/dashboard".
+//
+// What this page will do (month 1 build plan):
+// - Show the signed-in volunteer's lesson progress, kit status and latest news.
+// Done when: it shows progress, kit status and news for the real person.
 import type { Metadata } from "next";
 import Link from "next/link";
 import { lessons } from "../lessons/_placeholder";
 import { kitRequests } from "../kits/_placeholder";
 import { newsPosts } from "../news/_placeholder";
+import { SampleNote } from "@/components/sample-note";
 
 export const metadata: Metadata = { title: "Dashboard" };
 
-// Placeholder until login works: pretend the volunteer finished 1 lesson
-// and has the first kit request.
+// Fake numbers until lessons and kits use real data.
 const lessonsDone = 1;
 const myKit = kitRequests[0];
 
@@ -18,6 +21,7 @@ export default function DashboardPage() {
 
   return (
     <div className="flex flex-col gap-8">
+      <SampleNote />
       <h1 className="font-display text-4xl font-semibold">Welcome back</h1>
       <div className="grid gap-4 sm:grid-cols-3">
         <Link href="/lessons" className="rounded-2xl border border-line bg-card p-5">

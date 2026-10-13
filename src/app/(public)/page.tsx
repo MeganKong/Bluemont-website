@@ -1,5 +1,10 @@
-// Owner: Iris. The home page at "/".
+// Owner: unassigned (to be split). The public home page at "/".
+//
+// What this page will do (month 1 build plan):
+// - Say what Bluemont is and send visitors to sign up.
+// Done when: Home, About and Sign in look finished.
 import Link from "next/link";
+import { SampleNote } from "@/components/sample-note";
 
 const stats = [
   { value: "2", label: "school chapters" },
@@ -10,6 +15,7 @@ const stats = [
 export default function HomePage() {
   return (
     <div className="flex flex-col gap-12">
+      <SampleNote />
       <section className="flex flex-col gap-6">
         <h1 className="font-display text-5xl font-semibold leading-tight">
           Teens learn to crochet. <span className="text-terracotta">Kids get a friend.</span>

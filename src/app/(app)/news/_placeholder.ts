@@ -1,4 +1,4 @@
-// Owner: Iris. Fake news posts and officer check-ins until the database is ready.
+// Owner: unassigned (to be split). Fake news posts and officer check-ins until the database is ready.
 import type { CheckIn, NewsPost } from "@/lib/types";
 
 export const newsPosts: NewsPost[] = [

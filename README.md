@@ -19,19 +19,30 @@ crochet, request kits, and track the plushies they make.
 ## Where things are
 
 Each folder under `src/app` is a page. Folders in parentheses, like `(public)`,
-group pages without changing the web address.
+group pages without changing the web address. Each page file starts with a
+short note: what the page will do, and when it counts as done.
 
 | Page                        | Folder                          | Owner  |
 | --------------------------- | ------------------------------- | ------ |
-| Home, About                 | `src/app/(public)/`             | Iris   |
 | Sign in, Sign up            | `src/app/(auth)/`               | Sophia |
 | Dashboard                   | `src/app/(app)/dashboard/`      | Sophia |
 | Lessons                     | `src/app/(app)/lessons/`        | Nika   |
 | Kit requests, Stock         | `src/app/(app)/kits/`           | Adhya  |
-| News, Officer check-ins     | `src/app/(app)/news/`, `check-ins/` | Iris |
-| Shared colors, fonts, menus, data shapes | `layout.tsx` files, `globals.css`, `src/lib/` | Sophia |
+| Home, About                 | `src/app/(public)/`             | Unassigned |
+| News, Officer check-ins     | `src/app/(app)/news/`, `check-ins/` | Unassigned |
+| Shared: colors, fonts, menus, data shapes, Supabase connection | `layout.tsx` files, `globals.css`, `src/lib/`, `src/components/`, `supabase/` | Sophia |
 
-Only edit your own folders. For a shared file, ask Sophia.
+Only edit your own folders. For a shared file, ask Sophia. Unassigned areas
+will be split later by Megan.
+
+Pages marked "Sample page · fake data" use made-up data from the
+`_placeholder.ts` file in their folder. Nothing on them saves yet.
+
+## Supabase settings
+
+The site reads its database address and key from a file called `.env.local`
+in this folder. It is never uploaded to GitHub. Ask Megan for the two lines
+and paste them into a new `.env.local` file.
 
 ## Weekly workflow
 
@@ -43,6 +54,6 @@ Only edit your own folders. For a shared file, ask Sophia.
 
 ## Coming next
 
-- Supabase: real logins, parent consent, and the database
+- Supabase is connected; logins and tables come as each owner builds
 - Vercel: put the site online
 - Month 2: donate page, badges, service-hour certificates, pickup slots

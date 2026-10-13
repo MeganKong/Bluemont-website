@@ -1,12 +1,18 @@
-// Owner: Adhya. Supplies on hand at "/kits/stock", flagged when low.
+// Owner: Adhya. Supplies on hand at "/kits/stock".
+//
+// What this page will do (month 1 build plan):
+// - One table of supplies. Each approved kit lowers the count.
+// Done when: the low-stock flag shows when a supply runs low.
 import type { Metadata } from "next";
 import { stock } from "../_placeholder";
+import { SampleNote } from "@/components/sample-note";
 
 export const metadata: Metadata = { title: "Stock" };
 
 export default function StockPage() {
   return (
     <div className="flex flex-col gap-6">
+      <SampleNote />
       <h1 className="font-display text-4xl font-semibold">Stock</h1>
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-left">
