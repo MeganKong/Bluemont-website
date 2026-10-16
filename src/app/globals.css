@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* Bluemont brand colors, from the pitch deck. Use them as Tailwind classes,
-   e.g. bg-navy, text-terracotta, border-line. Only Sophia edits this file. */
+   e.g. bg-navy, text-terracotta, border-line. Only Megan edits this file. */
 @theme {
   --color-navy: #1c2b45;
   --color-cream: #f7f1e6;

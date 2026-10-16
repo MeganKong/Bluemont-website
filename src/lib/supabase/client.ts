@@ -1,4 +1,4 @@
-// Owner: Sophia (shared). Supabase connection for code that runs in the browser
+// Owner: Megan (shared). Supabase connection for code that runs in the browser
 // (files that start with "use client").
 import { createBrowserClient } from "@supabase/ssr";
 

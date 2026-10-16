@@ -1,4 +1,4 @@
-// Owner: Sophia. The sign-up page at "/sign-up". Not connected yet.
+// Owner: Megan. The sign-up page at "/sign-up". Not connected yet.
 //
 // What this page will do (month 1 build plan):
 // - Create an account; volunteers under 18 give a parent email for consent.

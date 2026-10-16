@@ -1,4 +1,4 @@
-// Owner: Sophia (shared). Next.js runs this before every request.
+// Owner: Megan (shared). Next.js runs this before every request.
 import { type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/proxy";
 

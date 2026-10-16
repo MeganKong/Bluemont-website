@@ -29,15 +29,15 @@ short note: what the page will do, and when it counts as done.
 
 | Page                        | Folder                          | Owner  |
 | --------------------------- | ------------------------------- | ------ |
-| Sign in, Sign up            | `src/app/(auth)/`               | Sophia |
-| Dashboard                   | `src/app/(app)/dashboard/`      | Sophia |
+| Sign in, Sign up            | `src/app/(auth)/`               | Megan  |
+| Dashboard                   | `src/app/(app)/dashboard/`      | Megan  |
 | Lessons                     | `src/app/(app)/lessons/`        | Nika   |
 | Kit requests, Stock         | `src/app/(app)/kits/`           | Adhya  |
 | Home, About                 | `src/app/(public)/`             | Unassigned |
 | News, Officer check-ins     | `src/app/(app)/news/`, `check-ins/` | Unassigned |
-| Shared: colors, fonts, menus, data shapes, Supabase connection | `layout.tsx` files, `globals.css`, `src/lib/`, `src/components/`, `supabase/` | Sophia |
+| Shared: colors, fonts, menus, data shapes, Supabase connection | `layout.tsx` files, `globals.css`, `src/lib/`, `src/components/`, `supabase/` | Megan  |
 
-Only edit your own folders. For a shared file, ask Sophia. Unassigned areas
+Only edit your own folders. For a shared file, ask Megan. Unassigned areas
 will be split later by Megan.
 
 Pages marked "Sample page · fake data" use made-up data from the
@@ -57,7 +57,7 @@ and paste them into a new `.env.local` file.
 4. `git push`, then open a pull request on GitHub.
 5. Wait for the Checks to pass (green ✓), then click **Merge pull request**
    yourself. You don't need Megan's approval. If you changed a shared file,
-   ask Sophia first. Merging puts your change on the live site.
+   ask Megan first. Merging puts your change on the live site.
 
 ## Coming next
 

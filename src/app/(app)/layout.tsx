@@ -1,5 +1,5 @@
-// Owner: Sophia (shared). Menu for every signed-in page.
-// To add your page to the menu, ask Sophia.
+// Owner: Megan (shared). Menu for every signed-in page.
+// To add your page to the menu, ask Megan.
 import Link from "next/link";
 
 const links = [

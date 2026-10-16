@@ -1,6 +1,6 @@
-// Owner: Sophia (shared). The shapes of Bluemont's data.
+// Owner: Megan (shared). The shapes of Bluemont's data.
 // Placeholder data and, later, the Supabase tables follow these shapes,
-// so ask Sophia before changing them.
+// so ask Megan before changing them.
 
 export type Role = "volunteer" | "officer" | "partner" | "admin";
 

@@ -1,6 +1,6 @@
-// Owner: Sophia (shared). Runs before every page load and keeps the person's
+// Owner: Megan (shared). Runs before every page load and keeps the person's
 // Supabase sign-in fresh. Copied from Supabase's official Next.js guide.
-// Deciding which pages need a sign-in is part of building login (Sophia).
+// Deciding which pages need a sign-in is part of building login (Megan).
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 

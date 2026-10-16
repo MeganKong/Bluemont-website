@@ -1,4 +1,4 @@
-// Owner: Sophia (shared). Wraps every page on the site.
+// Owner: Megan (shared). Wraps every page on the site.
 import type { Metadata } from "next";
 import { DM_Sans, Fraunces } from "next/font/google";
 import "./globals.css";

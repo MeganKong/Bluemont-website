@@ -1,4 +1,4 @@
-// Owner: Sophia. The sign-in page at "/sign-in". Not connected yet.
+// Owner: Megan. The sign-in page at "/sign-in". Not connected yet.
 //
 // What this page will do (month 1 build plan):
 // - Volunteers and officers sign in with Supabase's built-in login.
