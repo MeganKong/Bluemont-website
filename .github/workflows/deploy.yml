@@ -1,0 +1,38 @@
+# Publishes the live site after every change to main, using Megan's Vercel
+# key, so any builder's merge goes live (Vercel itself only publishes merges
+# by people on its team). Uses three secrets Megan set once in GitHub:
+# Settings > Secrets and variables > Actions: VERCEL_TOKEN, VERCEL_ORG_ID,
+# VERCEL_PROJECT_ID. To publish again by hand: Actions tab > Deploy > Run workflow.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# If two merges land close together, finish one publish before starting the next.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm install --global vercel@62.1.0
+      # Downloads the live site's settings (including the Supabase address) from Vercel.
+      - run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+      - run: vercel build --prod --token="$VERCEL_TOKEN"
+      - run: vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
