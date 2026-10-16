@@ -20,3 +20,6 @@ export const volunteerLinks: MenuLink[] = [
   { href: "/news", label: "News" },
   { href: "/check-ins", label: "Check-ins" },
 ];
+
+// Added to the signed-in menu for officers only (see src/app/(app)/layout.tsx).
+export const officerLink: MenuLink = { href: "/officer", label: "Officer" };

@@ -67,7 +67,15 @@ export async function signIn(_prev: FormState, formData: FormData): Promise<Form
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) return { error: friendlyError(error) };
-  redirect("/dashboard");
+  redirect(safeNext(field(formData, "next")));
+}
+
+// Only go back to pages on our own site. "//evil.com" or "https://..." would
+// let a trick link send people to another website after signing in.
+function safeNext(next: string) {
+  return next.startsWith("/") && !next.startsWith("//") && !next.startsWith("/\\")
+    ? next
+    : "/dashboard";
 }
 
 export async function signOut() {
