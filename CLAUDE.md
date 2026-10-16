@@ -48,4 +48,6 @@ are not exposed automatically in this project.
 - Volunteers are mostly under 18: collect only the data a feature needs, and
   never put real names, emails or photos in placeholder data.
 - Run `npm run lint` and `npm run build` before saying a change is done.
-- Work on your own git branch; changes merge at the weekly sync after review.
+- Work on your own git branch and open a pull request. When the Checks pass
+  (green ✓), the officer who opened it merges it. No approval from Megan is
+  needed. If it changes a shared file, ask Sophia first.

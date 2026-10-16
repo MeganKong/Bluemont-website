@@ -55,7 +55,9 @@ and paste them into a new `.env.local` file.
 2. `git switch -c yourname/what-youre-building`: make your own branch.
 3. Build with Claude Code. Save progress with `git add` and `git commit`.
 4. `git push`, then open a pull request on GitHub.
-5. A teammate reviews it, and it merges at the weekly sync.
+5. Wait for the Checks to pass (green ✓), then click **Merge pull request**
+   yourself. You don't need Megan's approval. If you changed a shared file,
+   ask Sophia first. Merging puts your change on the live site.
 
 ## Coming next
 

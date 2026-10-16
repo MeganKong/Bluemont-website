@@ -13,3 +13,4 @@
 - [ ] I tried it in the browser, including on a phone-sized screen
 - [ ] No real names, emails or photos in placeholder data
 - [ ] Any new database table has row level security and grants
+- [ ] The Checks passed (green ✓) before I merged
