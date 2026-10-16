@@ -11,13 +11,15 @@ type SiteHeaderProps = {
   links: MenuLink[];
   // Optional button at the end of the menu, e.g. "Sign in".
   button?: MenuLink;
+  // Signed-in pages pass the sign-out action to show a "Sign out" button.
+  signOut?: () => Promise<void>;
 };
 
 // Gold ring around whatever is reached with the Tab key.
 const focusRing =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold";
 
-export function SiteHeader({ links, button }: SiteHeaderProps) {
+export function SiteHeader({ links, button, signOut }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => setMenuOpen(false);
 
@@ -50,6 +52,18 @@ export function SiteHeader({ links, button }: SiteHeaderProps) {
                 >
                   {button.label}
                 </Link>
+              </li>
+            )}
+            {signOut && (
+              <li>
+                <form action={signOut}>
+                  <button
+                    type="submit"
+                    className={`rounded-lg border border-cream/40 px-3 py-1 hover:text-gold ${focusRing}`}
+                  >
+                    Sign out
+                  </button>
+                </form>
               </li>
             )}
           </ul>
@@ -89,6 +103,18 @@ export function SiteHeader({ links, button }: SiteHeaderProps) {
                 >
                   {button.label}
                 </Link>
+              </li>
+            )}
+            {signOut && (
+              <li className="pt-2 pb-2">
+                <form action={signOut}>
+                  <button
+                    type="submit"
+                    className={`block w-full rounded-lg border border-cream/40 px-4 py-3 font-semibold ${focusRing}`}
+                  >
+                    Sign out
+                  </button>
+                </form>
               </li>
             )}
           </ul>

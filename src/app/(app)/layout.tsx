@@ -3,11 +3,12 @@
 // src/components/menu-links.ts).
 import { SiteHeader } from "@/components/site-header";
 import { volunteerLinks } from "@/components/menu-links";
+import { signOut } from "../(auth)/actions";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <SiteHeader links={volunteerLinks} />
+      <SiteHeader links={volunteerLinks} signOut={signOut} />
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10">{children}</main>
     </>
   );
