@@ -5,6 +5,8 @@
 // Done when: it shows progress, kit status and news for the real person.
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
+import { createClient } from "@/lib/supabase/server";
 import { lessons } from "../lessons/_placeholder";
 import { kitRequests } from "../kits/_placeholder";
 import { newsPosts } from "../news/_placeholder";
@@ -22,7 +24,10 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-8">
       <SampleNote />
-      <h1 className="font-display text-4xl font-semibold">Welcome back</h1>
+      {/* Looking up who's signed in happens per visit, so it loads in a boundary. */}
+      <Suspense fallback={<h1 className="font-display text-4xl font-semibold">Welcome</h1>}>
+        <Welcome />
+      </Suspense>
       <div className="grid gap-4 sm:grid-cols-3">
         <Link href="/lessons" className="rounded-2xl border border-line bg-card p-5">
           <p className="text-sm font-semibold text-terracotta">Lessons</p>
@@ -45,5 +50,18 @@ export default function DashboardPage() {
         )}
       </div>
     </div>
+  );
+}
+
+// "Welcome, [first name]", using the name saved at sign-up.
+async function Welcome() {
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getClaims();
+  const firstName = data?.claims.user_metadata?.first_name;
+
+  return (
+    <h1 className="font-display text-4xl font-semibold">
+      {firstName ? `Welcome, ${firstName}` : "Welcome"}
+    </h1>
   );
 }

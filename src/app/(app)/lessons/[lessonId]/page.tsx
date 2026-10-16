@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { lessons } from "../_placeholder";
 import { SampleNote } from "@/components/sample-note";
+import { buttonMain, card, link, pageTitle, tag } from "../_styles";
 
 // Tells Next.js which lesson pages exist, so it can build them ahead of time.
 export function generateStaticParams() {
@@ -21,7 +22,7 @@ export default function LessonPage({ params }: { params: Params }) {
   return (
     <div className="flex max-w-2xl flex-col gap-6">
       <SampleNote />
-      <Link href="/lessons" className="text-sm text-muted">
+      <Link href="/lessons" className={`${link} self-start text-sm`}>
         ← All lessons
       </Link>
       <Suspense fallback={<p className="text-muted">Loading lesson…</p>}>
@@ -38,18 +39,22 @@ async function Lesson({ params }: { params: Params }) {
 
   return (
     <>
-      <h1 className="font-display text-4xl font-semibold">{lesson.title}</h1>
-      <div className="flex aspect-video items-center justify-center rounded-2xl bg-sand text-muted">
+      <div className="flex flex-col items-start gap-3">
+        <span className={tag}>Lesson {lesson.order}</span>
+        <h1 className={pageTitle}>{lesson.title}</h1>
+      </div>
+      <div className="flex aspect-video items-center justify-center rounded-3xl border-3 border-dashed border-navy bg-sand font-bold text-muted">
         Video coming soon
       </div>
-      <ol className="list-decimal pl-6 text-lg text-ink">
-        {lesson.steps.map((step) => (
-          <li key={step}>{step}</li>
-        ))}
-      </ol>
-      <button className="self-start rounded-lg bg-terracotta px-5 py-3 font-semibold text-cream">
-        Mark complete
-      </button>
+      <div className={`${card} flex flex-col gap-3`}>
+        <h2 className="font-display text-2xl font-extrabold">What you&apos;ll do</h2>
+        <ol className="flex list-decimal flex-col gap-1 pl-6 text-lg text-ink marker:font-extrabold marker:text-terracotta">
+          {lesson.steps.map((step) => (
+            <li key={step}>{step}</li>
+          ))}
+        </ol>
+      </div>
+      <button className={buttonMain}>Mark complete</button>
     </>
   );
 }
