@@ -7,23 +7,29 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { lessons } from "./_placeholder";
 import { SampleNote } from "@/components/sample-note";
+import { card, pageTitle, tag } from "./_styles";
+import { YarnBall } from "./_yarn-ball";
 
 export const metadata: Metadata = { title: "Lessons" };
 
 export default function LessonsPage() {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-8">
       <SampleNote />
-      <h1 className="font-display text-4xl font-semibold">Lessons</h1>
-      <ol className="flex flex-col gap-3">
+      <div className="flex items-center gap-4">
+        <h1 className={pageTitle}>Lessons</h1>
+        <YarnBall className="h-14 w-16 shrink-0" />
+      </div>
+      <ol className="flex flex-col gap-6">
         {lessons.map((lesson) => (
           <li key={lesson.id}>
+            {/* The card tilts a little on hover, like picking up a plushie. */}
             <Link
               href={`/lessons/${lesson.id}`}
-              className="flex flex-col gap-1 rounded-2xl border border-line bg-card p-5 hover:border-terracotta"
+              className={`${card} flex flex-col items-start gap-2 transition hover:-rotate-1 focus-visible:outline-solid focus-visible:outline-gold`}
             >
-              <span className="text-sm font-semibold text-terracotta">Lesson {lesson.order}</span>
-              <span className="text-xl font-semibold">{lesson.title}</span>
+              <span className={tag}>Lesson {lesson.order}</span>
+              <span className="font-display text-2xl font-extrabold">{lesson.title}</span>
               <span className="text-ink">{lesson.summary}</span>
             </Link>
           </li>
