@@ -38,7 +38,10 @@ export async function updateSession(request: NextRequest) {
   // pages send signed-in people to their dashboard.
   const path = request.nextUrl.pathname;
   const needsSignIn = membersOnly.some((p) => path === p || path.startsWith(`${p}/`));
-  if (needsSignIn && !signedIn) return redirectKeepingCookies("/sign-in", request, supabaseResponse);
+  if (needsSignIn && !signedIn) {
+    // "next" tells the sign-in page where to go back to afterwards.
+    return redirectKeepingCookies(`/sign-in?next=${encodeURIComponent(path)}`, request, supabaseResponse);
+  }
   if (signedIn && (path === "/sign-in" || path === "/sign-up")) {
     return redirectKeepingCookies("/dashboard", request, supabaseResponse);
   }
@@ -47,7 +50,8 @@ export async function updateSession(request: NextRequest) {
 }
 
 // The pages in src/app/(app). Add new signed-in pages here.
-const membersOnly = ["/dashboard", "/lessons", "/kits", "/news", "/check-ins"];
+// Officer-only pages also check the role themselves (see src/lib/roles.ts).
+const membersOnly = ["/dashboard", "/lessons", "/kits", "/news", "/check-ins", "/officer"];
 
 // A redirect has to carry the refreshed sign-in cookies, or people get signed out.
 function redirectKeepingCookies(path: string, request: NextRequest, from: NextResponse) {

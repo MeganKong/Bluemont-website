@@ -9,18 +9,28 @@ const input = "rounded-lg border border-line bg-card px-3 py-2";
 
 export function SignInForm() {
   const [state, formAction, pending] = useActionState(signIn, {} as FormState);
+  const searchParams = useSearchParams();
   // Set by /auth/confirm when an email link is old or already used.
-  const badLink = useSearchParams().get("error") === "link";
+  const badLink = searchParams.get("error") === "link";
+  // Set by src/lib/supabase/proxy.ts when a signed-out visitor opens a private page.
+  const next = searchParams.get("next") ?? "";
   const error =
     state.error ??
     (badLink ? "That email link didn't work. It may be old or already used. Try signing in." : undefined);
 
   return (
     <form action={formAction} className="flex flex-col gap-4">
-      {error && (
+      <input type="hidden" name="next" value={next} />
+      {error ? (
         <p role="alert" className="rounded-lg border border-terracotta px-3 py-2 text-terracotta">
           {error}
         </p>
+      ) : (
+        next && (
+          <p role="status" className="rounded-lg border border-line bg-card px-3 py-2 text-ink">
+            Please sign in to see that page.
+          </p>
+        )
       )}
       <label className="flex flex-col gap-1">
         Email
