@@ -45,6 +45,11 @@ are not exposed automatically in this project.
 - Use the brand colors from `globals.css` (`bg-navy`, `text-terracotta`,
   `border-line`, ...) and `font-display` for headings. No other colors.
 - Pages must work on a phone.
+- Every page uses the shared header and footer (`src/components/site-header.tsx`
+  and `site-footer.tsx`). New pages get them automatically by going inside
+  `(public)`, `(app)` or `(auth)`; never build a separate header, menu or
+  footer in a page or layout. Menu links live in `src/components/menu-links.ts`
+  (ask Sophia to add one; five per menu at most).
 - Volunteers are mostly under 18: collect only the data a feature needs, and
   never put real names, emails or photos in placeholder data.
 - Run `npm run lint` and `npm run build` before saying a change is done.
