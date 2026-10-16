@@ -1,4 +1,4 @@
-// Owner: Sophia (built by Adhya, assignment 1). Turns Supabase's technical
+// Owner: Megan (built by Adhya, assignment 1). Turns Supabase's technical
 // errors into plain words a 14-year-old would understand.
 import type { AuthError } from "@supabase/supabase-js";
 

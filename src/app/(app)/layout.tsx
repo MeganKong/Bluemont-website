@@ -1,5 +1,5 @@
-// Owner: Sophia (shared). Wraps every signed-in page.
-// To add your page to the menu, ask Sophia (links are in
+// Owner: Megan (shared). Wraps every signed-in page.
+// To add your page to the menu, ask Megan (links are in
 // src/components/menu-links.ts).
 import { Suspense } from "react";
 import { SiteHeader } from "@/components/site-header";

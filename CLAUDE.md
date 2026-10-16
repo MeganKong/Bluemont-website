@@ -12,11 +12,11 @@ Stack: Next.js (App Router, `src/app`), Tailwind CSS, TypeScript, Supabase
 ## Who owns what
 
 Only edit files in the folders owned by the person you are working with. If a
-change needs a shared file, stop and say what to ask Sophia for.
+change needs a shared file, stop and say what to ask Megan for.
 
 | Owner      | Folders                                                                 |
 | ---------- | ----------------------------------------------------------------------- |
-| Sophia     | shared: `src/app/layout.tsx`, `src/app/globals.css`, `src/app/(app)/layout.tsx`, `src/lib/`, `src/components/`, `src/proxy.ts`, `supabase/`; plus `src/app/(auth)/`, `src/app/(app)/dashboard/` |
+| Megan      | shared: `src/app/layout.tsx`, `src/app/globals.css`, `src/app/(app)/layout.tsx`, `src/lib/`, `src/components/`, `src/proxy.ts`, `supabase/`; plus `src/app/(auth)/`, `src/app/(app)/dashboard/` |
 | Nika       | `src/app/(app)/lessons/`                                                |
 | Adhya      | `src/app/(app)/kits/`                                                   |
 | Unassigned | `src/app/(public)/`, `src/app/(app)/news/`, `src/app/(app)/check-ins/`  |
@@ -24,9 +24,9 @@ change needs a shared file, stop and say what to ask Sophia for.
 Unassigned areas: Iris is not on the build team. Megan will split these areas
 among the builders later. Until then, don't change them unless Megan says so.
 
-Megan (founder) reviews progress but codes little. The builders are new to
-coding: they learn by building their own features, so help them understand
-each change rather than writing big pieces for them.
+Megan (founder) owns the shared files, sign-in and the dashboard. Everyone
+building this is new to coding: they learn by building their own features, so
+help them understand each change rather than writing big pieces for them.
 
 Each page file starts with "What this page will do" and "Done when" from the
 build plan. That is the target for the page.
@@ -49,8 +49,10 @@ are not exposed automatically in this project.
   and `site-footer.tsx`). New pages get them automatically by going inside
   `(public)`, `(app)` or `(auth)`; never build a separate header, menu or
   footer in a page or layout. Menu links live in `src/components/menu-links.ts`
-  (ask Sophia to add one; five per menu at most).
+  (ask Megan to add one; five per menu at most).
 - Volunteers are mostly under 18: collect only the data a feature needs, and
   never put real names, emails or photos in placeholder data.
 - Run `npm run lint` and `npm run build` before saying a change is done.
-- Work on your own git branch; changes merge at the weekly sync after review.
+- Work on your own git branch and open a pull request. When the Checks pass
+  (green ✓), the officer who opened it merges it. No approval from Megan is
+  needed. If it changes a shared file, ask Megan first.

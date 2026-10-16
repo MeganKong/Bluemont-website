@@ -1,4 +1,4 @@
-// Owner: Sophia (built by Adhya, assignment 1). The link in the "confirm your
+// Owner: Megan (built by Adhya, assignment 1). The link in the "confirm your
 // email" message opens "/auth/confirm". This checks the link with Supabase,
 // signs the person in, and sends them to the dashboard.
 import type { EmailOtpType } from "@supabase/supabase-js";

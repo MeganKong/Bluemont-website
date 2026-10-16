@@ -1,4 +1,4 @@
-// Owner: Sophia (built by Adhya, assignment 1). The sign-in page at "/sign-in".
+// Owner: Megan (built by Adhya, assignment 1). The sign-in page at "/sign-in".
 //
 // What this page will do (month 1 build plan):
 // - Volunteers and officers sign in with Supabase's built-in login.

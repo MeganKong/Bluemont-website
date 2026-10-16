@@ -38,7 +38,7 @@ Preview of the full style: https://claude.ai/artifact/QPHKeSf5UDy8vzTpnijCVX
 ## Colors
 
 Use only the brand colors from `globals.css`. These colors were chosen but
-are **not in `globals.css` yet**, so don't use them until Sophia adds them:
+are **not in `globals.css` yet**, so don't use them until Megan adds them:
 
 | Use                   | Text      | Background |
 | --------------------- | --------- | ---------- |
@@ -63,7 +63,7 @@ wrong and what to do next ("Check your internet connection, then try again").
 - Everything you can click shows a gold focus ring when reached with the Tab key.
 - Decorations (like the yarn ball) get `aria-hidden="true"`.
 
-## Waiting on Sophia
+## Waiting on Megan
 
 - The colors in the table above, added to `globals.css`.
 - Fraunces's SOFT and WONK settings turned on in `src/app/layout.tsx`, for

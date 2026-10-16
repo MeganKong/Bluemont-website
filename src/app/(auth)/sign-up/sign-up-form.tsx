@@ -1,5 +1,5 @@
 "use client";
-// Owner: Sophia (built by Adhya, assignment 1). The sign-up form. Runs in the
+// Owner: Megan (built by Adhya, assignment 1). The sign-up form. Runs in the
 // browser so it can show errors and "check your email" without a reload.
 import { useActionState } from "react";
 import { signUp, type FormState } from "../actions";

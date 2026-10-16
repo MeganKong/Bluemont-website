@@ -8,8 +8,9 @@
 
 ## Checklist
 
-- [ ] I only changed files in my own folders (or Sophia agreed to a shared-file change)
+- [ ] I only changed files in my own folders (or Megan agreed to a shared-file change)
 - [ ] `npm run lint` and `npm run build` pass
 - [ ] I tried it in the browser, including on a phone-sized screen
 - [ ] No real names, emails or photos in placeholder data
 - [ ] Any new database table has row level security and grants
+- [ ] The Checks passed (green ✓) before I merged

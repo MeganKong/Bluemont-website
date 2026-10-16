@@ -1,4 +1,4 @@
-// Owner: Sophia (shared). Supabase connection for code that runs on the server
+// Owner: Megan (shared). Supabase connection for code that runs on the server
 // (pages, server actions, route handlers). Uses the signed-in person's cookies,
 // so the database's row rules apply to them.
 import { createServerClient } from "@supabase/ssr";

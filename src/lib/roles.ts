@@ -1,4 +1,4 @@
-// Owner: Sophia (shared; built by Adhya, assignment 2). Looks up the signed-in
+// Owner: Megan (shared; built by Adhya, assignment 2). Looks up the signed-in
 // person's role in the user_roles table. Only use this in server code.
 // If anything goes wrong it answers "volunteer", so a mistake never gives
 // someone officer access.

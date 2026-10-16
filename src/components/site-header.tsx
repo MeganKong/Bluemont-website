@@ -1,5 +1,5 @@
 "use client";
-// Owner: Sophia (shared). The header and menu at the top of every page.
+// Owner: Megan (shared). The header and menu at the top of every page.
 // On wide screens the links sit in a row. On phones they hide behind a
 // "Menu" button that opens and closes a list. "use client" is needed because
 // the header has to remember whether that list is open.

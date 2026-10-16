@@ -1,4 +1,4 @@
-// Owner: Sophia (shared). The links in the header menu. Keep each menu to
+// Owner: Megan (shared). The links in the header menu. Keep each menu to
 // five links or fewer so it fits on one line on a laptop.
 export type MenuLink = { href: string; label: string };
 

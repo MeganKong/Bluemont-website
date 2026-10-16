@@ -1,5 +1,5 @@
 "use client";
-// Owner: Sophia (built by Adhya, assignment 1). The sign-in form. Runs in the
+// Owner: Megan (built by Adhya, assignment 1). The sign-in form. Runs in the
 // browser so it can show errors without a reload.
 import { useActionState } from "react";
 import { useSearchParams } from "next/navigation";

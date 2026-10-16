@@ -1,4 +1,4 @@
-// Owner: Sophia. The volunteer dashboard at "/dashboard".
+// Owner: Megan. The volunteer dashboard at "/dashboard".
 //
 // What this page will do (month 1 build plan):
 // - Show the signed-in volunteer's lesson progress, kit status and latest news.

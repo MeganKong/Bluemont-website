@@ -1,4 +1,4 @@
-// Owner: Sophia (shared). The footer at the bottom of every page.
+// Owner: Megan (shared). The footer at the bottom of every page.
 
 // To add: Bluemont's real accounts. Give each one an href when it exists,
 // e.g. { label: "Instagram", href: "https://www.instagram.com/..." }.

@@ -1,4 +1,4 @@
-// Owner: Sophia (built by Adhya, assignment 2). The officer page at "/officer".
+// Owner: Megan (built by Adhya, assignment 2). The officer page at "/officer".
 //
 // What this page will do:
 // - A placeholder for officer tools (for example kit approvals, check-ins).

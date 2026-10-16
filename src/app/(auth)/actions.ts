@@ -1,5 +1,5 @@
 "use server";
-// Owner: Sophia (built by Adhya, assignment 1). These run on the server when
+// Owner: Megan (built by Adhya, assignment 1). These run on the server when
 // someone submits the sign-up, sign-in or sign-out form. Passwords go straight
 // to Supabase and are never stored by our code.
 import { headers } from "next/headers";

@@ -1,4 +1,4 @@
-// Owner: Sophia (built by Adhya, assignment 1). The sign-up page at "/sign-up".
+// Owner: Megan (built by Adhya, assignment 1). The sign-up page at "/sign-up".
 //
 // What this page will do (month 1 build plan):
 // - Create an account; volunteers under 18 give a parent email for consent.

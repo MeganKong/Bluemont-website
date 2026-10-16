@@ -1,4 +1,4 @@
-// Owner: Sophia. Wraps the sign-in and sign-up pages with the visitor menu.
+// Owner: Megan. Wraps the sign-in and sign-up pages with the visitor menu.
 import { SiteHeader } from "@/components/site-header";
 import { visitorLinks } from "@/components/menu-links";
 
