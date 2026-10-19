@@ -4,7 +4,6 @@
 // - Say what Bluemont is and send visitors to sign up.
 // Done when: Home, About and Sign in look finished.
 import Link from "next/link";
-import { SampleNote } from "@/components/sample-note";
 
 // The three "How it works" steps, shown top to bottom as a timeline.
 const steps = [
@@ -22,12 +21,12 @@ const steps = [
   },
 ];
 
-// Placeholder numbers until Megan gives the real ones. "—" means we don't
-// have a number yet. Each box shows a "Placeholder" tag.
+// Impact numbers from Megan (October 2026). Update them here when Megan
+// sends new ones.
 const stats = [
-  { value: "—", label: "plushies made" },
-  { value: "~80", label: "volunteers crocheting" },
-  { value: "—", label: "children reached" },
+  { value: "150+", label: "plushies made" },
+  { value: "90+", label: "volunteers crocheting" },
+  { value: "150+", label: "children reached" },
 ];
 
 // Small label that marks anything fake on this page.
@@ -42,8 +41,6 @@ function PlaceholderTag() {
 export default function HomePage() {
   return (
     <div className="flex flex-col gap-14">
-      <SampleNote />
-
       {/* Top section: headline, mission, buttons, and the photo spot.
           On phones everything stacks; from medium screens up, the photo
           sits to the right of the text. */}
@@ -122,10 +119,9 @@ export default function HomePage() {
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="flex flex-col items-start gap-1 rounded-2xl border border-line bg-card p-6"
+              className="flex flex-col gap-1 rounded-2xl border border-line bg-card p-6"
             >
-              <PlaceholderTag />
-              <p className="mt-2 font-display text-3xl font-semibold text-terracotta">
+              <p className="font-display text-3xl font-semibold text-terracotta">
                 {stat.value}
               </p>
               <p className="text-ink">{stat.label}</p>
