@@ -3,7 +3,9 @@
 // What this page will do (month 1 build plan):
 // - Say what Bluemont is and send visitors to sign up.
 // Done when: Home, About and Sign in look finished.
+import Image from "next/image";
 import Link from "next/link";
+import crochetBunny from "./_images/crochet-bunny.jpg";
 
 // The three "How it works" steps, shown top to bottom as a timeline.
 const steps = [
@@ -24,19 +26,10 @@ const steps = [
 // Impact numbers from Megan (October 2026). Update them here when Megan
 // sends new ones.
 const stats = [
-  { value: "150+", label: "plushies made" },
+  { value: "2", label: "school chapters" },
   { value: "90+", label: "volunteers crocheting" },
   { value: "150+", label: "children reached" },
 ];
-
-// Small label that marks anything fake on this page.
-function PlaceholderTag() {
-  return (
-    <span className="rounded-full bg-sand px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-muted">
-      Placeholder
-    </span>
-  );
-}
 
 export default function HomePage() {
   return (
@@ -69,16 +62,30 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Placeholder photo. Swap for a real <Image> once we have a photo
-            with no faces or names in it. */}
-        <div
-          role="img"
-          aria-label="Placeholder for a photo of plushies made by volunteers"
-          className="flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-line bg-sand p-4 text-center text-muted"
-        >
-          <PlaceholderTag />
-          <span>Photo: plushies made by volunteers</span>
-        </div>
+        {/* Stock photo from Pexels (free to use, see pexels.com/license).
+            The credit line underneath links back to it. Swap for a photo of
+            our own plushies later, with no faces or names in it. */}
+        <figure className="flex flex-col gap-2">
+          {/* The photo is tall, so we crop it to a 4:5 shape and keep the
+              top (the bunny's face and the child's hand). */}
+          <Image
+            src={crochetBunny}
+            alt="A small child's hand resting next to a crocheted white bunny in a red dress."
+            placeholder="blur"
+            preload
+            sizes="(min-width: 768px) 40vw, 100vw"
+            className="aspect-[4/5] h-auto w-full rounded-2xl border border-line object-cover object-top"
+          />
+          <figcaption className="text-xs text-muted">
+            Photo:{" "}
+            <a
+              href="https://www.pexels.com/photo/cute-crochet-rabbit-doll-with-child-s-hand-31454485/"
+              className="underline hover:text-terracotta"
+            >
+              Büşra Şahin on Pexels
+            </a>
+          </figcaption>
+        </figure>
       </section>
 
       {/* How it works: numbered circles joined by a line. */}
