@@ -3,6 +3,7 @@
 // so the database's row rules apply to them.
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { untilBrowserCloses } from "./cookies";
 
 export async function createClient() {
   const cookieStore = await cookies();
@@ -18,7 +19,7 @@ export async function createClient() {
         setAll(cookiesToSet) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options),
+              cookieStore.set(name, value, untilBrowserCloses(options)),
             );
           } catch {
             // Called from a page, which can't set cookies. Safe to ignore:
