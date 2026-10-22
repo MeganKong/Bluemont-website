@@ -6,21 +6,19 @@
 //
 // Each section lives in its own file in _home/, so you can change one
 // without scrolling through the others. To move a section, move its line
-// below. The team gets its own page later, not a homepage section.
+// below.
+//
+// Planned for their own pages once Megan approves them (not on the
+// homepage): Our team, Community (with the gallery), Give & Receive
+// (sponsor a kit and shelter requests) and FAQ.
 import { SampleNote } from "@/components/sample-note";
-import { Community } from "./_home/community";
 import { FounderStory } from "./_home/founder-story";
-import { FreeLessons } from "./_home/free-lessons";
-import { Gallery } from "./_home/gallery";
 import { GetInvolved } from "./_home/get-involved";
 import { Hero } from "./_home/hero";
 import { HowItWorks } from "./_home/how-it-works";
 import { Impact } from "./_home/impact";
 import { Parents } from "./_home/parents";
 import { PartnerStories } from "./_home/partner-stories";
-import { ShelterRequest } from "./_home/shelter-request";
-import { SponsorKit } from "./_home/sponsor-kit";
-import { Trust } from "./_home/trust";
 
 export default function HomePage() {
   return (
@@ -28,18 +26,12 @@ export default function HomePage() {
       {/* Remove once the placeholder text and photos are replaced. */}
       <SampleNote />
       <Hero />
+      <HowItWorks />
       <FounderStory />
       <GetInvolved />
       <Impact />
-      <HowItWorks />
-      <FreeLessons />
-      <SponsorKit />
       <PartnerStories />
-      <Gallery />
-      <Community />
-      <ShelterRequest />
       <Parents />
-      <Trust />
     </div>
   );
 }

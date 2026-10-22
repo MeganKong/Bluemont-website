@@ -24,7 +24,3 @@ export const buttonSoon =
 // Section headings, with a small label above them.
 export const sectionTitle = "font-display text-3xl font-semibold text-balance sm:text-4xl";
 export const eyebrow = "text-sm font-bold tracking-wider text-terracotta uppercase";
-
-// Links get a wavy underline, like a strand of yarn.
-export const link =
-  "font-bold text-terracotta underline decoration-wavy decoration-2 underline-offset-4";

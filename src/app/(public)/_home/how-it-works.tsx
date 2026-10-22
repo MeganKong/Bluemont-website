@@ -1,7 +1,6 @@
-// Owner: Nika. The three "How it works" steps, shown top to bottom as a
-// timeline: numbered circles joined by a line.
-import { eyebrow, sectionTitle } from "./styles";
-
+// Owner: Nika. The three "How it works" steps, right under the top of the
+// page. On phones the steps stack, joined by a line down the left; from
+// small screens up they sit in a row, joined by a line across.
 const steps = [
   {
     title: "Learn",
@@ -19,21 +18,22 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
-        <p className={eyebrow}>How it works</p>
-        <h2 className={sectionTitle}>From yarn to a new friend</h2>
-      </div>
-      <ol className="flex max-w-2xl flex-col">
+    <section
+      id="how-it-works"
+      className="flex flex-col gap-6 rounded-3xl border-2 border-navy bg-card p-6 sm:p-8"
+    >
+      <h2 className="font-display text-2xl font-semibold sm:text-3xl">How it works</h2>
+      <ol className="grid gap-7 sm:grid-cols-3 sm:gap-6">
         {steps.map((step, index) => {
           const isLast = index === steps.length - 1;
           return (
-            <li key={step.title} className={`relative flex gap-4 ${isLast ? "" : "pb-7"}`}>
-              {/* The line down to the next step. */}
+            <li key={step.title} className="relative flex gap-4 sm:flex-col sm:gap-3">
+              {/* The dashed "yarn" line to the next step: down on phones,
+                  across on wider screens. */}
               {!isLast && (
                 <span
                   aria-hidden="true"
-                  className="absolute top-11 bottom-0 left-[21px] w-0.5 bg-navy"
+                  className="absolute top-11 -bottom-7 left-[21px] border-l-2 border-dashed border-navy sm:top-[21px] sm:bottom-auto sm:left-11 sm:-right-6 sm:border-t-2 sm:border-l-0"
                 />
               )}
               <span
@@ -42,7 +42,7 @@ export function HowItWorks() {
               >
                 {index + 1}
               </span>
-              <div className="pt-1.5">
+              <div className="pt-1.5 sm:pt-0">
                 <h3 className="font-display text-xl font-semibold">{step.title}</h3>
                 <p className="text-ink">{step.text}</p>
               </div>
