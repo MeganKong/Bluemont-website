@@ -5,8 +5,10 @@ export type MenuLink = { href: string; label: string };
 // Visitors who are not signed in (home, about, sign in and sign up pages).
 export const visitorLinks: MenuLink[] = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/get-involved", label: "Get involved" },
+  { href: "/team", label: "Our team" },
+  { href: "/community", label: "Community" },
+  { href: "/give", label: "Give & Receive" },
+  { href: "/faq", label: "FAQ" },
 ];
 
 // Shown as a button at the end of the visitor menu.
