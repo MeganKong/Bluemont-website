@@ -14,14 +14,20 @@ export const visitorLinks: MenuLink[] = [
 // Shown as a button at the end of the visitor menu.
 export const signInLink: MenuLink = { href: "/sign-in", label: "Sign in" };
 
-// Signed-in volunteers.
+// Signed-in volunteers. Only pages volunteers can use.
 export const volunteerLinks: MenuLink[] = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/lessons", label: "Lessons" },
   { href: "/kits", label: "Kits" },
   { href: "/news", label: "News" },
-  { href: "/check-ins", label: "Check-ins" },
 ];
 
-// Added to the signed-in menu for officers only (see src/app/(app)/layout.tsx).
-export const officerLink: MenuLink = { href: "/officer", label: "Officer" };
+// Signed-in officers (see src/app/(app)/layout.tsx). "Dashboard" is their
+// own officer dashboard.
+export const officerLinks: MenuLink[] = [
+  { href: "/officer", label: "Dashboard" },
+  { href: "/lessons", label: "Lessons" },
+  { href: "/kits", label: "Kits" },
+  { href: "/news", label: "News" },
+  { href: "/check-ins", label: "Check-ins" },
+];

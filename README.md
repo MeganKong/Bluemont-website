@@ -49,6 +49,11 @@ The site reads its database address and key from a file called `.env.local`
 in this folder. It is never uploaded to GitHub. Ask Megan for the two lines
 and paste them into a new `.env.local` file.
 
+Optional third line: `SUPABASE_SECRET_KEY=...` (Supabase > Project Settings >
+API Keys > secret key). The sign-in page uses it, on the server only, to say
+"No account found with that email". Without it, sign-in still works but shows
+a more general message. Never put `NEXT_PUBLIC_` in front of it.
+
 ## Weekly workflow
 
 1. `git switch main && git pull`: get everyone's latest work.

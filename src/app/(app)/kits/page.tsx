@@ -6,6 +6,7 @@
 // Done when: a kit unlocks after lesson 1 and an officer approves it.
 import type { Metadata } from "next";
 import Link from "next/link";
+import { IfOfficer } from "@/components/officers-only";
 import { SampleNote } from "@/components/sample-note";
 import { kitRequests } from "./_placeholder";
 
@@ -23,9 +24,12 @@ export default function KitsPage() {
       <SampleNote />
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <h1 className="font-display text-4xl font-semibold">Kits</h1>
-        <Link href="/kits/stock" className="font-semibold text-terracotta">
-          Stock →
-        </Link>
+        {/* Stock is an officer page, so only officers see the link. */}
+        <IfOfficer>
+          <Link href="/kits/stock" className="font-semibold text-terracotta">
+            Stock →
+          </Link>
+        </IfOfficer>
       </div>
 
       <section className="flex flex-col gap-3 rounded-2xl border border-line bg-card p-5">

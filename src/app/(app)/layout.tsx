@@ -3,15 +3,16 @@
 // src/components/menu-links.ts).
 import { Suspense } from "react";
 import { SiteHeader } from "@/components/site-header";
-import { officerLink, volunteerLinks } from "@/components/menu-links";
+import { officerLinks, volunteerLinks } from "@/components/menu-links";
 import { getMyRole } from "@/lib/roles";
 import { signOut } from "../(auth)/actions";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      {/* Checking the role happens per visit, so the volunteer menu shows first. */}
-      <Suspense fallback={<SiteHeader links={volunteerLinks} signOut={signOut} />}>
+      {/* Checking the role happens per visit. Until then the menu is empty,
+          so nobody sees links that aren't theirs. */}
+      <Suspense fallback={<SiteHeader links={[]} signOut={signOut} />}>
         <Header />
       </Suspense>
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10">{children}</main>
@@ -19,9 +20,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Officers also get an "Officer" link. Hiding the link is just tidiness;
-// /officer checks the role itself.
+// Officers and volunteers each get their own menu. Hiding links is just
+// tidiness; officer pages check the role themselves (<OfficersOnly>).
 async function Header() {
-  const links = (await getMyRole()) === "officer" ? [...volunteerLinks, officerLink] : volunteerLinks;
+  const links = (await getMyRole()) === "officer" ? officerLinks : volunteerLinks;
   return <SiteHeader links={links} signOut={signOut} />;
 }

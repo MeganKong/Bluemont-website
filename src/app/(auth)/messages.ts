@@ -18,10 +18,20 @@ export function friendlyError(error: AuthError): string {
     case "over_email_send_rate_limit":
     case "over_request_rate_limit":
       return "Too many tries. Please wait a few minutes and try again.";
+    case "same_password":
+      return "That's the password you already had. Please pick a new one.";
+    case "session_not_found":
+    case "session_expired":
+      return resetLinkExpired;
   }
+  // The new-password page was opened, but the reset link's sign-in ran out.
+  if (error.name === "AuthSessionMissingError") return resetLinkExpired;
   // No internet, or Supabase is down.
   if (error.status === 0 || error.name === "AuthRetryableFetchError") {
     return "We couldn't reach the server. Check your internet and try again.";
   }
   return "Something went wrong. Please try again in a minute.";
 }
+
+const resetLinkExpired =
+  "Your reset link ran out. Go back to sign in and tap “Forgot password?” to get a new one.";

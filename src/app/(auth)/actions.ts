@@ -1,14 +1,26 @@
 "use server";
 // Owner: Megan (built by Adhya, assignment 1). These run on the server when
-// someone submits the sign-up, sign-in or sign-out form. Passwords go straight
-// to Supabase and are never stored by our code.
+// someone submits the sign-up, sign-in, forgot-password, new-password or
+// sign-out form. Passwords go straight to Supabase and are never stored by
+// our code.
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { accountExists } from "@/lib/supabase/admin";
+import { afterSignIn } from "@/lib/destinations";
+import { roleOf } from "@/lib/roles";
 import { friendlyError } from "./messages";
 
-// What the form shows after a submit: an error, or (sign-up) "check your email".
-export type FormState = { error?: string; sentTo?: string };
+// What the form shows after a submit: an error (and whether it's "no account"
+// so the form can offer "Create an account"), or "check your email".
+// "email" refills the email box, so people don't have to type it again.
+export type FormState = { error?: string; noAccount?: boolean; sentTo?: string; email?: string };
+
+const noAccount = (email: string): FormState => ({
+  error: "No account found with that email.",
+  noAccount: true,
+  email,
+});
 
 function field(formData: FormData, name: string) {
   return String(formData.get(name) ?? "").trim();
@@ -60,22 +72,68 @@ export async function signIn(_prev: FormState, formData: FormData): Promise<Form
   const password = String(formData.get("password") ?? "");
 
   if (!email || !password) {
-    return { error: "Please enter your email and password." };
+    return { error: "Please enter your email and password.", email };
   }
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
-  if (error) return { error: friendlyError(error) };
-  redirect(safeNext(field(formData, "next")));
+  if (error) {
+    // Supabase gives the same error for "no account" and "wrong password", so
+    // ask our server which one it is.
+    if (error.code === "invalid_credentials") {
+      const exists = await accountExists(email);
+      if (exists === false) return noAccount(email);
+      if (exists === true) {
+        return { error: "That password isn't right. Try again, or tap “Forgot password?”.", email };
+      }
+    }
+    return { error: friendlyError(error), email };
+  }
+
+  // Officers go to the officer dashboard, volunteers to theirs.
+  redirect(afterSignIn(await roleOf(supabase, data.user.id), field(formData, "next")));
 }
 
-// Only go back to pages on our own site. "//evil.com" or "https://..." would
-// let a trick link send people to another website after signing in.
-function safeNext(next: string) {
-  return next.startsWith("/") && !next.startsWith("//") && !next.startsWith("/\\")
-    ? next
-    : "/dashboard";
+// The "Forgot password?" pop-up: emails a link for making a new password.
+export async function requestPasswordReset(_prev: FormState, formData: FormData): Promise<FormState> {
+  const email = field(formData, "email");
+  if (!email) return { error: "Please enter your email." };
+
+  // If we can't tell (no secret key yet), send anyway: Supabase quietly
+  // skips emails that have no account.
+  if ((await accountExists(email)) === false) return noAccount(email);
+
+  // The link opens /auth/confirm, which signs them in and opens /reset-password.
+  const origin = (await headers()).get("origin");
+  const supabase = await createClient();
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/auth/confirm?next=/reset-password`,
+  });
+
+  if (error) return { error: friendlyError(error), email };
+  return { sentTo: email };
+}
+
+// The /reset-password page: saves the new password, then sends them to sign in.
+export async function updatePassword(_prev: FormState, formData: FormData): Promise<FormState> {
+  const password = String(formData.get("password") ?? "");
+  const confirm = String(formData.get("confirm") ?? "");
+
+  if (password.length < 6) {
+    return { error: "Your new password needs at least 6 characters." };
+  }
+  if (password !== confirm) {
+    return { error: "The two passwords don't match. Please type them again." };
+  }
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) return { error: friendlyError(error) };
+
+  // Sign out so they sign in once with the new password.
+  await supabase.auth.signOut();
+  redirect("/sign-in?reset=done");
 }
 
 export async function signOut() {
