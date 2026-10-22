@@ -4,6 +4,7 @@
 // "Menu" button that opens and closes a list. "use client" is needed because
 // the header has to remember whether that list is open.
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import type { MenuLink } from "./menu-links";
 
@@ -15,22 +16,29 @@ type SiteHeaderProps = {
   signOut?: () => Promise<void>;
 };
 
-// Gold ring around whatever is reached with the Tab key.
+// Blue ring around whatever is reached with the Tab key.
 const focusRing =
-  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold";
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue";
+
+// The current page's link gets a pink wavy underline, like a strand of yarn.
+const currentLink =
+  "aria-[current=page]:font-extrabold aria-[current=page]:underline aria-[current=page]:decoration-pink " +
+  "aria-[current=page]:decoration-wavy aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8";
 
 export function SiteHeader({ links, button, signOut }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => setMenuOpen(false);
+  // The page we're on, so its menu link can be underlined.
+  const pathname = usePathname();
 
   return (
-    <header className="bg-navy text-cream">
+    <header className="border-b-2 border-navy bg-card text-navy">
       <nav aria-label="Main" className="mx-auto max-w-5xl px-4">
         <div className="flex items-center justify-between gap-6 py-4">
           <Link
             href="/"
             onClick={closeMenu}
-            className={`rounded font-display text-xl font-semibold ${focusRing}`}
+            className={`rounded font-display text-2xl font-extrabold tracking-tight ${focusRing}`}
           >
             Bluemont
           </Link>
@@ -39,7 +47,11 @@ export function SiteHeader({ links, button, signOut }: SiteHeaderProps) {
           <ul className="hidden items-center gap-6 md:flex">
             {links.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className={`rounded text-cream/80 hover:text-gold ${focusRing}`}>
+                <Link
+                  href={link.href}
+                  aria-current={pathname === link.href ? "page" : undefined}
+                  className={`rounded font-semibold hover:text-blue ${currentLink} ${focusRing}`}
+                >
                   {link.label}
                 </Link>
               </li>
@@ -48,7 +60,7 @@ export function SiteHeader({ links, button, signOut }: SiteHeaderProps) {
               <li>
                 <Link
                   href={button.href}
-                  className={`rounded-lg bg-terracotta px-4 py-2 font-semibold text-cream ${focusRing}`}
+                  className={`rounded-full border-2 border-navy bg-gold px-5 py-2 font-extrabold shadow-[0_3px_0_var(--color-navy)] ${focusRing}`}
                 >
                   {button.label}
                 </Link>
@@ -59,7 +71,7 @@ export function SiteHeader({ links, button, signOut }: SiteHeaderProps) {
                 <form action={signOut}>
                   <button
                     type="submit"
-                    className={`rounded-lg border border-cream/40 px-3 py-1 hover:text-gold ${focusRing}`}
+                    className={`rounded-full border-2 border-navy px-4 py-1.5 font-semibold hover:text-blue ${focusRing}`}
                   >
                     Sign out
                   </button>
@@ -74,7 +86,7 @@ export function SiteHeader({ links, button, signOut }: SiteHeaderProps) {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-expanded={menuOpen}
             aria-controls="phone-menu"
-            className={`flex items-center gap-2 rounded-lg border border-cream/40 px-3 py-2 font-semibold md:hidden ${focusRing}`}
+            className={`flex items-center gap-2 rounded-full border-2 border-navy px-4 py-2 font-bold md:hidden ${focusRing}`}
           >
             <span aria-hidden="true">{menuOpen ? "✕" : "☰"}</span>
             {menuOpen ? "Close" : "Menu"}
@@ -82,13 +94,14 @@ export function SiteHeader({ links, button, signOut }: SiteHeaderProps) {
         </div>
 
         {menuOpen && (
-          <ul id="phone-menu" className="flex flex-col border-t border-cream/20 py-2 md:hidden">
+          <ul id="phone-menu" className="flex flex-col border-t-2 border-sand py-2 md:hidden">
             {links.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   onClick={closeMenu}
-                  className={`block rounded py-3 text-lg text-cream/90 hover:text-gold ${focusRing}`}
+                  aria-current={pathname === link.href ? "page" : undefined}
+                  className={`block rounded py-3 text-lg font-semibold hover:text-blue ${currentLink} ${focusRing}`}
                 >
                   {link.label}
                 </Link>
@@ -99,7 +112,7 @@ export function SiteHeader({ links, button, signOut }: SiteHeaderProps) {
                 <Link
                   href={button.href}
                   onClick={closeMenu}
-                  className={`block rounded-lg bg-terracotta px-4 py-3 text-center font-semibold text-cream ${focusRing}`}
+                  className={`block rounded-full border-2 border-navy bg-gold px-4 py-3 text-center font-extrabold ${focusRing}`}
                 >
                   {button.label}
                 </Link>
@@ -110,7 +123,7 @@ export function SiteHeader({ links, button, signOut }: SiteHeaderProps) {
                 <form action={signOut}>
                   <button
                     type="submit"
-                    className={`block w-full rounded-lg border border-cream/40 px-4 py-3 font-semibold ${focusRing}`}
+                    className={`block w-full rounded-full border-2 border-navy px-4 py-3 font-semibold ${focusRing}`}
                   >
                     Sign out
                   </button>
