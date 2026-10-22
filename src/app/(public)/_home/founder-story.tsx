@@ -1,7 +1,7 @@
 // Owner: Nika. Our story: why Megan started Bluemont. The words come from
 // _placeholder.ts until Megan writes the real story.
 import { founder } from "../_placeholder";
-import { card, eyebrow, sectionTitle } from "./styles";
+import { card, eyebrow, sectionTitle } from "../_styles";
 
 export function FounderStory() {
   return (
@@ -16,7 +16,7 @@ export function FounderStory() {
             {paragraph}
           </p>
         ))}
-        <p className="font-display text-xl font-semibold">
+        <p className="font-display text-xl font-extrabold">
           {founder.name}, {founder.role}
         </p>
       </div>

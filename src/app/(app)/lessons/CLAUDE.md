@@ -2,7 +2,9 @@
 
 Owner: Nika. These rules apply to every page in `src/app/(app)/lessons/`.
 They add to the project rules in the main `CLAUDE.md`; they don't replace them.
-The rest of the site keeps its own look for now.
+Since October 2026 the whole site uses the "Blue Skies" colors and fonts
+(see `globals.css`): old color names like `terracotta` now show blue, and
+`font-display` is Bricolage Grotesque.
 
 The look: bold and squishy like a plushie (mostly direction C, "Playful
 Plushie"), with the stitched card edge from direction A, "Cozy Craft Room".
@@ -27,12 +29,12 @@ Preview of the full style: https://claude.ai/artifact/QPHKeSf5UDy8vzTpnijCVX
 - **Cards:** rounded (`rounded-3xl`) with a dashed stitched line just inside
   the edge. They may tilt slightly on hover.
 - **Buttons:** pill-shaped, at least 54px tall, extra-bold text. They lift on
-  hover and squish down when pressed. Main button: terracotta with cream text,
+  hover and squish down when pressed. Main button: terracotta (now blue) with cream text,
   one per screen. Secondary button: gold with navy text.
 - **Tags:** gold pill with a navy outline, e.g. "Lesson 3".
 - **Links:** terracotta, bold, wavy underline.
-- **Headings:** `font-display` (Fraunces), extra bold or black. Body text is
-  DM Sans at 16px or more.
+- **Headings:** `font-display` (Bricolage Grotesque), extra bold or black.
+  Body text is Figtree at 16px or more.
 - **Gold:** only behind navy text, never as text on cream.
 
 ## Colors
@@ -66,5 +68,3 @@ wrong and what to do next ("Check your internet connection, then try again").
 ## Waiting on Megan
 
 - The colors in the table above, added to `globals.css`.
-- Fraunces's SOFT and WONK settings turned on in `src/app/layout.tsx`, for
-  rounder, hand-drawn-looking headings.

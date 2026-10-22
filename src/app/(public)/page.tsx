@@ -8,10 +8,10 @@
 // without scrolling through the others. To move a section, move its line
 // below.
 //
-// Planned for their own pages once Megan approves them (not on the
-// homepage): Our team, Community (with the gallery), Give & Receive
-// (sponsor a kit and shelter requests) and FAQ.
+// Our team, Community (with the gallery), Give & Receive (sponsor a kit and
+// shelter requests) and FAQ have their own pages; Explore links to them.
 import { SampleNote } from "@/components/sample-note";
+import { Explore } from "./_home/explore";
 import { FounderStory } from "./_home/founder-story";
 import { GetInvolved } from "./_home/get-involved";
 import { Hero } from "./_home/hero";
@@ -32,6 +32,7 @@ export default function HomePage() {
       <Impact />
       <PartnerStories />
       <Parents />
+      <Explore />
     </div>
   );
 }

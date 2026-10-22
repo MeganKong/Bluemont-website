@@ -1,23 +1,56 @@
 @import "tailwindcss";
 
-/* Bluemont brand colors, from the pitch deck. Use them as Tailwind classes,
-   e.g. bg-navy, text-terracotta, border-line. Only Megan edits this file. */
+/* Bluemont brand colors: the "Blue Skies" theme (approved by Megan, October
+   2026). Use them as Tailwind classes, e.g. bg-navy, text-blue, border-line.
+   Only Megan edits this file, unless she says otherwise. */
 @theme {
-  --color-navy: #1c2b45;
-  --color-cream: #f7f1e6;
-  --color-card: #fffbf4;
-  --color-sand: #f3ebdd;
-  --color-line: #e4d9c6;
-  --color-terracotta: #b04a26;
-  --color-gold: #e8b04a;
-  --color-ink: #4a4f5c;
-  --color-muted: #5f6370;
+  /* The main colors. Some keep their old names so every page switched over
+     automatically: "cream" is now the pale blue page background, "sand" is
+     light sky blue, and "terracotta" is the same blue as "blue". In new
+     code, use text-blue / bg-blue instead of terracotta. */
+  --color-navy: #14285a;
+  --color-cream: #f4f8ff;
+  --color-card: #ffffff;
+  --color-sand: #dbe8ff;
+  --color-line: #c9d8f2;
+  --color-blue: #2a5bd6;
+  --color-terracotta: #2a5bd6;
+  --color-gold: #ffd84d;
+  --color-ink: #34446b;
+  --color-muted: #4a5a80;
 
-  --font-sans: var(--font-dm-sans);
-  --font-display: var(--font-fraunces);
+  /* The fun colors. Use them behind navy text, never as text on light
+     backgrounds (they're too pale to read). */
+  --color-cornflower: #9cc2ff;
+  --color-pink: #ff8fb1;
+  --color-mint: #6fdcb5;
+  --color-tangerine: #ff9f45;
+  --color-lilac: #b79cff;
+
+  /* Pale versions, for card backgrounds. */
+  --color-pink-pale: #ffe0ea;
+  --color-mint-pale: #d6f6ea;
+  --color-peach-pale: #ffe4cc;
+  --color-gold-pale: #fff5cc;
+  --color-lilac-pale: #eee6ff;
+
+  --font-sans: var(--font-figtree);
+  --font-display: var(--font-bricolage);
 }
 
 body {
   background: var(--color-cream);
   color: var(--color-navy);
+}
+
+/* Little colored "yarn ball" dots on a sky blue background, for the top of
+   a page. Use as a class: <section className="yarn-dots">. */
+@utility yarn-dots {
+  background:
+    radial-gradient(circle at 5% 10%, var(--color-pink) 0 8px, transparent 9px),
+    radial-gradient(circle at 44% 6%, var(--color-mint) 0 7px, transparent 8px),
+    radial-gradient(circle at 52% 95%, var(--color-tangerine) 0 9px, transparent 10px),
+    radial-gradient(circle at 3% 92%, var(--color-lilac) 0 7px, transparent 8px),
+    radial-gradient(circle at 97% 5%, var(--color-gold) 0 7px, transparent 8px),
+    var(--color-sand);
 }
