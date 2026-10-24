@@ -1,21 +1,22 @@
-// Owner: Nika. Links to the other public pages, at the bottom of the homepage.
+// Owner: Nika. Links to the public pages that aren't in the menu, at the
+// bottom of the homepage.
 import Link from "next/link";
 import { card, eyebrow, sectionTitle } from "../_styles";
 
 const pages = [
+  {
+    href: "/volunteer",
+    title: "Volunteer",
+    text: "Learn to crochet for free and make plushies for kids in shelters.",
+    link: "Start volunteering",
+    color: "bg-gold-pale",
+  },
   {
     href: "/community",
     title: "Community",
     text: "Photos of plushies and posts from our volunteers.",
     link: "See the community",
     color: "bg-lilac-pale",
-  },
-  {
-    href: "/give",
-    title: "Give & Receive",
-    text: "Sponsor a kit, or request plushies for your shelter.",
-    link: "Give or request",
-    color: "bg-gold-pale",
   },
   {
     href: "/faq",

@@ -1,41 +1,48 @@
-// Owner: Nika (approved by Megan). The Give & Receive page at "/give".
+// Owner: Nika (approved by Megan). The Give page at "/give".
 //
 // What this page will do:
-// - Give: visitors sponsor a kit by picking an amount.
-// - Receive: shelter staff ask Bluemont to donate plushies.
-// Done when: online giving is connected and the shelter request form works.
+// - Visitors sponsor a kit by picking an amount.
+// Done when: online giving is connected.
 //
-// Payments and the shelter form aren't built yet, so their buttons say
-// "coming soon". The shelter form will ask for contact information and what
-// the organization does; more questions may come.
+// Payments aren't built yet, so the button says "coming soon". Shelter staff
+// asking for plushies have their own page: For shelters ("/for-shelters").
 import type { Metadata } from "next";
 import { SampleNote } from "@/components/sample-note";
+import pinkYarn from "../_images/pink-yarn-and-hook.jpg";
+import { Photo } from "../_photo";
 import { buttonSoon, card, eyebrow, pageHero, pageTitle } from "../_styles";
 import { donationAmounts } from "./_placeholder";
 
-export const metadata: Metadata = { title: "Give & Receive" };
+export const metadata: Metadata = { title: "Give" };
 
 export default function GivePage() {
   return (
     <div className="flex flex-col gap-12">
       <SampleNote />
       <section className={pageHero}>
-        <p className={eyebrow}>Give &amp; Receive</p>
+        <p className={eyebrow}>Give</p>
         <h1 className={pageTitle}>Every plushie starts with you</h1>
         <p className="max-w-2xl text-lg">
-          Sponsor a kit so a volunteer can make a plushie. Or, if you work at a shelter, ask
-          us to send plushies to the children you serve.
+          Sponsor a kit so a volunteer can make a plushie for a child in a shelter.
         </p>
       </section>
 
-      {/* Side by side on wider screens, stacked on phones. */}
-      <div className="grid items-start gap-6 md:grid-cols-2">
+      {/* Side by side on wider screens, stacked on phones (photo first). */}
+      <div className="grid items-center gap-8 md:grid-cols-2">
+        <Photo
+          src={pinkYarn}
+          alt="A ball of pink yarn next to a pink crochet hook with the first few stitches on it."
+          credit="Anete Lusina"
+          href="https://www.pexels.com/photo/knitted-piece-and-yarn-with-hook-4792079/"
+          className="aspect-[4/3]"
+        />
+
         <section id="sponsor" className={`${card} gap-4 bg-lilac`}>
-          <p className="text-sm font-extrabold tracking-wider uppercase">Give · Sponsor a kit</p>
+          <p className="text-sm font-extrabold tracking-wider uppercase">Sponsor a kit</p>
           <h2 className="font-display text-3xl font-extrabold">Give a child a friend</h2>
           <p>
-            Every kit becomes a handmade plushie for a child in a shelter. Pick an amount to
-            give.
+            A kit is the yarn, hook and stuffing a volunteer needs. Every kit becomes a
+            handmade plushie for a child in a shelter. Pick an amount to give.
           </p>
 
           {/* The amount choices are radio buttons styled as pills.
@@ -66,20 +73,6 @@ export default function GivePage() {
           </fieldset>
 
           <span className={buttonSoon}>Online giving coming soon</span>
-        </section>
-
-        <section id="shelters" className={`${card} gap-4 bg-mint-pale`}>
-          <p className={eyebrow}>Receive · For shelter staff</p>
-          <h2 className="font-display text-3xl font-extrabold">Would your shelter like plushies?</h2>
-          <p>
-            If you work at a shelter or an organization that serves children, ask us to donate
-            handmade plushies. The form will ask for:
-          </p>
-          <ul className="list-disc pl-5">
-            <li>Your contact information</li>
-            <li>What your organization does</li>
-          </ul>
-          <span className={buttonSoon}>Request form coming soon</span>
         </section>
       </div>
     </div>

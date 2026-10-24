@@ -1,4 +1,6 @@
 // Owner: Nika. The big impact numbers, on a blue band, each in its own color.
+import Link from "next/link";
+
 // Impact numbers from Megan (October 2026). Update them here when Megan
 // sends new ones.
 const stats = [
@@ -22,6 +24,12 @@ export function Impact() {
           </div>
         ))}
       </div>
+      <Link
+        href="/donations"
+        className="mt-6 inline-block font-extrabold text-gold underline underline-offset-4 focus-visible:outline-4 focus-visible:outline-gold"
+      >
+        See who we&apos;ve donated to →
+      </Link>
     </section>
   );
 }

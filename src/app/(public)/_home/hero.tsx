@@ -20,8 +20,8 @@ export function Hero() {
           shelters.
         </p>
         <div className="flex flex-wrap gap-3">
-          <Link href="/sign-up" className={buttonMain}>
-            Become a volunteer
+          <Link href="/volunteer" className={buttonMain}>
+            Volunteer with us
           </Link>
           {/* "#get-involved" jumps down to that section on this page. */}
           <Link href="#get-involved" className={buttonPink}>

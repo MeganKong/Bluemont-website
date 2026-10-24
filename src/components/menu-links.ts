@@ -6,9 +6,9 @@ export type MenuLink = { href: string; label: string };
 export const visitorLinks: MenuLink[] = [
   { href: "/", label: "Home" },
   { href: "/team", label: "Our team" },
-  { href: "/community", label: "Community" },
-  { href: "/give", label: "Give & Receive" },
-  { href: "/faq", label: "FAQ" },
+  { href: "/give", label: "Give" },
+  { href: "/for-shelters", label: "For shelters" },
+  { href: "/donations", label: "Our donations" },
 ];
 
 // Shown as a button at the end of the visitor menu.

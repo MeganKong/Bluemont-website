@@ -1,5 +1,5 @@
 // Owner: Nika. The "Blue Skies" look for the public pages (home, team,
-// community, give & receive, FAQ), kept in one place so every page matches.
+// community, give, for shelters, donations, volunteer, FAQ), kept in one place so every page matches.
 
 // Outlined card with a solid "sticker" shadow. Add a background color
 // class after it to tint it, e.g. `${card} bg-pink-pale`.

@@ -8,8 +8,9 @@
 // without scrolling through the others. To move a section, move its line
 // below.
 //
-// Our team, Community (with the gallery), Give & Receive (sponsor a kit and
-// shelter requests) and FAQ have their own pages; Explore links to them.
+// Our team, Give (sponsor a kit), For shelters (plushie requests) and Our
+// donations (with the partner stories) are in the menu. Volunteer,
+// Community and FAQ have their own pages too; Explore links to them.
 import { SampleNote } from "@/components/sample-note";
 import { Explore } from "./_home/explore";
 import { FounderStory } from "./_home/founder-story";
@@ -18,7 +19,6 @@ import { Hero } from "./_home/hero";
 import { HowItWorks } from "./_home/how-it-works";
 import { Impact } from "./_home/impact";
 import { Parents } from "./_home/parents";
-import { PartnerStories } from "./_home/partner-stories";
 
 export default function HomePage() {
   return (
@@ -30,7 +30,6 @@ export default function HomePage() {
       <FounderStory />
       <GetInvolved />
       <Impact />
-      <PartnerStories />
       <Parents />
       <Explore />
     </div>
