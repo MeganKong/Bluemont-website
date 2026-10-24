@@ -1,6 +1,7 @@
-// Owner: Nika. Stories from partners and team members. The stories come from
-// _placeholder.ts until we collect real ones (with permission to share).
-import { partnerStories } from "../_placeholder";
+// Owner: Nika. Stories from partners and team members, on the Our donations
+// page. The stories come from this folder's _placeholder.ts until we collect
+// real ones (with permission to share).
+import { partnerStories } from "./_placeholder";
 import { card, eyebrow, sectionTitle } from "../_styles";
 
 const quoteColors = ["text-pink", "text-blue", "text-tangerine"];

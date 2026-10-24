@@ -9,8 +9,8 @@ const ways = [
     title: "Become a volunteer",
     color: "bg-pink-pale",
     text: "Learn to crochet for free and make plushies for kids in shelters.",
-    href: "/sign-up",
-    button: "Sign up",
+    href: "/volunteer",
+    button: "Volunteer",
   },
   {
     title: "Start a chapter",
