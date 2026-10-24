@@ -2,10 +2,12 @@
 //
 // What this page will do:
 // - Show the signed-in volunteer, in this order: their next lesson, their
-//   service hours so far, recent announcements, and their kit status.
+//   service hours so far, recent announcements, their shared work (with a
+//   "New feedback" badge), and their kit status.
 // Done when: it shows those for the real person.
 //
-// All the data comes from ./_data.ts, which is fake for now. Signed-out
+// Most data comes from ./_data.ts, which is fake for now. "My work" comes
+// from src/lib/work/data.ts (real once the database is set up). Signed-out
 // visitors are sent to sign in by src/lib/supabase/proxy.ts.
 // Uses the "Stitched Plushie" look from the lesson pages (../lessons/_styles.ts).
 import type { Metadata } from "next";
@@ -13,7 +15,9 @@ import Link from "next/link";
 import { Suspense } from "react";
 import type { KitRequest } from "@/lib/types";
 import { createClient } from "@/lib/supabase/server";
+import { getMyWork } from "@/lib/work/data";
 import { SampleNote } from "@/components/sample-note";
+import { NewBadge } from "@/components/work/badges";
 import { buttonMain, card, link, pageTitle, tag } from "../lessons/_styles";
 import { YarnBall } from "../lessons/_yarn-ball";
 import { lessons } from "../lessons/_placeholder";
@@ -46,8 +50,49 @@ export default function DashboardPage() {
         <Announcements />
       </div>
 
+      {/* Looking up their work happens per visit, so it loads in a boundary. */}
+      <Suspense fallback={<div className={`${card} min-h-28`} />}>
+        <MyWork />
+      </Suspense>
       <MyKit />
     </div>
+  );
+}
+
+// 4. Their shared work, with a "New feedback" badge when an officer has left
+// something they haven't seen yet.
+async function MyWork() {
+  const { submissions } = await getMyWork();
+  const newCount = submissions.reduce((sum, s) => sum + s.feedback.filter((f) => !f.seenAt).length, 0);
+  const shared = submissions.length;
+
+  return (
+    <section
+      aria-labelledby="my-work"
+      className={`${card} flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between`}
+    >
+      <div className="flex flex-col items-start gap-2">
+        <div className="flex flex-wrap items-center gap-3">
+          <h2 id="my-work" className={sectionTitle}>
+            My work
+          </h2>
+          {newCount > 0 && <NewBadge label={newCount === 1 ? "New feedback" : `${newCount} new feedback`} />}
+        </div>
+        <p className="text-lg text-ink">
+          {shared === 0
+            ? "Share a photo of your crochet to get tips from officers."
+            : newCount > 0
+              ? "An officer left you feedback. Take a look!"
+              : `You've shared ${shared} ${shared === 1 ? "photo" : "photos"}.`}
+        </p>
+      </div>
+      <Link
+        href={shared === 0 ? "/dashboard/my-work/new" : "/dashboard/my-work"}
+        className={`${link} self-start sm:self-auto`}
+      >
+        {shared === 0 ? "Share my work" : "See my work"}
+      </Link>
+    </section>
   );
 }
 
@@ -180,7 +225,7 @@ async function Announcements() {
   );
 }
 
-// 4. A small kit status line.
+// 5. A small kit status line.
 async function MyKit() {
   const kit = await getMyKit();
 

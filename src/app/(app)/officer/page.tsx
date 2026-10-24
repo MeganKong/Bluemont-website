@@ -1,13 +1,14 @@
 // Owner: Megan (built by Adhya). The officer dashboard at "/officer".
 //
 // What this page will do:
-// - Show officers what needs them, in this order: volunteer hours to approve,
-//   upcoming lessons and events, kit requests and low stock, and posting an
-//   announcement.
+// - Show officers what needs them, in this order: shared work to review,
+//   volunteer hours to approve, upcoming lessons and events, kit requests and
+//   low stock, and posting an announcement.
 // Done when: only officers can see it (even by typing the address), and it
 // shows real data.
 //
-// All the data comes from ./_data.ts, which is fake for now. The buttons
+// "Work to review" comes from src/lib/work/data.ts (real once the database is
+// set up). The rest comes from ./_data.ts, which is fake for now. The buttons
 // don't save anything yet. Signed-out visitors are sent to sign in by
 // src/lib/supabase/proxy.ts; <OfficersOnly> keeps volunteers out.
 // Uses the "Stitched Plushie" look, like the volunteer dashboard.
@@ -17,6 +18,8 @@ import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { OfficersOnly } from "@/components/officers-only";
 import { SampleNote } from "@/components/sample-note";
+import { WorkPhoto } from "@/components/work/work-photo";
+import { getAllWork } from "@/lib/work/data";
 import { card, link, pageTitle, tag } from "../lessons/_styles";
 import { YarnBall } from "../lessons/_yarn-ball";
 import { getHoursToApprove, getKitsAndStock, getLatestAnnouncements, getUpcoming } from "./_data";
@@ -46,6 +49,8 @@ export default function OfficerPage() {
           <YarnBall className="h-14 w-16 shrink-0 sm:h-20 sm:w-24" />
         </div>
 
+        <WorkToReview />
+
         {/* Phones: one column. Wider screens: two columns. */}
         <div className="grid gap-8 md:grid-cols-5">
           <HoursToApprove />
@@ -67,6 +72,52 @@ async function Welcome() {
   const firstName = data?.claims.user_metadata?.first_name;
 
   return <h1 className={pageTitle}>{firstName ? `Welcome, ${firstName}` : "Welcome"}</h1>;
+}
+
+// Shared work: how many still need feedback, and the newest three.
+async function WorkToReview() {
+  const { submissions } = await getAllWork();
+  const waiting = submissions.filter((s) => s.feedback.length === 0).length;
+
+  return (
+    <section aria-labelledby="work" className={`${card} flex flex-col gap-4`}>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <h2 id="work" className={sectionTitle}>
+          Work to review
+        </h2>
+        <p className="text-lg text-ink">
+          <span className="font-display text-3xl font-black text-navy">{waiting}</span> waiting for feedback
+        </p>
+      </div>
+      {submissions.length === 0 ? (
+        <p className="text-lg text-ink">No work shared yet.</p>
+      ) : (
+        <ul className="grid grid-cols-3 gap-3 sm:gap-5">
+          {submissions.slice(0, 3).map((s) => (
+            <li key={s.id}>
+              <Link
+                href={`/officer/work/${s.id}`}
+                className="flex flex-col gap-1 rounded-2xl focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-gold"
+              >
+                <WorkPhoto
+                  src={s.photoUrl}
+                  alt={`Crochet work shared by ${s.volunteerName}`}
+                  className="aspect-square w-full rounded-2xl border-2 border-navy object-cover"
+                />
+                <span className="truncate font-bold">{s.volunteerName}</span>
+                <span className="text-sm text-muted">
+                  {s.feedback.length === 0 ? "● Needs feedback" : "✓ Has feedback"}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+      <Link href="/officer/work" className={`${link} self-start`}>
+        Review all work
+      </Link>
+    </section>
+  );
 }
 
 // 1. Volunteer hours waiting for approval.

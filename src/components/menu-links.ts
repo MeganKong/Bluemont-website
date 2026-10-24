@@ -20,6 +20,7 @@ export const volunteerLinks: MenuLink[] = [
   { href: "/lessons", label: "Lessons" },
   { href: "/kits", label: "Kits" },
   { href: "/news", label: "News" },
+  { href: "/dashboard/my-work", label: "My work" },
 ];
 
 // Signed-in officers (see src/app/(app)/layout.tsx). "Dashboard" is their
