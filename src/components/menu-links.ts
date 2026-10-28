@@ -3,16 +3,20 @@
 export type MenuLink = { href: string; label: string };
 
 // Visitors who are not signed in (home, about, sign in and sign up pages).
+// The logo links home, so Home isn't in the list.
 export const visitorLinks: MenuLink[] = [
-  { href: "/", label: "Home" },
-  { href: "/team", label: "Our team" },
-  { href: "/give", label: "Give" },
+  { href: "/about", label: "About" },
+  { href: "/volunteer", label: "Volunteer" },
+  { href: "/impact", label: "Impact" },
   { href: "/for-shelters", label: "For shelters" },
-  { href: "/donations", label: "Our donations" },
+  { href: "/faq", label: "FAQ" },
 ];
 
-// Shown as a button at the end of the visitor menu.
+// A quiet link before the button in the visitor menu.
 export const signInLink: MenuLink = { href: "/sign-in", label: "Sign in" };
+
+// The bright button at the end of the visitor menu.
+export const donateLink: MenuLink = { href: "/donate", label: "Donate" };
 
 // Signed-in volunteers. Only pages volunteers can use.
 export const volunteerLinks: MenuLink[] = [

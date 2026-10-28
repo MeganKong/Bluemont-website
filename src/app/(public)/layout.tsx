@@ -1,14 +1,15 @@
 // Owner: unassigned (to be split). Wraps the public pages (home, about, ...).
 // The header and menu links live in src/components/; the footer comes from
-// src/app/layout.tsx.
+// src/app/layout.tsx. Each page sets its own width, because most sections
+// run edge to edge (see `wrap` in _styles.ts).
 import { SiteHeader } from "@/components/site-header";
-import { signInLink, visitorLinks } from "@/components/menu-links";
+import { donateLink, signInLink, visitorLinks } from "@/components/menu-links";
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <SiteHeader links={visitorLinks} button={signInLink} />
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-12">{children}</main>
+      <SiteHeader tone="night" links={visitorLinks} quietLink={signInLink} button={donateLink} />
+      <main className="w-full flex-1">{children}</main>
     </>
   );
 }

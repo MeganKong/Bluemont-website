@@ -1,35 +1,41 @@
-// Owner: Nika. The big impact numbers, on a blue band, each in its own color.
+// Owner: Nika. The big impact numbers on a bright blue band. The same
+// numbers are on the Impact page; change both together.
 import Link from "next/link";
+import { Tbd } from "@/components/tbd";
+import { eyebrowOnNight, heading, moreLinkOnNight, wrap } from "../_styles";
 
-// Impact numbers from Megan (October 2026). Update them here when Megan
-// sends new ones.
-const stats = [
-  { value: "2", label: "school chapters", color: "text-gold" },
-  { value: "90+", label: "volunteers crocheting", color: "text-pink-pale" },
-  { value: "150+", label: "children reached", color: "text-mint-pale" },
+export const impactNumbers: { value: React.ReactNode; label: string }[] = [
+  { value: "150+", label: "children reached" },
+  { value: <Tbd>~80</Tbd>, label: "teen volunteers" },
+  { value: "2", label: "school chapters" },
 ];
 
 export function Impact() {
   return (
-    <section aria-labelledby="impact-title" className="rounded-3xl bg-blue px-6 py-8 text-card">
-      <h2 id="impact-title" className="mb-6 font-display text-2xl font-extrabold">
-        Our impact so far
-      </h2>
-      {/* One column on phones, three side by side on wider screens. */}
-      <div className="grid gap-6 sm:grid-cols-3">
-        {stats.map((stat) => (
-          <div key={stat.label} className="flex flex-col gap-1">
-            <p className={`font-display text-5xl font-extrabold ${stat.color}`}>{stat.value}</p>
-            <p className="font-bold">{stat.label}</p>
-          </div>
-        ))}
+    <section className="bg-dusk text-card">
+      <div className={`${wrap} flex flex-wrap items-center gap-12 py-20`}>
+        <div className="flex min-w-0 flex-[1_1_280px] flex-col gap-3.5">
+          <p className={eyebrowOnNight}>Our impact</p>
+          <h2 className={heading}>Small hands, real results</h2>
+          <Link href="/impact" className={moreLinkOnNight}>
+            See where our plushies go →
+          </Link>
+        </div>
+        <ImpactNumbers numbers={impactNumbers} />
       </div>
-      <Link
-        href="/donations"
-        className="mt-6 inline-block font-extrabold text-gold underline underline-offset-4 focus-visible:outline-4 focus-visible:outline-gold"
-      >
-        See who we&apos;ve donated to →
-      </Link>
     </section>
+  );
+}
+
+export function ImpactNumbers({ numbers }: { numbers: typeof impactNumbers }) {
+  return (
+    <dl className="grid min-w-0 flex-[2_1_540px] grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-y-6">
+      {numbers.map((item) => (
+        <div key={item.label} className="flex flex-col-reverse gap-0.5 border-l-[1.5px] border-night-line px-6">
+          <dt className="font-semibold text-soft">{item.label}</dt>
+          <dd className="font-serif text-6xl leading-none text-gold sm:text-7xl lg:text-8xl">{item.value}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }
