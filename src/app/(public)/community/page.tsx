@@ -16,7 +16,7 @@ export const metadata: Metadata = { title: "Community" };
 
 export default function CommunityPage() {
   return (
-    <div className="flex flex-col gap-14">
+    <div className="mx-auto flex w-full max-w-5xl flex-col gap-14 px-4 py-12">
       <SampleNote />
       <section className={pageHero}>
         <p className={eyebrow}>Community</p>

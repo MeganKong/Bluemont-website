@@ -1,23 +1,29 @@
 @import "tailwindcss";
 
-/* Bluemont brand colors: the "Blue Skies" theme (approved by Megan, October
-   2026). Use them as Tailwind classes, e.g. bg-navy, text-blue, border-line.
-   Only Megan edits this file, unless she says otherwise. */
+/* Bluemont brand colors: the "True Blue & Honey" theme (approved by Megan,
+   27 October 2026). Use them as Tailwind classes, e.g. bg-navy, text-blue,
+   border-rule. Only Megan edits this file, unless she says otherwise. */
 @theme {
   /* The main colors. Some keep their old names so every page switched over
-     automatically: "cream" is now the pale blue page background, "sand" is
+     automatically: "cream" is the pale blue page background, "sand" is
      light sky blue, and "terracotta" is the same blue as "blue". In new
      code, use text-blue / bg-blue instead of terracotta. */
-  --color-navy: #14285a;
-  --color-cream: #f4f8ff;
+  --color-navy: #0b2559; /* the dark "night" blue of the header, footer and page tops */
+  --color-dusk: #1e4fa3; /* the brighter blue of the impact bands */
+  --color-cream: #f5f8ff;
   --color-card: #ffffff;
   --color-sand: #dbe8ff;
+  --color-tint: #e8f0ff; /* soft blue behind a whole section */
   --color-line: #c9d8f2;
-  --color-blue: #2a5bd6;
-  --color-terracotta: #2a5bd6;
-  --color-gold: #ffd84d;
-  --color-ink: #34446b;
+  --color-rule: #dde5f3; /* thin borders around white cards */
+  --color-night-line: #4a6fb3; /* borders and dividers on navy or dusk */
+  --color-blue: #1f5fd6;
+  --color-terracotta: #1f5fd6;
+  --color-gold: #ffc94d; /* honey: buttons and highlights on navy */
+  --color-soft: #c8d6f2; /* body text on navy or dusk */
+  --color-ink: #3a4a6b;
   --color-muted: #4a5a80;
+  --color-tbd: #fff1b8; /* yellow marker for facts still to confirm (see components/tbd.tsx) */
 
   /* The fun colors. Use them behind navy text, never as text on light
      backgrounds (they're too pale to read). */
@@ -34,7 +40,11 @@
   --color-gold-pale: #fff5cc;
   --color-lilac-pale: #eee6ff;
 
-  --font-sans: var(--font-figtree);
+  --font-sans: var(--font-hanken);
+  /* Big headings on the public pages. It comes in one weight only, so
+     don't add font-bold to it. */
+  --font-serif: var(--font-instrument-serif);
+  /* Headings on the signed-in pages. */
   --font-display: var(--font-bricolage);
 }
 
@@ -53,4 +63,12 @@ body {
     radial-gradient(circle at 3% 92%, var(--color-lilac) 0 7px, transparent 8px),
     radial-gradient(circle at 97% 5%, var(--color-gold) 0 7px, transparent 8px),
     var(--color-sand);
+}
+
+/* A soft honey glow around round or arched photos on the public pages.
+   Use as a class: <div className="glow rounded-full">. */
+@utility glow {
+  box-shadow:
+    0 0 0 10px color-mix(in srgb, var(--color-gold) 14%, transparent),
+    0 0 90px 10px color-mix(in srgb, var(--color-gold) 18%, transparent);
 }

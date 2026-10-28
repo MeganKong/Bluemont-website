@@ -1,100 +1,144 @@
 // Owner: Nika (approved by Megan). The Volunteer page at "/volunteer".
-// The homepage "Volunteer with us" button leads here.
 //
 // What this page will do:
-// - Explain how a teen can join and start crocheting, then send them to
-//   sign up.
-// Done when: [To decide with Megan.]
+// - Explain how volunteering works and what volunteers get.
+// - Say who can join, then send people to create an account.
+// Done when: every <Tbd> is filled in and "Sign up" leads to a working
+// sign-up.
+//
+// Signing up happens on the /sign-up page, so we don't collect anything
+// here. Volunteers are mostly under 18: ask only for what we need.
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SampleNote } from "@/components/sample-note";
-import handsCrocheting from "../_images/hands-crocheting.jpg";
-import yarnBasket from "../_images/yarn-basket.jpg";
-import { Photo } from "../_photo";
-import { buttonMain, card, eyebrow, pageTitle, sectionTitle, tints } from "../_styles";
+import { Tbd } from "@/components/tbd";
+import { Closing } from "../_closing";
+import yarn from "../_images/pink-yarn-and-hook.jpg";
+import { PageTop } from "../_page-top";
+import { Steps } from "../_steps";
+import {
+  buttonHoney,
+  buttonNight,
+  buttonOutlineOnNight,
+  eyebrow,
+  fact,
+  factTitle,
+  headingSmall,
+  section,
+  wrap,
+} from "../_styles";
 
-export const metadata: Metadata = { title: "Volunteer" };
+export const metadata: Metadata = {
+  title: "Volunteer",
+  description:
+    "Learn to crochet for free and make plushies for children in shelters. No experience needed.",
+};
 
-const steps = [
-  { title: "Sign up", text: "Make a free account. No crochet experience needed." },
-  { title: "Learn", text: "Take short crochet lessons online, at your own pace." },
-  { title: "Get a kit", text: "Request a free kit with yarn, a hook and stuffing." },
-  { title: "Give", text: "Drop off your plushie at your chapter. We deliver it to a child." },
+const perks: { title: string; text: React.ReactNode }[] = [
+  {
+    title: "Free lessons",
+    text: "Short videos you can pause and replay. Start with a simple ball, finish with a bunny.",
+  },
+  {
+    title: "A free kit",
+    text: (
+      <>
+        Yarn, a hook, stuffing and a tag. <Tbd>[Do you keep the hook?]</Tbd>
+      </>
+    ),
+  },
+  {
+    title: "A chapter",
+    text: "Meet other volunteers at Rosemead HS or Blair HS, or start one at your school.",
+  },
+  {
+    title: "Service hours",
+    text: <Tbd>[An officer can sign your school&apos;s service-hours form. / Not yet.]</Tbd>,
+  },
 ];
 
 export default function VolunteerPage() {
   return (
-    <div className="flex flex-col gap-14">
-      <SampleNote />
-      {/* Text and photo side by side on wider screens, stacked on phones. */}
-      <section className="yarn-dots grid items-center gap-8 rounded-[2rem] p-6 sm:p-10 md:grid-cols-[3fr_2fr]">
-        <div className="flex flex-col gap-4">
-          <p className={eyebrow}>Volunteer</p>
-          <h1 className={pageTitle}>Learn to crochet. Make a kid smile.</h1>
-          <p className="max-w-2xl text-lg">
-            Bluemont volunteers are students who learn to crochet for free, then make plushies
-            for children in shelters.
-          </p>
-          <div>
-            <Link href="/sign-up" className={buttonMain}>
-              Sign up to volunteer
-            </Link>
+    <>
+      <PageTop
+        eyebrow="Volunteer"
+        title={
+          <>
+            Learn to crochet. <em>Make someone&apos;s night.</em>
+          </>
+        }
+        lead="No experience needed. We teach you for free, send you the supplies, and deliver what you make to a child who needs it."
+        photo={{ src: yarn, alt: "Pink yarn and a crochet hook" }}
+      >
+        <Link href="#join" className={buttonHoney}>
+          Sign up
+        </Link>
+      </PageTop>
+
+      <section className={`${wrap} ${section} flex flex-col gap-10`}>
+        <h2 className={headingSmall}>How it works</h2>
+        <Steps />
+      </section>
+
+      <section className="bg-tint">
+        <div className={`${wrap} ${section} flex flex-col gap-9`}>
+          <h2 className={headingSmall}>What you get</h2>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {perks.map((perk) => (
+              <div key={perk.title} className="flex flex-col gap-3 rounded-3xl border border-rule bg-card p-7">
+                <h3 className="text-xl font-bold">{perk.title}</h3>
+                <p className="text-ink">{perk.text}</p>
+              </div>
+            ))}
           </div>
         </div>
-        <Photo
-          src={handsCrocheting}
-          alt="Two hands crocheting cream yarn with a purple crochet hook."
-          credit="Castorly Stock"
-          href="https://www.pexels.com/photo/person-holding-purple-crochet-hook-and-white-yarn-3945638/"
-          className="aspect-[4/3]"
-        />
       </section>
 
-      <section className="flex flex-col gap-6">
-        <div className="flex flex-col gap-2">
-          <p className={eyebrow}>How to join</p>
-          <h2 className={sectionTitle}>Four steps to your first plushie</h2>
+      <section id="join" className={`${wrap} ${section} flex scroll-mt-6 flex-wrap items-start gap-14`}>
+        <div className="flex min-w-0 flex-[1_1_440px] flex-col gap-4">
+          <p className={eyebrow}>Sign up</p>
+          <h2 className={headingSmall}>Join Bluemont</h2>
+          <p className="text-lg text-ink">
+            It takes a minute. Make an account and your first lesson is waiting.
+          </p>
+          <Link href="/sign-up" className={`${buttonNight} self-start`}>
+            Create your account
+          </Link>
         </div>
-        {/* One column on phones, two on tablets, four on laptops. */}
-        <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, index) => (
-            <li key={step.title} className={`${card} ${tints[index % tints.length]}`}>
-              <span
-                aria-hidden="true"
-                className="grid size-11 place-items-center rounded-full border-2 border-navy bg-card font-display text-lg font-extrabold"
-              >
-                {index + 1}
-              </span>
-              <h3 className="font-display text-xl font-extrabold">{step.title}</h3>
-              <p className="text-ink">{step.text}</p>
-            </li>
-          ))}
-        </ol>
+        <div className="grid min-w-0 flex-[1_1_420px] gap-7">
+          <div className={fact}>
+            <h3 className={factTitle}>Who can join</h3>
+            <p className="text-ink">
+              Teens <Tbd>13 and up</Tbd>. If you&apos;re under 18, a parent or guardian needs to say OK.
+            </p>
+          </div>
+          <div className={fact}>
+            <h3 className={factTitle}>Time</h3>
+            <p className="text-ink">
+              Most volunteers spend about <Tbd>[_ hours]</Tbd> a week. A first plushie takes about{" "}
+              <Tbd>[_ hours]</Tbd>.
+            </p>
+          </div>
+          <div className={fact}>
+            <h3 className={factTitle}>Parents</h3>
+            <p className="text-ink">
+              Online video lessons, no chat between volunteers, and we never post a volunteer&apos;s
+              photo without written consent.
+            </p>
+          </div>
+        </div>
       </section>
 
-      <section className="grid items-center gap-8 md:grid-cols-2">
-        <Photo
-          src={yarnBasket}
-          alt="A wicker basket full of soft yarn in blue, pink, cream and gray."
-          credit="Surene Palvie"
-          href="https://www.pexels.com/photo/assorted-color-yarns-on-brown-wicker-basket-2070676/"
-          className="aspect-square"
-        />
-        <div className={`${card} bg-gold-pale`}>
-          <h2 className="font-display text-2xl font-extrabold">Everything you need is free</h2>
-          <p className="text-ink">
-            Lessons and kits cost nothing. All you bring is a little time and the wish to
-            make a child smile.
-          </p>
-          <p className="text-ink">
-            Parents: see{" "}
-            <Link href="/faq" className="font-bold text-blue underline">
-              our FAQ
-            </Link>{" "}
-            for how Bluemont works and who runs it.
-          </p>
-        </div>
-      </section>
-    </div>
+      <Closing
+        title="No chapter at your school?"
+        text="Start one. We'll give you a starter guide and kits for your first meeting."
+      >
+        <Link href="/faq#contact" className={buttonHoney}>
+          Start a chapter
+        </Link>
+        <Link href="/faq" className={buttonOutlineOnNight}>
+          Read the FAQ
+        </Link>
+      </Closing>
+    </>
   );
 }

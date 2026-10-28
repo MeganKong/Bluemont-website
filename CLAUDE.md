@@ -43,7 +43,8 @@ are not exposed automatically in this project.
 - Build with the fake data in each folder's `_placeholder.ts` until the
   database is ready. Remove `<SampleNote />` once a page uses real data. Data follows the shapes in `src/lib/types.ts`.
 - Use the brand colors from `globals.css` (`bg-navy`, `text-terracotta`,
-  `border-line`, ...) and `font-display` for headings. No other colors.
+  `border-line`, ...) and `font-display` for headings (`font-serif` on the
+  public pages). No other colors.
 - Pages must work on a phone.
 - Every page uses the shared header and footer (`src/components/site-header.tsx`
   and `site-footer.tsx`). New pages get them automatically by going inside
