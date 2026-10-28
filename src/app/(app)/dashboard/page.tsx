@@ -2,9 +2,15 @@
 //
 // What this page will do:
 // - Show the signed-in volunteer, in this order: their next lesson, their
-//   service hours so far, recent announcements, their shared work (with a
-//   "New feedback" badge), and their kit status.
+//   service hours so far, and their shared work (with a "New feedback"
+//   badge). Beside them, a side panel with their journey (Learn → Kit →
+//   Make → Send), their kit status and their next deadline.
+// - News is only on the News page.
 // Done when: it shows those for the real person.
+//
+// Layout (approved by Megan, October 2026): on laptops, the main column on
+// the left and the side panel on the right. On phones and tablets, a short
+// journey bar at the top, then everything in one column, panel last.
 //
 // Most data comes from ./_data.ts, which is fake for now. "My work" comes
 // from src/lib/work/data.ts (real once the database is set up). Signed-out
@@ -21,7 +27,8 @@ import { NewBadge } from "@/components/work/badges";
 import { buttonMain, card, link, pageTitle, tag } from "../lessons/_styles";
 import { YarnBall } from "../lessons/_yarn-ball";
 import { lessons } from "../lessons/_placeholder";
-import { getAnnouncements, getMyKit, getNextLesson, getServiceHours } from "./_data";
+import { getJourney, getMyKit, getNextDeadline, getNextLesson, getServiceHours } from "./_data";
+import { Journey } from "./_journey";
 
 export const metadata: Metadata = { title: "Dashboard" };
 
@@ -42,24 +49,39 @@ export default function DashboardPage() {
         <YarnBall className="h-14 w-16 shrink-0 sm:h-20 sm:w-24" />
       </div>
 
-      <NextLesson />
-
-      {/* Phones: one column. Wider screens: hours on the left, news on the right. */}
-      <div className="grid gap-8 md:grid-cols-5">
-        <ServiceHoursCard />
-        <Announcements />
+      {/* Phones and tablets: the journey as a short bar at the top. */}
+      <div className={`${card} lg:hidden`}>
+        <JourneyTracker variant="bar" />
       </div>
 
-      {/* Looking up their work happens per visit, so it loads in a boundary. */}
-      <Suspense fallback={<div className={`${card} min-h-28`} />}>
-        <MyWork />
-      </Suspense>
-      <MyKit />
+      {/* Laptops: main column (2/3) and side panel (1/3). Smaller: one column. */}
+      <div className="grid gap-8 lg:grid-cols-3 lg:items-start">
+        <div className="flex flex-col gap-8 lg:col-span-2">
+          <NextLesson />
+          <ServiceHoursCard />
+          {/* Looking up their work happens per visit, so it loads in a boundary. */}
+          <Suspense fallback={<div className={`${card} min-h-28`} />}>
+            <MyWork />
+          </Suspense>
+        </div>
+
+        <aside aria-label="Your progress" className="flex flex-col gap-8">
+          <div className={`${card} hidden lg:block`}>
+            <JourneyTracker variant="panel" />
+          </div>
+          <MyKit />
+          <NextDeadline />
+        </aside>
+      </div>
     </div>
   );
 }
 
-// 4. Their shared work, with a "New feedback" badge when an officer has left
+async function JourneyTracker({ variant }: { variant: "panel" | "bar" }) {
+  return <Journey steps={await getJourney()} variant={variant} />;
+}
+
+// 3. Their shared work, with a "New feedback" badge when an officer has left
 // something they haven't seen yet.
 async function MyWork() {
   const { submissions } = await getMyWork();
@@ -149,7 +171,7 @@ async function ServiceHoursCard() {
   const left = Math.max(0, goal - total);
 
   return (
-    <section aria-labelledby="hours" className={`${card} flex flex-col gap-4 md:col-span-2`}>
+    <section aria-labelledby="hours" className={`${card} flex flex-col gap-4`}>
       <h2 id="hours" className={sectionTitle}>
         Service hours
       </h2>
@@ -194,57 +216,44 @@ async function ServiceHoursCard() {
   );
 }
 
-// 3. The newest announcements.
-async function Announcements() {
-  const posts = await getAnnouncements(3);
+// Side panel: kit status. Stacked, so it fits the narrow panel.
+async function MyKit() {
+  const kit = await getMyKit();
 
   return (
-    <section aria-labelledby="news" className={`${card} flex flex-col gap-4 md:col-span-3`}>
-      <h2 id="news" className={sectionTitle}>
-        Recent announcements
+    <section aria-labelledby="kit" className={`${card} flex flex-col items-start gap-2`}>
+      <h2 id="kit" className={sectionTitle}>
+        My kit
       </h2>
-      {posts.length === 0 ? (
-        <p className="text-lg text-ink">No announcements yet. Check back soon.</p>
-      ) : (
-        <ul className="flex flex-col divide-y-2 divide-dashed divide-line">
-          {posts.map((post) => (
-            <li key={post.id} className="flex flex-col gap-1 py-3 first:pt-0 last:pb-0">
-              <p className="text-lg font-bold">{post.title}</p>
-              <time dateTime={post.postedAt} className="text-sm text-muted">
-                {formatDate(post.postedAt)}
-              </time>
-              <p className="line-clamp-2 text-ink">{post.body}</p>
-            </li>
-          ))}
-        </ul>
-      )}
-      <Link href="/news" className={`${link} mt-auto self-start`}>
-        See all news
+      <p className="text-lg text-ink">
+        {kit ? `${kitNames[kit.kit]} · ${kitStatuses[kit.status]}` : "You haven't asked for a kit yet."}
+      </p>
+      <Link href="/kits" className={link}>
+        {kit ? "View my kit" : "Request a kit"}
       </Link>
     </section>
   );
 }
 
-// 5. A small kit status line.
-async function MyKit() {
-  const kit = await getMyKit();
+// Side panel: the next date they need to know about.
+async function NextDeadline() {
+  const deadline = await getNextDeadline();
 
   return (
-    <section
-      aria-labelledby="kit"
-      className={`${card} flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between`}
-    >
-      <div className="flex flex-col gap-1">
-        <h2 id="kit" className={sectionTitle}>
-          My kit
-        </h2>
-        <p className="text-lg text-ink">
-          {kit ? `${kitNames[kit.kit]} · ${kitStatuses[kit.status]}` : "You haven't asked for a kit yet."}
+    <section aria-labelledby="deadline" className={`${card} flex flex-col gap-2`}>
+      <h2 id="deadline" className={sectionTitle}>
+        Next deadline
+      </h2>
+      {deadline ? (
+        <p className="flex flex-col">
+          <span className="text-lg text-ink">{deadline.what}</span>
+          <time dateTime={deadline.due} className="font-display text-3xl font-extrabold">
+            {formatDate(deadline.due)}
+          </time>
         </p>
-      </div>
-      <Link href="/kits" className={`${link} self-start sm:self-auto`}>
-        {kit ? "View my kit" : "Request a kit"}
-      </Link>
+      ) : (
+        <p className="text-lg text-ink">Nothing due right now.</p>
+      )}
     </section>
   );
 }

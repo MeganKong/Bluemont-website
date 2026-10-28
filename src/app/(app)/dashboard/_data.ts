@@ -58,3 +58,30 @@ export async function getAnnouncements(limit = 3): Promise<NewsPost[]> {
 export async function getMyKit(): Promise<KitRequest | null> {
   return kitRequests.find((request) => request.status === "approved") ?? null;
 }
+
+// The four steps of a volunteer's journey, in order. The officer check-in
+// happens between Make and Send, but isn't shown as a step.
+export type JourneyStep = {
+  id: "learn" | "kit" | "make" | "send";
+  label: string;
+  done: boolean;
+};
+
+// Learn is done once every lesson is finished, Kit once it's picked up.
+// FAKE: Make and Send are never done yet. Real data: Make is done when an
+// officer approves their plushie, Send when it's delivered to a shelter.
+export async function getJourney(): Promise<JourneyStep[]> {
+  const [nextLesson, kit] = await Promise.all([getNextLesson(), getMyKit()]);
+  return [
+    { id: "learn", label: "Learn", done: nextLesson === null },
+    { id: "kit", label: "Kit", done: kit?.status === "picked_up" },
+    { id: "make", label: "Make", done: false },
+    { id: "send", label: "Send", done: false },
+  ];
+}
+
+// FAKE: a made-up due date. Real data: the volunteer's next due date, set
+// by an officer.
+export async function getNextDeadline(): Promise<{ what: string; due: string } | null> {
+  return { what: "Plushie due", due: "2026-11-09" };
+}
