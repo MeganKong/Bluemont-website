@@ -8,7 +8,7 @@ import { useActionState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { requestPasswordReset, type FormState } from "../actions";
 import { Spinner } from "../spinner";
-import { errorBox, input, label, secondaryButton, submitButton, textLink } from "../_styles";
+import { cardTitle, errorBox, input, label, secondaryButton, submitButton, textLink } from "../_styles";
 
 type ForgotPasswordProps = {
   // Whatever was already typed in the sign-in email box.
@@ -42,14 +42,14 @@ export function ForgotPassword({ startEmail, onClose }: ForgotPasswordProps) {
       // Tapping the dark area around the pop-up closes it.
       onClick={(event) => event.target === dialogRef.current && close()}
       aria-labelledby="forgot-title"
-      className="m-auto w-[calc(100%-2rem)] max-w-md rounded-3xl border-2 border-navy bg-card p-6 text-navy shadow-[4px_4px_0_var(--color-navy)] backdrop:bg-navy/60 sm:p-8"
+      className="m-auto w-[calc(100%-2rem)] max-w-md rounded-3xl border border-rule bg-card p-6 text-navy shadow-[0_30px_60px_-30px_var(--color-navy)] backdrop:bg-navy/70 sm:p-9"
     >
       {state.sentTo ? (
         <div role="status" className="flex flex-col gap-4">
-          <h2 id="forgot-title" className="font-display text-3xl font-extrabold">
+          <h2 id="forgot-title" className={cardTitle}>
             Check your email
           </h2>
-          <p className="text-lg text-ink">
+          <p className="text-ink">
             Check your email for a link to reset your password. We sent it to{" "}
             <strong className="break-all text-navy">{state.sentTo}</strong>. If you don&apos;t
             see it in a few minutes, check your spam folder.
@@ -61,10 +61,10 @@ export function ForgotPassword({ startEmail, onClose }: ForgotPasswordProps) {
       ) : (
         <form action={formAction} className="flex flex-col gap-5">
           <div className="flex flex-col gap-2">
-            <h2 id="forgot-title" className="font-display text-3xl font-extrabold">
+            <h2 id="forgot-title" className={cardTitle}>
               Forgot your password?
             </h2>
-            <p className="text-lg text-ink">
+            <p className="text-ink">
               Type the email you signed up with. We&apos;ll send you a link to make a new password.
             </p>
           </div>

@@ -52,8 +52,7 @@ export const input =
   "disabled:cursor-not-allowed disabled:opacity-70";
 
 // ---------------------------------------------------------------------------
-// The older "sticker" look. The sign-in pages (../(auth)/_styles.ts) and the
-// Community page still use these. Move them to the new look when you can.
+// The older "sticker" look. The Community page still uses these. Move them to the new look when you can.
 
 // Outlined card with a solid "sticker" shadow. Add a background color
 // class after it to tint it, e.g. `${card} bg-pink-pale`.
