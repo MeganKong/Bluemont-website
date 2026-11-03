@@ -9,7 +9,6 @@
 // JavaScript. The contact form is laid out but switched off until it has
 // somewhere to send messages.
 import type { Metadata } from "next";
-import { Tbd } from "@/components/tbd";
 import { ContactForm } from "../_forms/contact-form";
 import { PageTop } from "../_page-top";
 import { eyebrow, headingSmall, panel, section, wrap } from "../_styles";
@@ -98,7 +97,7 @@ const groups: { id: string; title: string; questions: Question[] }[] = [
         a: (
           <>
             Yes. Bluemont Children Foundation is a 501(c)(3), so donations are tax-deductible. EIN{" "}
-            <Tbd>[__-_______]</Tbd>.
+            <span className="whitespace-nowrap">99-3471914</span>.
           </>
         ),
       },
