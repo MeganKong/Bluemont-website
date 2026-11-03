@@ -41,15 +41,16 @@ const values = [
     title: "Kids' safety first",
     text: "No children's faces, no shelter locations, and every plushie is checked before it's given.",
   },
-  { title: "Run by students", text: "High school students lead every chapter, with adult support." },
+  { title: "Run by students", text: "High school students lead every chapter." },
 ];
 
-// To fill in: first names once each officer (and a parent) says it's OK.
-const team: { name: React.ReactNode; role: string; initial: string }[] = [
+// First names only, OK'd by each officer. Adhya's and Iris's roles are to come.
+const team: { name: string; role: React.ReactNode; initial: string }[] = [
   { name: "Megan", role: "Founder and CEO", initial: "M" },
-  { name: <Tbd>[First name]</Tbd>, role: "Lessons lead", initial: "·" },
-  { name: <Tbd>[First name]</Tbd>, role: "Kits lead", initial: "·" },
-  { name: <Tbd>[Advisor name]</Tbd>, role: "Adult advisor", initial: "·" },
+  { name: "Nika", role: "Chief Donations Officer", initial: "N" },
+  { name: "Sophia", role: "Chief Community Officer", initial: "S" },
+  { name: "Adhya", role: <Tbd>[role]</Tbd>, initial: "A" },
+  { name: "Iris", role: <Tbd>[role]</Tbd>, initial: "I" },
 ];
 
 export default function AboutPage() {
@@ -71,16 +72,16 @@ export default function AboutPage() {
           <p className={eyebrow}>Our story</p>
           <h2 className={`${headingSmall} text-navy`}>It started with one hook</h2>
           <p>
-            Bluemont started in <Tbd>[year]</Tbd> when <Tbd>[Megan, then a sophomore at ___]</Tbd>{" "}
+            Bluemont started in 2024 when <Tbd>[Megan, then a sophomore at ___]</Tbd>{" "}
             <Tbd>[the moment that started it: a visit, a story, a plushie you made]</Tbd>.
           </p>
           <p>
-            What began with one person and a crochet hook is now two school chapters, at Rosemead
-            High School and Blair High School, with <Tbd>about 80</Tbd> volunteers.
+            What began with one person and a crochet hook is now three school chapters, at Rosemead
+            High School, Blair High School and Arcadia High School, with 82 volunteers.
           </p>
           <p>
             Every plushie goes to a child staying in{" "}
-            <Tbd>[a family shelter / a children&apos;s hospital / foster care]</Tbd>. For the
+            a family shelter, a children&apos;s hospital or foster care. For the
             children&apos;s safety, we never share shelter locations or photos of the kids.
           </p>
         </div>
@@ -133,7 +134,7 @@ export default function AboutPage() {
           </div>
           <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {team.map((person) => (
-              <li key={person.role} className="flex flex-col items-start gap-1.5 rounded-3xl border border-rule bg-card p-6">
+              <li key={person.initial} className="flex flex-col items-start gap-1.5 rounded-3xl border border-rule bg-card p-6">
                 <span
                   aria-hidden="true"
                   className="mb-2 grid size-16 place-items-center rounded-full bg-tint font-serif text-3xl text-blue"
@@ -146,7 +147,7 @@ export default function AboutPage() {
             ))}
           </ul>
           <p className="text-sm text-ink">
-            Chapter leads at Rosemead HS and Blair HS: <Tbd>[first names, if you want them listed]</Tbd>
+            Chapter leads at Rosemead HS, Blair HS and Arcadia HS: <Tbd>[first names, if you want them listed]</Tbd>
           </p>
         </div>
       </section>
@@ -156,7 +157,7 @@ export default function AboutPage() {
           <p className={eyebrow}>Our promise</p>
           <p>
             We keep volunteers&apos; information private, collect only what we need, and never show a
-            child&apos;s face. <Tbd>[Adult advisor name and role]</Tbd> supports our student leaders.
+            child&apos;s face.
           </p>
           <Link href="/faq#parents" className={moreLink}>
             Questions from parents →

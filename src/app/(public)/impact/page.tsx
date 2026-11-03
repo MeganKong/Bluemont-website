@@ -21,10 +21,10 @@ export const metadata: Metadata = {
 };
 
 const timeline: { when: React.ReactNode; title: string; text: string }[] = [
-  { when: <Tbd>[Year]</Tbd>, title: "Bluemont begins", text: "One student, one hook, one plushie." },
-  { when: <Tbd>[Year]</Tbd>, title: "First chapters", text: "Rosemead High School and Blair High School." },
+  { when: "2024", title: "Bluemont begins", text: "One student, one hook, one plushie." },
+  { when: "2025", title: "First chapters", text: "Rosemead High School and Blair High School." },
   { when: "May 2025", title: "First grant", text: "$300 from Smart & Final for kits." },
-  { when: <Tbd>[Date]</Tbd>, title: "150 plushies given", text: "And counting." },
+  { when: "2026", title: "150 plushies given", text: "And counting." },
 ];
 
 const quotes: { quote: React.ReactNode; who: React.ReactNode }[] = [
@@ -58,7 +58,7 @@ export default function ImpactPage() {
       <section className="bg-dusk text-card">
         <div className={`${wrap} flex py-20`}>
           <ImpactNumbers
-            numbers={[...impactNumbers, { value: <Tbd>___</Tbd>, label: "hours of stitching" }]}
+            numbers={[...impactNumbers, { value: "300", label: "hours of stitching" }]}
           />
         </div>
       </section>
@@ -68,12 +68,7 @@ export default function ImpactPage() {
           <p className={eyebrow}>Where plushies go</p>
           <h2 className={headingSmall}>To children who need comfort most</h2>
           <p className="text-lg text-ink">
-            Our plushies go to{" "}
-            <Tbd>
-              [family shelters, domestic violence shelters, children&apos;s hospitals, foster care
-              programs]
-            </Tbd>
-            .
+            Our plushies go to family shelters, children&apos;s hospitals and foster care programs.
           </p>
           <p className="text-[15px] text-ink">
             To keep children safe, we don&apos;t name the places we deliver to or share their

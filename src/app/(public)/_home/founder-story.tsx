@@ -27,8 +27,8 @@ export function FounderStory() {
           ”
         </blockquote>
         <p className="text-ink">
-          Bluemont began in <Tbd>[year]</Tbd> with one student and a crochet hook. Today it&apos;s
-          two school chapters, all run by students.
+          Bluemont began in 2024 with one student and a crochet hook. Today it&apos;s
+          three school chapters, all run by students.
         </p>
         <figcaption className="flex flex-wrap items-baseline justify-between gap-3">
           <span>

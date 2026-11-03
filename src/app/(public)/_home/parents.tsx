@@ -1,6 +1,5 @@
-// Owner: Nika. What parents need to know, in four short facts.
+// Owner: Nika. What parents need to know, in three short facts.
 import Link from "next/link";
-import { Tbd } from "@/components/tbd";
 import { eyebrow, fact, factTitle, headingSmall, moreLink, wrap } from "../_styles";
 
 export function Parents() {
@@ -26,15 +25,9 @@ export function Parents() {
           </p>
         </div>
         <div className={fact}>
-          <h3 className={factTitle}>Adult support</h3>
-          <p className="text-ink">
-            <Tbd>[Advisor name]</Tbd> supports our student leaders.
-          </p>
-        </div>
-        <div className={fact}>
           <h3 className={factTitle}>Flexible time</h3>
           <p className="text-ink">
-            Most volunteers spend about <Tbd>[_ hours]</Tbd> a week.
+            Most volunteers spend about 4 hours a week.
           </p>
         </div>
       </div>

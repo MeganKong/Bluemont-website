@@ -5,7 +5,7 @@ import { Steps } from "../_steps";
 import { eyebrow, heading, moreLink, wrap } from "../_styles";
 
 const quickFacts = [
-  "Chapters at Rosemead HS and Blair HS",
+  "Chapters at Rosemead HS, Blair HS and Arcadia HS",
   "Free lessons, free kits",
   "No experience needed",
   "Kids' privacy always protected",

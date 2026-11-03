@@ -51,6 +51,22 @@ export default function OfficerPage() {
 
         <WorkToReview />
 
+        {/* The website's forms (plushie requests and contact messages). */}
+        <section
+          aria-labelledby="messages"
+          className={`${card} flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between`}
+        >
+          <div className="flex flex-col gap-1">
+            <h2 id="messages" className={sectionTitle}>
+              Messages
+            </h2>
+            <p className="text-lg text-ink">Plushie requests and contact messages from the website.</p>
+          </div>
+          <Link href="/officer/messages" className={`${link} self-start sm:self-auto`}>
+            Read messages
+          </Link>
+        </section>
+
         {/* Phones: one column. Wider screens: two columns. */}
         <div className="grid gap-8 md:grid-cols-5">
           <HoursToApprove />
