@@ -97,7 +97,7 @@ const groups: { id: string; title: string; questions: Question[] }[] = [
         a: (
           <>
             Yes. Bluemont Children Foundation is a 501(c)(3), so donations are tax-deductible. EIN{" "}
-            99-3471914.
+            <span className="whitespace-nowrap">99-3471914</span>.
           </>
         ),
       },

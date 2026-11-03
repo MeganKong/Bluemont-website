@@ -1,7 +1,6 @@
 // Owner: Megan (shared). The footer at the bottom of every page.
 import Link from "next/link";
 import { Logo } from "./logo";
-import { Tbd } from "./tbd";
 
 // To add: Bluemont's real accounts. Give each one an href when it exists,
 // e.g. { label: "Instagram", href: "https://www.instagram.com/..." }.
@@ -39,7 +38,7 @@ export function SiteFooter() {
           <Logo className="text-4xl text-card" />
           <p>
             Bluemont Children Foundation is a student-led 501(c)(3) nonprofit. EIN{" "}
-            99-3471914.
+            <span className="whitespace-nowrap">99-3471914</span>.
           </p>
         </div>
 
@@ -68,9 +67,7 @@ export function SiteFooter() {
                   {social.label}
                 </a>
               ) : (
-                <span key={social.label}>
-                  {social.label} <Tbd>[link]</Tbd>
-                </span>
+                <span key={social.label}>{social.label}</span>
               ),
             )}
           </div>
@@ -80,9 +77,6 @@ export function SiteFooter() {
       <div className="border-t border-night-line/50">
         <div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-x-6 gap-y-2 px-6 py-6 text-sm">
           <span>© 2026 Bluemont Children Foundation</span>
-          <span>
-            Privacy policy · Child safety policy · Terms <Tbd>[pages to write]</Tbd>
-          </span>
         </div>
       </div>
     </footer>

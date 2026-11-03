@@ -5,21 +5,21 @@
 // - Show what a kit holds, that gifts are tax-deductible, and our supporters.
 // Done when: the amounts, EIN and Givebutter link are in.
 //
-// Payments happen on Givebutter, not on our site. Paste the campaign link
-// into donateUrl below and the button turns on.
+// Payments happen on Givebutter (or similar), not on our site. Until there's
+// a link, "Donate now" opens the contact form. TO DO: paste the campaign link
+// into donateUrl below and the button goes straight to the payment page.
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Tbd } from "@/components/tbd";
 import bunny from "../_images/crochet-bunny.jpg";
 import { PageTop } from "../_page-top";
-import { buttonHoney, buttonOff, eyebrow, headingSmall, moreLink, panel, section, wrap } from "../_styles";
+import { buttonHoney, eyebrow, headingSmall, moreLink, panel, section, wrap } from "../_styles";
 
 export const metadata: Metadata = {
   title: "Donate",
   description: "Sponsor a crochet kit. Every kit becomes a handmade plushie for a child in a shelter.",
 };
 
-// To add: the Givebutter campaign link.
+// TO DO: the Givebutter (or other) donation link. Empty = contact form.
 const donateUrl = "";
 
 const amounts: { amount: React.ReactNode; text: string; popular?: boolean }[] = [
@@ -54,9 +54,6 @@ export default function DonatePage() {
       <section className={`${wrap} ${section} flex flex-col gap-8`}>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <h2 className={headingSmall}>Choose an amount</h2>
-          <p className="text-sm text-ink">
-            Card, Apple Pay or Google Pay through <Tbd>Givebutter</Tbd>
-          </p>
         </div>
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {amounts.map((option) => (
@@ -78,18 +75,12 @@ export default function DonatePage() {
         </ul>
         <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 rounded-3xl bg-navy px-7 py-6 text-soft">
           <p>
-            <strong className="text-lg text-card">Give once or monthly.</strong> You&apos;ll get an
-            emailed receipt for your taxes.
+            <strong className="text-lg text-card">Give once or monthly.</strong> You&apos;ll get a
+            receipt for your taxes.
           </p>
-          {donateUrl ? (
-            <a href={donateUrl} className={buttonHoney}>
-              Donate now
-            </a>
-          ) : (
-            <span className={buttonOff}>
-              Donate now <Tbd>[Givebutter link]</Tbd>
-            </span>
-          )}
+          <a href={donateUrl || "/faq#contact"} className={buttonHoney}>
+            Donate now
+          </a>
         </div>
       </section>
 
@@ -112,7 +103,7 @@ export default function DonatePage() {
           <div className={panel}>
             <p className={eyebrow}>Tax-deductible</p>
             <p>
-              Bluemont Children Foundation is a 501(c)(3) nonprofit, EIN 99-3471914.
+              Bluemont Children Foundation is a 501(c)(3) nonprofit, EIN <span className="whitespace-nowrap">99-3471914</span>.
               Donations are tax-deductible as allowed by law.
             </p>
           </div>
@@ -130,7 +121,7 @@ export default function DonatePage() {
         <div className="flex flex-col gap-3.5">
           <p className={eyebrow}>Thank you to our supporters</p>
           <p className="self-start rounded-2xl border-[1.5px] border-dashed border-line px-6 py-3.5 font-bold text-ink">
-            Smart &amp; Final <Tbd>OK to name?</Tbd>
+            Smart &amp; Final
           </p>
         </div>
       </section>

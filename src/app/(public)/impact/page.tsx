@@ -9,7 +9,6 @@
 // Never name the shelters we deliver to or show where they are.
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Tbd } from "@/components/tbd";
 import { Closing } from "../_closing";
 import { ImpactNumbers, impactNumbers } from "../_home/impact";
 import { PageTop } from "../_page-top";
@@ -27,20 +26,11 @@ const timeline: { when: React.ReactNode; title: string; text: string }[] = [
   { when: "2026", title: "150 plushies given", text: "And counting." },
 ];
 
-const quotes: { quote: React.ReactNode; who: React.ReactNode }[] = [
-  {
-    quote: <Tbd>A short quote from a shelter partner, used with permission.</Tbd>,
-    who: (
-      <>
-        Shelter staff member, <Tbd>[city]</Tbd>
-      </>
-    ),
-  },
-  {
-    quote: <Tbd>A short quote from a volunteer about finishing their first plushie.</Tbd>,
-    who: "Volunteer, Rosemead HS chapter",
-  },
-];
+// To add: short quotes, used with permission. The "In their words" section
+// shows up once there's at least one. For example:
+// { quote: "...", who: "Shelter staff member, Los Angeles" },
+// { quote: "...", who: "Volunteer, Rosemead HS chapter" },
+const quotes: { quote: React.ReactNode; who: React.ReactNode }[] = [];
 
 export default function ImpactPage() {
   return (
@@ -93,19 +83,21 @@ export default function ImpactPage() {
         </div>
       </section>
 
-      <section className="bg-tint">
-        <div className={`${wrap} ${section} flex flex-col gap-9`}>
-          <h2 className={headingSmall}>In their words</h2>
-          <div className="grid gap-6 md:grid-cols-2">
-            {quotes.map((item, i) => (
-              <figure key={i} className="flex flex-col gap-3.5 rounded-3xl border border-rule bg-card p-8">
-                <blockquote className="font-serif text-[26px] leading-snug">“{item.quote}”</blockquote>
-                <figcaption className="text-[15px] font-semibold text-ink">{item.who}</figcaption>
-              </figure>
-            ))}
+      {quotes.length > 0 && (
+        <section className="bg-tint">
+          <div className={`${wrap} ${section} flex flex-col gap-9`}>
+            <h2 className={headingSmall}>In their words</h2>
+            <div className="grid gap-6 md:grid-cols-2">
+              {quotes.map((item, i) => (
+                <figure key={i} className="flex flex-col gap-3.5 rounded-3xl border border-rule bg-card p-8">
+                  <blockquote className="font-serif text-[26px] leading-snug">“{item.quote}”</blockquote>
+                  <figcaption className="text-[15px] font-semibold text-ink">{item.who}</figcaption>
+                </figure>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <Closing title="Help us reach the next 150">
         <Link href="/donate" className={buttonHoney}>

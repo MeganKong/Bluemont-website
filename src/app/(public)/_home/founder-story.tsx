@@ -1,10 +1,12 @@
-// Owner: Nika. A short note from Megan, next to an arched photo. Megan
-// writes the quote; the highlighted bits are waiting for her words.
+// Owner: Nika. A short note from Megan, next to an arched photo.
+// To add: a quote in Megan's own words (the moment that started Bluemont, and
+// why a plushie matters to a child in a shelter). Put it in founderQuote.
 import Image from "next/image";
 import Link from "next/link";
-import { Tbd } from "@/components/tbd";
 import hands from "../_images/hands-crocheting.jpg";
 import { eyebrow, moreLink, wrap } from "../_styles";
+
+const founderQuote = "";
 
 export function FounderStory() {
   return (
@@ -17,15 +19,15 @@ export function FounderStory() {
         className="h-80 min-w-0 flex-[1_1_320px] rounded-t-[200px] rounded-b-3xl object-cover sm:h-[430px]"
       />
       <figure className="flex min-w-0 flex-[1_1_440px] flex-col gap-5 rounded-lg border border-rule bg-card p-7 shadow-[0_24px_50px_-36px_var(--color-navy)] sm:p-12">
-        <p className={eyebrow}>A note from our founder</p>
-        <blockquote className="font-serif text-[27px] leading-snug">
-          “
-          <Tbd>
-            Megan&apos;s own words: the moment that started Bluemont, and why a plushie matters to a
-            child in a shelter.
-          </Tbd>
-          ”
-        </blockquote>
+        <p className={eyebrow}>{founderQuote ? "A note from our founder" : "Our founder"}</p>
+        {founderQuote ? (
+          <blockquote className="font-serif text-[27px] leading-snug">“{founderQuote}”</blockquote>
+        ) : (
+          <p className="font-serif text-[27px] leading-snug">
+            Every plushie starts with a teen learning a new stitch, and ends with a child in a
+            shelter getting a friend of their own.
+          </p>
+        )}
         <p className="text-ink">
           Bluemont began in 2024 with one student and a crochet hook. Today it&apos;s
           three school chapters, all run by students.

@@ -10,7 +10,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Tbd } from "@/components/tbd";
 import { Closing } from "../_closing";
 import hands from "../_images/hands-crocheting.jpg";
 import tiger from "../_images/crochet-tiger.jpg";
@@ -72,8 +71,9 @@ export default function AboutPage() {
           <p className={eyebrow}>Our story</p>
           <h2 className={`${headingSmall} text-navy`}>It started with one hook</h2>
           <p>
-            Bluemont started in 2024 when <Tbd>[Megan, then a sophomore at ___]</Tbd>{" "}
-            <Tbd>[the moment that started it: a visit, a story, a plushie you made]</Tbd>.
+            {/* To add: Megan's own story (her school, and the moment that started it). */}
+            Bluemont started in 2024, when our founder Megan began crocheting plushies for
+            children in shelters.
           </p>
           <p>
             What began with one person and a crochet hook is now three school chapters, at Rosemead
@@ -146,9 +146,7 @@ export default function AboutPage() {
               </li>
             ))}
           </ul>
-          <p className="text-sm text-ink">
-            Chapter leads at Rosemead HS, Blair HS and Arcadia HS: <Tbd>[first names, if you want them listed]</Tbd>
-          </p>
+          {/* To add: chapter leads' first names, if they want to be listed. */}
         </div>
       </section>
 
@@ -166,11 +164,9 @@ export default function AboutPage() {
         <div className={panel}>
           <p className={eyebrow}>The details</p>
           <p>
-            Bluemont Children Foundation · 501(c)(3) nonprofit · EIN 99-3471914
+            Bluemont Children Foundation · 501(c)(3) nonprofit · EIN <span className="whitespace-nowrap">99-3471914</span>
           </p>
-          <p className="text-sm text-ink">
-            Annual report and financials: <Tbd>[link when ready]</Tbd>
-          </p>
+          {/* To add: a link to the annual report and financials, when ready. */}
         </div>
       </section>
 
