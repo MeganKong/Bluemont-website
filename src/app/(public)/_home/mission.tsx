@@ -8,7 +8,6 @@ const quickFacts = [
   "Chapters at Rosemead HS, Blair HS and Arcadia HS",
   "Free lessons, free kits",
   "No experience needed",
-  "Kids' privacy always protected",
 ];
 
 export function Mission() {

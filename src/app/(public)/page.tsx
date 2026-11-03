@@ -11,7 +11,6 @@ import { FounderStory } from "./_home/founder-story";
 import { Hero } from "./_home/hero";
 import { Impact } from "./_home/impact";
 import { Mission } from "./_home/mission";
-import { Parents } from "./_home/parents";
 import { WaysToHelp } from "./_home/ways-to-help";
 
 export default function HomePage() {
@@ -22,7 +21,6 @@ export default function HomePage() {
       <Impact />
       <FounderStory />
       <WaysToHelp />
-      <Parents />
     </>
   );
 }

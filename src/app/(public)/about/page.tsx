@@ -44,13 +44,13 @@ const values = [
   { title: "Run by students", text: "High school students lead every chapter." },
 ];
 
-// First names only, OK'd by each officer. Adhya's and Iris's roles are to come.
+// First names only, OK'd by each officer.
 const team: { name: string; role: React.ReactNode; initial: string }[] = [
   { name: "Megan", role: "Founder and CEO", initial: "M" },
   { name: "Nika", role: "Chief Donations Officer", initial: "N" },
   { name: "Sophia", role: "Chief Community Officer", initial: "S" },
-  { name: "Adhya", role: <Tbd>[role]</Tbd>, initial: "A" },
-  { name: "Iris", role: <Tbd>[role]</Tbd>, initial: "I" },
+  { name: "Adhya", role: "Chief Financial Officer", initial: "A" },
+  { name: "Iris", role: "Chief Communications Officer", initial: "I" },
 ];
 
 export default function AboutPage() {
