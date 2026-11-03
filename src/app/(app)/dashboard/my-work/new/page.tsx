@@ -10,31 +10,30 @@
 // like the location it was taken), then saved in the volunteer's own private
 // folder. Only they and officers can see it.
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Suspense } from "react";
 import { getMyWork } from "@/lib/work/data";
 import { lessonChoices } from "@/lib/work/format";
+import { PortalPage } from "@/components/portal-page";
+import { card } from "@/components/portal-styles";
 import { SampleNote } from "@/components/sample-note";
 import { Message } from "@/components/work/message";
-import { card, link, pageTitle } from "../../../lessons/_styles";
 import { ShareForm } from "./share-form";
 
 export const metadata: Metadata = { title: "Share my work" };
 
 export default function ShareWorkPage() {
   return (
-    <div className="flex max-w-2xl flex-col gap-6">
-      <Link href="/dashboard/my-work" className={`${link} self-start text-sm`}>
-        ← My work
-      </Link>
-      <div className="flex flex-col gap-1">
-        <h1 className={pageTitle}>Share my work</h1>
-        <p className="text-lg text-ink">Show officers what you made, and get tips to keep improving.</p>
-      </div>
-      <Suspense fallback={<p className="text-lg text-ink">Loading…</p>}>
+    <PortalPage
+      eyebrow="My work"
+      title="Share my work"
+      lead="Show officers what you made, and get tips to keep improving."
+      back={{ href: "/dashboard/my-work", label: "My work" }}
+      width="narrow"
+    >
+      <Suspense fallback={<p className="text-ink">Loading…</p>}>
         <ShareOrWait />
       </Suspense>
-    </div>
+    </PortalPage>
   );
 }
 

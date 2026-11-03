@@ -14,11 +14,11 @@ import type { Submission } from "@/lib/types";
 import { getAllWork } from "@/lib/work/data";
 import { formatDate, lessonTitle } from "@/lib/work/format";
 import { OfficersOnly } from "@/components/officers-only";
+import { PortalPage } from "@/components/portal-page";
+import { card, cardLink, focusRing, sectionTitle } from "@/components/portal-styles";
 import { SampleNote } from "@/components/sample-note";
 import { FeedbackCountBadge, StatusBadge } from "@/components/work/badges";
 import { WorkPhoto } from "@/components/work/work-photo";
-import { card, link, pageTitle } from "../../lessons/_styles";
-import { YarnBall } from "../../lessons/_yarn-ball";
 
 export const metadata: Metadata = { title: "Work to review" };
 
@@ -33,16 +33,14 @@ const filters = [
 export default function WorkPage({ searchParams }: { searchParams: SearchParams }) {
   return (
     <OfficersOnly>
-      <div className="flex flex-col gap-6">
-        <Link href="/officer" className={`${link} self-start text-sm`}>
-          ← Officer dashboard
-        </Link>
-        <div className="flex flex-col gap-1">
-          <h1 className={pageTitle}>Work to review</h1>
-          <p className="text-lg text-ink">Photos volunteers shared, newest first.</p>
-        </div>
+      <PortalPage
+        eyebrow="Work to review"
+        title="Shared work"
+        lead="Photos volunteers shared, newest first."
+        back={{ href: "/officer", label: "Officer dashboard" }}
+      >
         <WorkList searchParams={searchParams} />
-      </div>
+      </PortalPage>
     </OfficersOnly>
   );
 }
@@ -65,12 +63,14 @@ async function WorkList({ searchParams }: { searchParams: SearchParams }) {
               key={f.value}
               href={f.value === "all" ? "/officer/work" : `/officer/work?show=${f.value}`}
               aria-current={isCurrent ? "page" : undefined}
-              className={`inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-navy px-4 font-bold focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-gold ${
-                isCurrent ? "bg-gold shadow-[0_3px_0_var(--color-navy)]" : "bg-card hover:bg-sand"
+              className={`inline-flex min-h-10 items-center gap-2 rounded-full border-[1.5px] px-4 text-[15px] font-bold transition ${focusRing} ${
+                isCurrent ? "border-navy bg-navy text-card" : "border-line bg-card text-navy hover:border-navy"
               }`}
             >
               {f.label}
-              <span className="rounded-full bg-navy px-2 text-sm text-cream">
+              <span
+                className={`rounded-full px-2 text-[13px] ${isCurrent ? "bg-card/15 text-card" : "bg-tint text-blue"}`}
+              >
                 {submissions.filter(f.keep).length}
               </span>
             </Link>
@@ -79,12 +79,9 @@ async function WorkList({ searchParams }: { searchParams: SearchParams }) {
       </nav>
 
       {shown.length === 0 ? (
-        <div className={`${card} flex flex-col items-center gap-3 text-center`}>
-          <YarnBall className="h-14 w-16" />
-          <p className="font-display text-2xl font-extrabold">
-            {filter.value === "all" ? "No work shared yet" : "All caught up!"}
-          </p>
-          <p className="text-lg text-ink">
+        <div className={`${card} flex flex-col items-center gap-2 text-center`}>
+          <p className={sectionTitle}>{filter.value === "all" ? "No work shared yet" : "All caught up"}</p>
+          <p className="text-ink">
             {filter.value === "all"
               ? "When volunteers share photos of their crochet, they'll show up here."
               : "Nothing here right now."}
@@ -108,21 +105,18 @@ function WorkCard({ submission }: { submission: Submission }) {
   const lesson = lessonTitle(submission.lessonId);
 
   return (
-    <Link
-      href={`/officer/work/${submission.id}`}
-      className={`${card} flex h-full flex-col gap-3 transition hover:-rotate-1 focus-visible:outline-4 focus-visible:outline-gold`}
-    >
+    <Link href={`/officer/work/${submission.id}`} className={`${cardLink} flex h-full flex-col gap-3 p-4!`}>
       <WorkPhoto
         src={submission.photoUrl}
         alt={`Crochet work shared by ${submission.volunteerName}`}
-        className="aspect-square w-full rounded-2xl border-2 border-navy object-cover"
+        className="aspect-square w-full rounded-xl object-cover"
       />
       <div className="flex flex-wrap gap-2">
         <FeedbackCountBadge count={submission.feedback.length} />
         <StatusBadge status={submission.status} />
       </div>
-      <p className="text-xl font-extrabold">{submission.volunteerName}</p>
-      <p className="text-ink">
+      <p className="text-lg font-bold">{submission.volunteerName}</p>
+      <p className="text-sm text-muted">
         <time dateTime={submission.createdAt}>{formatDate(submission.createdAt)}</time>
         {lesson && ` · ${lesson}`}
       </p>

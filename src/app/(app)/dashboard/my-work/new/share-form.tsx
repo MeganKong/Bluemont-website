@@ -9,9 +9,8 @@ import { createClient } from "@/lib/supabase/client";
 import { shareWork } from "@/lib/work/actions";
 import { PHOTO_BUCKET } from "@/lib/work/bucket";
 import { Message } from "@/components/work/message";
-import { field } from "@/components/work/styles";
 import { Spinner } from "@/app/(auth)/spinner";
-import { buttonMain } from "../../../lessons/_styles";
+import { buttonMain, field, hint, label } from "@/components/portal-styles";
 
 // Photos are shrunk so the longest side is at most this many pixels.
 const MAX_SIDE = 1600;
@@ -99,7 +98,7 @@ export function ShareForm({ lessons }: ShareFormProps) {
   return (
     <form onSubmit={share} className="flex flex-col gap-6">
       {/* The whole box is the "pick a photo" button: it opens the camera or photo library. */}
-      <label className="flex cursor-pointer flex-col items-center gap-3 rounded-3xl border-3 border-dashed border-navy bg-sand p-4 text-center has-focus-visible:outline-4 has-focus-visible:outline-offset-2 has-focus-visible:outline-gold">
+      <label className="flex cursor-pointer flex-col items-center gap-2 rounded-xl border-[1.5px] border-dashed border-line bg-cream p-6 text-center transition hover:border-blue has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-blue">
         <input type="file" accept="image/*" onChange={choosePhoto} className="sr-only" />
         {preview ? (
           <>
@@ -107,16 +106,24 @@ export function ShareForm({ lessons }: ShareFormProps) {
             <img
               src={preview}
               alt="The photo you picked"
-              className="max-h-80 w-auto rounded-2xl border-2 border-navy object-contain"
+              className="max-h-80 w-auto rounded-xl object-contain"
             />
-            <span className="font-bold text-blue underline decoration-wavy underline-offset-4">Change photo</span>
+            <span className="font-bold text-blue">Change photo</span>
           </>
         ) : (
           <>
-            <span aria-hidden="true" className="text-5xl">
-              📷
-            </span>
-            <span className="text-xl font-extrabold">Add a photo</span>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              className="size-9 text-blue"
+            >
+              <path d="M4 8h3l2-3h6l2 3h3v11H4z" strokeLinejoin="round" />
+              <circle cx="12" cy="13" r="3.5" />
+            </svg>
+            <span className="text-lg font-bold">Add a photo</span>
             <span className="text-ink">Take one now or pick one from your phone.</span>
           </>
         )}
@@ -126,9 +133,11 @@ export function ShareForm({ lessons }: ShareFormProps) {
         Only your crochet in the photo, please: no faces, names or school logos.
       </Message>
 
-      <label className="flex flex-col gap-1.5 font-bold">
-        Which lesson is this from? <span className="font-normal text-muted">(optional)</span>
-        <select name="lessonId" defaultValue="" className={`${field} min-h-[54px] font-normal`}>
+      <label className={label}>
+        <span>
+          Which lesson is this from? <span className={hint}>(optional)</span>
+        </span>
+        <select name="lessonId" defaultValue="" className={`${field} min-h-12`}>
           <option value="">Not from a lesson</option>
           {lessons.map((lesson) => (
             <option key={lesson.id} value={lesson.id}>
@@ -138,23 +147,24 @@ export function ShareForm({ lessons }: ShareFormProps) {
         </select>
       </label>
 
-      <label className="flex flex-col gap-1.5 font-bold">
-        A note for officers <span className="font-normal text-muted">(optional)</span>
+      <label className={label}>
+        <span>
+          A note for officers <span className={hint}>(optional)</span>
+        </span>
         <textarea
           name="note"
           rows={3}
           maxLength={500}
           placeholder="What did you make? Anything you want help with?"
           onChange={(event) => setNoteLength(event.target.value.length)}
-          className={`${field} font-normal`}
+          className={field}
         />
-        <span className="self-end text-sm font-normal text-muted">{noteLength}/500</span>
+        <span className={`${hint} self-end`}>{noteLength}/500</span>
       </label>
 
       {error && <Message kind="error">{error}</Message>}
 
-      {/* text-cream! because buttonMain's text color currently comes out navy. */}
-      <button type="submit" disabled={busy} className={`${buttonMain} gap-3 text-cream! disabled:opacity-80 sm:self-start`}>
+      <button type="submit" disabled={busy} className={`${buttonMain} gap-3 sm:self-start`}>
         {busy ? (
           <>
             <Spinner /> Sharing…

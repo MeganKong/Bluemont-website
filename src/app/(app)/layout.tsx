@@ -1,4 +1,6 @@
-// Owner: Megan (shared). Wraps every signed-in page.
+// Owner: Megan (shared). Wraps every signed-in page with the dark header.
+// Each page sets its own width and dark top with <PortalPage>
+// (src/components/portal-page.tsx).
 // To add your page to the menu, ask Megan (links are in
 // src/components/menu-links.ts).
 import { Suspense } from "react";
@@ -12,10 +14,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <>
       {/* Checking the role happens per visit. Until then the menu is empty,
           so nobody sees links that aren't theirs. */}
-      <Suspense fallback={<SiteHeader links={[]} signOut={signOut} />}>
+      <Suspense fallback={<SiteHeader tone="night" links={[]} signOut={signOut} />}>
         <Header />
       </Suspense>
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10">{children}</main>
+      <main className="flex w-full flex-1 flex-col">{children}</main>
     </>
   );
 }
@@ -24,5 +26,5 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 // tidiness; officer pages check the role themselves (<OfficersOnly>).
 async function Header() {
   const links = (await getMyRole()) === "officer" ? officerLinks : volunteerLinks;
-  return <SiteHeader links={links} signOut={signOut} />;
+  return <SiteHeader tone="night" links={links} signOut={signOut} />;
 }

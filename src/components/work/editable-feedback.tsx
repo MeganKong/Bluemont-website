@@ -7,7 +7,7 @@ import type { Feedback } from "@/lib/types";
 import { deleteFeedback, type WorkState } from "@/lib/work/actions";
 import { FeedbackForm } from "./feedback-form";
 import { Message } from "./message";
-import { smallButton } from "./styles";
+import { smallButton } from "@/components/portal-styles";
 
 type EditableFeedbackProps = {
   feedback: Feedback;
@@ -21,7 +21,7 @@ export function EditableFeedback({ feedback, children }: EditableFeedbackProps) 
 
   if (editing) {
     return (
-      <div className="rounded-2xl border-3 border-dashed border-navy bg-card p-4">
+      <div className="rounded-xl border-[1.5px] border-line bg-card p-4">
         <FeedbackForm feedback={feedback} onClose={() => setEditing(false)} />
       </div>
     );
@@ -32,7 +32,7 @@ export function EditableFeedback({ feedback, children }: EditableFeedbackProps) 
       {children}
       <div className="flex flex-wrap gap-2">
         <button type="button" onClick={() => setEditing(true)} className={smallButton}>
-          <span aria-hidden="true">✏️</span> Edit
+          Edit
         </button>
         <form
           action={deleteAction}
@@ -42,7 +42,7 @@ export function EditableFeedback({ feedback, children }: EditableFeedbackProps) 
         >
           <input type="hidden" name="feedbackId" value={feedback.id} />
           <button type="submit" disabled={deleting} className={smallButton}>
-            <span aria-hidden="true">🗑️</span> {deleting ? "Deleting…" : "Delete"}
+            {deleting ? "Deleting…" : "Delete"}
           </button>
         </form>
       </div>

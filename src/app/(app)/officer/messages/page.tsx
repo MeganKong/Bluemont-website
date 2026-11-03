@@ -10,37 +10,30 @@
 // privacy rules only let officers read these anyway
 // (supabase/migrations/*_contact_messages_and_plushie_requests.sql).
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { OfficersOnly } from "@/components/officers-only";
-import { card, link, pageTitle } from "../../lessons/_styles";
+import { PortalPage } from "@/components/portal-page";
+import { card, eyebrow, link, rows } from "@/components/portal-styles";
 import { DeleteButton } from "./delete-button";
 
 export const metadata: Metadata = { title: "Messages" };
 
-const sectionTitle = "font-display text-2xl font-extrabold";
-
 export default function MessagesPage() {
   return (
     <OfficersOnly>
-      <div className="flex flex-col gap-8">
-        <Link href="/officer" className={`${link} self-start text-sm`}>
-          ← Officer dashboard
-        </Link>
-        <div className="flex flex-col gap-1">
-          <h1 className={pageTitle}>Messages</h1>
-          <p className="text-lg text-ink">
-            From the website&apos;s forms. Reply by email within 1–3 days, then delete them when you&apos;re
-            done.
-          </p>
-        </div>
+      <PortalPage
+        eyebrow="Messages"
+        title="From the website"
+        lead="Reply by email within 1–3 days, then delete them when you're done."
+        back={{ href: "/officer", label: "Officer dashboard" }}
+      >
         {/* Reading the database happens per visit, so it loads in a boundary. */}
         <Suspense fallback={<div className={`${card} min-h-40`} />}>
           <Requests />
           <ContactMessages />
         </Suspense>
-      </div>
+      </PortalPage>
     </OfficersOnly>
   );
 }
@@ -54,20 +47,20 @@ async function Requests() {
 
   return (
     <section aria-labelledby="requests" className={`${card} flex flex-col gap-4`}>
-      <h2 id="requests" className={sectionTitle}>
+      <h2 id="requests" className={eyebrow}>
         Plushie requests
       </h2>
       {error ? (
-        <p className="text-lg text-ink">These couldn&apos;t be loaded. Please refresh the page.</p>
+        <p className="text-ink">These couldn&apos;t be loaded. Please refresh the page.</p>
       ) : data.length === 0 ? (
-        <p className="text-lg text-ink">No requests yet.</p>
+        <p className="text-ink">No requests yet.</p>
       ) : (
-        <ul className="flex flex-col divide-y-2 divide-dashed divide-line">
+        <ul className={rows}>
           {data.map((r) => (
             <li key={r.id} className="flex flex-col gap-2 py-4 first:pt-0 last:pb-0">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="flex flex-col">
-                  <p className="text-lg font-bold">{r.organization}</p>
+                  <p className="font-bold">{r.organization}</p>
                   <p className="text-sm text-muted">{formatWhen(r.created_at)}</p>
                 </div>
                 <DeleteButton kind="request" id={r.id} what={`the request from ${r.organization}`} />
@@ -99,20 +92,20 @@ async function ContactMessages() {
 
   return (
     <section aria-labelledby="contact" className={`${card} flex flex-col gap-4`}>
-      <h2 id="contact" className={sectionTitle}>
+      <h2 id="contact" className={eyebrow}>
         Contact messages
       </h2>
       {error ? (
-        <p className="text-lg text-ink">These couldn&apos;t be loaded. Please refresh the page.</p>
+        <p className="text-ink">These couldn&apos;t be loaded. Please refresh the page.</p>
       ) : data.length === 0 ? (
-        <p className="text-lg text-ink">No messages yet.</p>
+        <p className="text-ink">No messages yet.</p>
       ) : (
-        <ul className="flex flex-col divide-y-2 divide-dashed divide-line">
+        <ul className={rows}>
           {data.map((m) => (
             <li key={m.id} className="flex flex-col gap-2 py-4 first:pt-0 last:pb-0">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="flex flex-col">
-                  <p className="text-lg font-bold">{m.topic}</p>
+                  <p className="font-bold">{m.topic}</p>
                   <p className="text-sm text-muted">{formatWhen(m.created_at)}</p>
                 </div>
                 <DeleteButton kind="message" id={m.id} what={`the message from ${m.name}`} />
