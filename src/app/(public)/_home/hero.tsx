@@ -3,7 +3,9 @@
 // straight on from the header.
 import Image from "next/image";
 import Link from "next/link";
-import crochetBunny from "../_images/crochet-bunny.jpg";
+// Photo: Valentina Ivanova on Unsplash (free to use, Unsplash License),
+// unsplash.com/photos/tR-WQwtDLZk
+import velvetYarn from "../_images/velvet-yarn.jpg";
 import { Stars } from "../_page-top";
 import { buttonHoney, buttonOutlineOnNight, eyebrowOnNight, wrap } from "../_styles";
 
@@ -34,8 +36,8 @@ export function Hero() {
 
         <div className="relative flex min-w-0 flex-[1_1_360px] justify-center">
           <Image
-            src={crochetBunny}
-            alt="A crocheted white bunny in a red dress beside a small child's hand"
+            src={velvetYarn}
+            alt="Soft, fluffy balls of velvet yarn in rose, lilac, caramel and cream"
             placeholder="blur"
             priority
             sizes="(min-width: 768px) 390px, 90vw"

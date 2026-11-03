@@ -23,9 +23,9 @@ export const metadata: Metadata = {
 const donateUrl = "";
 
 const amounts: { amount: React.ReactNode; text: string; popular?: boolean }[] = [
-  { amount: <Tbd>$__</Tbd>, text: "Sponsors one kit: yarn, hook and stuffing for one plushie." },
-  { amount: <Tbd>$__</Tbd>, text: "Sponsors five kits for a new volunteer group.", popular: true },
-  { amount: <Tbd>$__</Tbd>, text: "Stocks a chapter for a month." },
+  { amount: "$5", text: "Sponsors one kit: yarn, hook and stuffing for one plushie." },
+  { amount: "$25", text: "Sponsors five kits for a new volunteer group.", popular: true },
+  { amount: "$50", text: "Stocks a chapter for a month." },
   { amount: "Other", text: "Any amount helps. You choose." },
 ];
 
@@ -33,7 +33,7 @@ const kit: { item: string; note: React.ReactNode }[] = [
   { item: "Soft yarn", note: "Washable, kid-safe colors" },
   { item: "A crochet hook", note: "Sized for beginners" },
   { item: "New stuffing", note: "Never reused" },
-  { item: "Safe eyes", note: <Tbd>Embroidered, no plastic parts?</Tbd> },
+  { item: "Safety eyes", note: "Lock firmly in place" },
   { item: "A gift tag", note: "A note from the maker" },
 ];
 
@@ -119,7 +119,7 @@ export default function DonatePage() {
           <div className={panel}>
             <p className={eyebrow}>Other ways to give</p>
             <p>
-              Donate yarn <Tbd>[yes / not right now]</Tbd>, ask your employer to match your gift, or
+              Donate new, unopened yarn, ask your employer to match your gift, or
               host a yarn drive at your school.
             </p>
             <Link href="/faq#contact" className={moreLink}>

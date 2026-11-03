@@ -5,7 +5,9 @@ import { Tbd } from "./tbd";
 
 // To add: Bluemont's real accounts. Give each one an href when it exists,
 // e.g. { label: "Instagram", href: "https://www.instagram.com/..." }.
-const socialLinks: { label: string; href?: string }[] = [{ label: "Instagram" }];
+const socialLinks: { label: string; href?: string }[] = [
+  { label: "Instagram", href: "https://www.instagram.com/bluemont.children.foundation/" },
+];
 
 const columns: { title: string; links: { href: string; label: string }[] }[] = [
   {
@@ -55,7 +57,7 @@ export function SiteFooter() {
           <div className="flex flex-col gap-2">
             <h2 className="font-bold text-card">Contact</h2>
             <span>
-              <Tbd>hello@[our domain]</Tbd>
+              support@bluemont-inc.com
             </span>
             <Link href="/faq#contact" className={footerLink}>
               Contact form

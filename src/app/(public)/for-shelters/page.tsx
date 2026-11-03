@@ -9,20 +9,15 @@
 // private: it's never shown on the site.
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Tbd } from "@/components/tbd";
 import child from "../_images/child-with-bunny.jpg";
-import { NotConnected } from "../_not-connected";
+import { RequestForm } from "../_forms/request-form";
 import { PageTop } from "../_page-top";
 import {
   buttonHoney,
-  buttonNight,
   eyebrow,
   fact,
   factTitle,
-  field,
   headingSmall,
-  input,
-  label,
   panel,
   section,
   wrap,
@@ -40,7 +35,7 @@ const howItWorks: { title: string; text: React.ReactNode }[] = [
     title: "2 · We match",
     text: (
       <>
-        We set aside plushies and agree on a drop-off time. <Tbd>[About _ weeks]</Tbd>
+        We set aside plushies and agree on a drop-off time. It usually takes 3–4 weeks.
       </>
     ),
   },
@@ -48,7 +43,7 @@ const howItWorks: { title: string; text: React.ReactNode }[] = [
     title: "3 · We deliver",
     text: (
       <>
-        An officer <Tbd>[and adult advisor]</Tbd> drops them off, or we mail them.
+        An officer drops them off, or we mail them.
       </>
     ),
   },
@@ -94,78 +89,18 @@ export default function ForSheltersPage() {
             <p className={eyebrow}>Request form</p>
             <h2 className={headingSmall}>Ask for a donation</h2>
             <p className="text-lg text-ink">
-              We serve <Tbd>[Los Angeles County / Southern California / anywhere we can mail]</Tbd>.
+              We serve Los Angeles County.
             </p>
             <div className={panel}>
               <p className={eyebrow}>Our safety standards</p>
               <p className="text-[15px] text-ink">
-                New materials only · Tight stitches, no loose parts · <Tbd>Embroidered eyes</Tbd> ·
+                New materials only · Tight stitches, no loose parts · Safety eyes ·
                 Every plushie checked by an officer · Sealed in a clean bag
               </p>
             </div>
           </div>
 
-          <form className="flex min-w-0 flex-[1_1_420px] flex-col gap-4 rounded-3xl border border-rule bg-card p-6 sm:p-10">
-            <fieldset disabled className="flex flex-col gap-4">
-              <legend className="sr-only">Plushie request</legend>
-              <div className={field}>
-                <label htmlFor="s-org" className={label}>
-                  Organization
-                </label>
-                <input id="s-org" name="organization" className={input} />
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className={field}>
-                  <label htmlFor="s-name" className={label}>
-                    Your name
-                  </label>
-                  <input id="s-name" name="name" autoComplete="name" className={input} />
-                </div>
-                <div className={field}>
-                  <label htmlFor="s-email" className={label}>
-                    Work email
-                  </label>
-                  <input id="s-email" name="email" type="email" autoComplete="email" className={input} />
-                </div>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className={field}>
-                  <label htmlFor="s-count" className={label}>
-                    About how many children?
-                  </label>
-                  <input id="s-count" name="children" inputMode="numeric" className={input} />
-                </div>
-                <div className={field}>
-                  <label htmlFor="s-ages" className={label}>
-                    Ages
-                  </label>
-                  <select id="s-ages" name="ages" className={input}>
-                    <option>Under 3</option>
-                    <option>3–7</option>
-                    <option>8–12</option>
-                    <option>Mixed ages</option>
-                  </select>
-                </div>
-              </div>
-              <div className={field}>
-                <label htmlFor="s-city" className={label}>
-                  City
-                </label>
-                <input id="s-city" name="city" className={input} />
-                <small className="text-sm text-ink">Only our officers see this. It&apos;s never shown on the site.</small>
-              </div>
-              <div className={field}>
-                <label htmlFor="s-notes" className={label}>
-                  Anything we should know?
-                </label>
-                <textarea id="s-notes" name="notes" rows={4} className={input} />
-              </div>
-              <button type="submit" className={`${buttonNight} self-start disabled:cursor-not-allowed disabled:opacity-60`}>
-                Send request
-              </button>
-            </fieldset>
-            <NotConnected />
-          </form>
+          <RequestForm />
         </div>
       </section>
     </>

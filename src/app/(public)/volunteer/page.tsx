@@ -10,7 +10,6 @@
 // here. Volunteers are mostly under 18: ask only for what we need.
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Tbd } from "@/components/tbd";
 import { Closing } from "../_closing";
 import yarn from "../_images/pink-yarn-and-hook.jpg";
 import { PageTop } from "../_page-top";
@@ -42,17 +41,17 @@ const perks: { title: string; text: React.ReactNode }[] = [
     title: "A free kit",
     text: (
       <>
-        Yarn, a hook, stuffing and a tag. <Tbd>[Do you keep the hook?]</Tbd>
+        Yarn, a hook, stuffing and a tag. You keep the hook.
       </>
     ),
   },
   {
     title: "A chapter",
-    text: "Meet other volunteers at Rosemead HS or Blair HS, or start one at your school.",
+    text: "Meet other volunteers at Rosemead HS, Blair HS or Arcadia HS, or start one at your school.",
   },
   {
     title: "Service hours",
-    text: <Tbd>[An officer can sign your school&apos;s service-hours form. / Not yet.]</Tbd>,
+    text: "An officer can sign your school's service-hours form.",
   },
 ];
 
@@ -108,14 +107,13 @@ export default function VolunteerPage() {
           <div className={fact}>
             <h3 className={factTitle}>Who can join</h3>
             <p className="text-ink">
-              Teens <Tbd>13 and up</Tbd>. If you&apos;re under 18, a parent or guardian needs to say OK.
+              Teens 13 and up. If you&apos;re under 18, a parent or guardian needs to say OK.
             </p>
           </div>
           <div className={fact}>
             <h3 className={factTitle}>Time</h3>
             <p className="text-ink">
-              Most volunteers spend about <Tbd>[_ hours]</Tbd> a week. A first plushie takes about{" "}
-              <Tbd>[_ hours]</Tbd>.
+              Most volunteers spend about 4 hours a week. A first plushie takes about 1 hour.
             </p>
           </div>
           <div className={fact}>

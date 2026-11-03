@@ -1,6 +1,5 @@
 // Owner: Nika. Three cards: volunteer, sponsor a kit, request plushies.
 import Link from "next/link";
-import { Tbd } from "@/components/tbd";
 import { buttonHoney, buttonNight, buttonOutline, heading, section, wrap } from "../_styles";
 
 export function WaysToHelp() {
@@ -13,7 +12,7 @@ export function WaysToHelp() {
             title="Volunteer"
             text={
               <>
-                For teens <Tbd>13 and up</Tbd>. Learn to crochet for free and make plushies on your
+                For teens 13 and up. Learn to crochet for free and make plushies on your
                 own schedule.
               </>
             }
@@ -26,7 +25,7 @@ export function WaysToHelp() {
             title="Sponsor a kit"
             text={
               <>
-                <Tbd>$__</Tbd> buys one kit: yarn, a hook and stuffing for one plushie. Donations are
+                $5 buys one kit: yarn, a hook and stuffing for one plushie. Donations are
                 tax-deductible.
               </>
             }

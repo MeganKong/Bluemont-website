@@ -10,9 +10,9 @@
 // somewhere to send messages.
 import type { Metadata } from "next";
 import { Tbd } from "@/components/tbd";
-import { NotConnected } from "../_not-connected";
+import { ContactForm } from "../_forms/contact-form";
 import { PageTop } from "../_page-top";
-import { buttonNight, eyebrow, field, headingSmall, input, label, panel, section, wrap } from "../_styles";
+import { eyebrow, headingSmall, panel, section, wrap } from "../_styles";
 
 export const metadata: Metadata = {
   title: "FAQ & contact",
@@ -34,17 +34,17 @@ const groups: { id: string; title: string; questions: Question[] }[] = [
         q: "Does it cost anything?",
         a: (
           <>
-            No. Lessons and kits are free. <Tbd>[Do volunteers keep the hook, or return unused yarn?]</Tbd>
+            No. Lessons and kits are free, and you keep the hook.
           </>
         ),
       },
       {
         q: "Can I get volunteer hours?",
-        a: <Tbd>[Yes. An officer can sign your school&apos;s service-hours form. / Not yet.]</Tbd>,
+        a: "Yes. An officer can sign your school's service-hours form.",
       },
       {
         q: "My school doesn't have a chapter. Can I still help?",
-        a: <Tbd>[Yes: we mail kits / You can start a chapter / Join the waitlist]</Tbd>,
+        a: "Yes. Lessons are online, so you can join from any school, or start a chapter at yours. Email us to get started.",
       },
     ],
   },
@@ -54,7 +54,7 @@ const groups: { id: string; title: string; questions: Question[] }[] = [
     questions: [
       {
         q: "How old do volunteers have to be?",
-        a: <Tbd>[Volunteers must be 13 or older. Under 18 needs a parent&apos;s OK.]</Tbd>,
+        a: "Volunteers must be 13 or older. Under 18 needs a parent's OK.",
       },
       {
         q: "Is it safe?",
@@ -64,7 +64,7 @@ const groups: { id: string; title: string; questions: Question[] }[] = [
         q: "Who runs Bluemont?",
         a: (
           <>
-            High school students, led by founder Megan, with <Tbd>[adult advisor]</Tbd>.
+            High school students, led by founder Megan.
           </>
         ),
       },
@@ -78,7 +78,7 @@ const groups: { id: string; title: string; questions: Question[] }[] = [
         q: "Where do the plushies go?",
         a: (
           <>
-            To children staying in <Tbd>[shelters / hospitals / foster care]</Tbd>. To keep the kids
+            To children staying in shelters, in hospitals or in foster care. To keep the kids
             safe, we don&apos;t share where those places are.
           </>
         ),
@@ -86,15 +86,12 @@ const groups: { id: string; title: string; questions: Question[] }[] = [
       {
         q: "How do you make the plushies safe for small kids?",
         a: (
-          <Tbd>
-            [Embroidered eyes instead of plastic safety eyes, tight stitches, new stuffing, and an
-            officer checks every plushie before delivery.]
-          </Tbd>
+          "Safety eyes, tight stitches, new stuffing, and an officer checks every plushie before delivery."
         ),
       },
       {
         q: "Can I donate yarn or supplies?",
-        a: <Tbd>[Yes: the kinds we need and how to drop off / Not right now, but money for kits helps most.]</Tbd>,
+        a: "Yes! We accept new, unopened soft yarn and stuffing. Email us to arrange a drop-off.",
       },
       {
         q: "Is Bluemont a registered nonprofit?",
@@ -167,64 +164,19 @@ export default function FaqPage() {
             <div className={panel}>
               <b>Email</b>
               <span>
-                <Tbd>hello@[our domain]</Tbd>
+                support@bluemont-inc.com
               </span>
               <b>Instagram</b>
               <span>
-                @<Tbd>[handle]</Tbd>
-              </span>
-              <b>Mail</b>
-              <span>
-                <Tbd>[Mailing address or PO box, if you want one]</Tbd>
+                @bluemont.children.foundation
               </span>
             </div>
             <p className="text-sm text-ink">
-              We&apos;re students, so we answer within <Tbd>[2–3 school days]</Tbd>.
+              We&apos;re students, so we answer within 1–3 days.
             </p>
           </div>
 
-          <form className="flex min-w-0 flex-[1_1_420px] flex-col gap-4 rounded-3xl border border-rule bg-card p-6 sm:p-10">
-            <fieldset disabled className="flex flex-col gap-4">
-              <legend className="sr-only">Contact form</legend>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className={field}>
-                  <label htmlFor="c-name" className={label}>
-                    Name
-                  </label>
-                  <input id="c-name" name="name" autoComplete="name" className={input} />
-                </div>
-                <div className={field}>
-                  <label htmlFor="c-email" className={label}>
-                    Email
-                  </label>
-                  <input id="c-email" name="email" type="email" autoComplete="email" className={input} />
-                </div>
-              </div>
-              <div className={field}>
-                <label htmlFor="c-topic" className={label}>
-                  Topic
-                </label>
-                <select id="c-topic" name="topic" className={input}>
-                  <option>Volunteering</option>
-                  <option>Starting a chapter</option>
-                  <option>Donating</option>
-                  <option>Shelter request</option>
-                  <option>Press or partnerships</option>
-                  <option>Something else</option>
-                </select>
-              </div>
-              <div className={field}>
-                <label htmlFor="c-msg" className={label}>
-                  Message
-                </label>
-                <textarea id="c-msg" name="message" rows={5} className={input} />
-              </div>
-              <button type="submit" className={`${buttonNight} self-start disabled:cursor-not-allowed disabled:opacity-60`}>
-                Send
-              </button>
-            </fieldset>
-            <NotConnected />
-          </form>
+          <ContactForm />
         </div>
       </section>
     </>

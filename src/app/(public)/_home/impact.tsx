@@ -1,13 +1,12 @@
 // Owner: Nika. The big impact numbers on a bright blue band. The same
 // numbers are on the Impact page; change both together.
 import Link from "next/link";
-import { Tbd } from "@/components/tbd";
 import { eyebrowOnNight, heading, moreLinkOnNight, wrap } from "../_styles";
 
 export const impactNumbers: { value: React.ReactNode; label: string }[] = [
   { value: "150+", label: "children reached" },
-  { value: <Tbd>~80</Tbd>, label: "teen volunteers" },
-  { value: "2", label: "school chapters" },
+  { value: "82", label: "teen volunteers" },
+  { value: "3", label: "school chapters" },
 ];
 
 export function Impact() {
