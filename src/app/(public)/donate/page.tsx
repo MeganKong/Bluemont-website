@@ -112,7 +112,7 @@ export default function DonatePage() {
           <div className={panel}>
             <p className={eyebrow}>Tax-deductible</p>
             <p>
-              Bluemont Children Foundation is a 501(c)(3) nonprofit, EIN <Tbd>__-_______</Tbd>.
+              Bluemont Children Foundation is a 501(c)(3) nonprofit, EIN 99-3471914.
               Donations are tax-deductible as allowed by law.
             </p>
           </div>

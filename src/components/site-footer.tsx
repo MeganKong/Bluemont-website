@@ -39,7 +39,7 @@ export function SiteFooter() {
           <Logo className="text-4xl text-card" />
           <p>
             Bluemont Children Foundation is a student-led 501(c)(3) nonprofit. EIN{" "}
-            <Tbd>__-_______</Tbd>.
+            99-3471914.
           </p>
         </div>
 

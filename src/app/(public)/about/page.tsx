@@ -166,7 +166,7 @@ export default function AboutPage() {
         <div className={panel}>
           <p className={eyebrow}>The details</p>
           <p>
-            Bluemont Children Foundation · 501(c)(3) nonprofit · EIN <Tbd>__-_______</Tbd>
+            Bluemont Children Foundation · 501(c)(3) nonprofit · EIN 99-3471914
           </p>
           <p className="text-sm text-ink">
             Annual report and financials: <Tbd>[link when ready]</Tbd>
