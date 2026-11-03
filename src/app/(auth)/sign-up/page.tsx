@@ -8,21 +8,32 @@
 // consent is not built yet.
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AuthPage } from "../auth-page";
 import { SignUpForm } from "./sign-up-form";
+import { textLink } from "../_styles";
 
 export const metadata: Metadata = { title: "Sign up" };
 
 export default function SignUpPage() {
   return (
-    <main className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center gap-6 px-4 py-12">
-      <h1 className="font-display text-3xl font-semibold">Become a volunteer</h1>
+    <AuthPage
+      eyebrow="Volunteer"
+      title={
+        <>
+          Join <em>Bluemont.</em>
+        </>
+      }
+      lead="Free crochet lessons and kits for teens 13 and up. It takes about two minutes."
+      below={
+        <>
+          Already have an account?{" "}
+          <Link href="/sign-in" className={textLink}>
+            Sign in →
+          </Link>
+        </>
+      }
+    >
       <SignUpForm />
-      <p className="text-ink">
-        Already have an account?{" "}
-        <Link href="/sign-in" className="font-semibold text-terracotta">
-          Sign in
-        </Link>
-      </p>
-    </main>
+    </AuthPage>
   );
 }

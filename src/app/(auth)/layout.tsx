@@ -1,11 +1,12 @@
-// Owner: Megan. Wraps the sign-in and sign-up pages with the visitor menu.
+// Owner: Megan. Wraps the sign-in and sign-up pages with the same dark
+// header as the public pages, so they run straight into each page's dark top.
 import { SiteHeader } from "@/components/site-header";
-import { visitorLinks } from "@/components/menu-links";
+import { donateLink, signInLink, visitorLinks } from "@/components/menu-links";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <SiteHeader links={visitorLinks} />
+      <SiteHeader tone="night" links={visitorLinks} quietLink={signInLink} button={donateLink} />
       {children}
     </>
   );

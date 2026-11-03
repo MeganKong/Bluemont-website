@@ -34,7 +34,7 @@ export function PasswordInput({ id, name, autoComplete, minLength, hintId }: Pas
         type="button"
         onClick={() => setVisible(!visible)}
         aria-controls={id}
-        className="absolute inset-y-0 right-2 my-auto h-10 rounded-full px-4 font-bold text-blue hover:bg-sand focus-visible:outline-2 focus-visible:outline-blue"
+        className="absolute inset-y-0 right-2 my-auto h-10 rounded-full px-4 text-[15px] font-bold text-blue hover:bg-tint focus-visible:outline-2 focus-visible:outline-blue"
       >
         {visible ? "Hide" : "Show"}
         <span className="sr-only"> password</span>

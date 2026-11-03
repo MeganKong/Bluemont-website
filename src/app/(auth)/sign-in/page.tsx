@@ -9,32 +9,35 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
+import { AuthPage } from "../auth-page";
 import { SignInForm } from "./sign-in-form";
-import { card, pageHero, pageTitle, textLink } from "../_styles";
+import { textLink } from "../_styles";
 
 export const metadata: Metadata = { title: "Sign in" };
 
 export default function SignInPage() {
   return (
-    <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center gap-6 px-4 py-10 sm:py-14">
-      <div className={pageHero}>
-        <h1 className={pageTitle}>Welcome back!</h1>
-        <p className="text-lg font-semibold text-ink">
-          Volunteers and officers both sign in here.
-        </p>
-      </div>
-      <div className={card}>
-        {/* The form reads the web address (for "that link didn't work"), so it loads in a boundary. */}
-        <Suspense fallback={<div className="min-h-80" />}>
-          <SignInForm />
-        </Suspense>
-      </div>
-      <p className="text-center text-lg text-ink">
-        New here?{" "}
-        <Link href="/sign-up" className={textLink}>
-          Create an account
-        </Link>
-      </p>
-    </main>
+    <AuthPage
+      eyebrow="Members"
+      title={
+        <>
+          Welcome <em>back.</em>
+        </>
+      }
+      lead="Volunteers and officers both sign in here."
+      below={
+        <>
+          New to Bluemont?{" "}
+          <Link href="/sign-up" className={textLink}>
+            Create an account →
+          </Link>
+        </>
+      }
+    >
+      {/* The form reads the web address (for "that link didn't work"), so it loads in a boundary. */}
+      <Suspense fallback={<div className="min-h-72" />}>
+        <SignInForm />
+      </Suspense>
+    </AuthPage>
   );
 }
