@@ -1,4 +1,4 @@
-// Owner: Nika. What parents need to know, in three short facts.
+// Owner: Nika. What parents need to know, in four short facts.
 import Link from "next/link";
 import { eyebrow, fact, factTitle, headingSmall, moreLink, wrap } from "../_styles";
 
@@ -23,6 +23,10 @@ export function Parents() {
             We collect only what we need and never post a volunteer&apos;s photo without a
             parent&apos;s OK.
           </p>
+        </div>
+        <div className={fact}>
+          <h3 className={factTitle}>Free to join</h3>
+          <p className="text-ink">Lessons and kits are free, and volunteers keep their hook.</p>
         </div>
         <div className={fact}>
           <h3 className={factTitle}>Flexible time</h3>
