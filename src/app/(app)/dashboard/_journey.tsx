@@ -1,10 +1,11 @@
 // Owner: Megan (built by Nika). The journey tracker on the dashboard:
-// Learn → Kit → Make → Send. A finished step is a colored ball of yarn, the
-// step they're on gets a honey ring, and the rest are empty dashed circles.
+// Learn → Kit → Make → Send. A finished step is a filled blue circle with a
+// check, the step they're on has a honey ring, and the rest are empty circles.
 // Each step's name links to its page (Send has no page yet).
 // "panel" is the tall list in the desktop side panel, "bar" the short row
 // at the top of the page on phones.
 import Link from "next/link";
+import { eyebrow, focusRing } from "@/components/portal-styles";
 import type { JourneyStep } from "./_data";
 
 const pages: Record<JourneyStep["id"], string | null> = {
@@ -14,16 +15,6 @@ const pages: Record<JourneyStep["id"], string | null> = {
   send: null,
 };
 
-// Written out in full so Tailwind can find the class names.
-const yarnColors: Record<JourneyStep["id"], string> = {
-  learn: "fill-pink",
-  kit: "fill-mint",
-  make: "fill-lilac",
-  send: "fill-cornflower",
-};
-
-const focusRing = "rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue";
-
 export function Journey({ steps, variant }: { steps: JourneyStep[]; variant: "panel" | "bar" }) {
   // The step they're on: the first one that isn't done.
   const currentId = steps.find((step) => !step.done)?.id;
@@ -32,7 +23,7 @@ export function Journey({ steps, variant }: { steps: JourneyStep[]; variant: "pa
   const items = steps.map((step, i) => {
     const href = pages[step.id];
     const isCurrent = step.id === currentId;
-    // Screen readers can't see the yarn balls, so they hear this instead.
+    // Screen readers can't see the circles, so they hear this instead.
     const status = step.done ? " (done)" : isCurrent ? " (you're here)" : "";
     const name = (
       <>
@@ -47,17 +38,17 @@ export function Journey({ steps, variant }: { steps: JourneyStep[]; variant: "pa
         className={
           variant === "panel"
             ? "relative flex items-center gap-3 pb-5 last:pb-0"
-            : "relative z-10 flex flex-1 flex-col items-center gap-1"
+            : "relative z-10 flex flex-1 flex-col items-center gap-1.5"
         }
       >
-        {/* The strand joining this step to the next one (desktop list only). */}
+        {/* The line joining this step to the next one (desktop list only). */}
         {variant === "panel" && i < steps.length - 1 && (
-          <span aria-hidden="true" className="absolute top-10 bottom-0 left-[19px] w-0.5 bg-line" />
+          <span aria-hidden="true" className="absolute top-8 bottom-0 left-[13px] w-0.5 bg-rule" />
         )}
-        <StepBall step={step} isCurrent={isCurrent} />
-        <span className={isCurrent ? "font-extrabold" : "font-semibold text-ink"}>
+        <StepDot done={step.done} isCurrent={isCurrent} />
+        <span className={isCurrent ? "font-bold" : "font-semibold text-ink"}>
           {href ? (
-            <Link href={href} className={`hover:text-blue hover:underline ${focusRing}`}>
+            <Link href={href} className={`rounded hover:text-blue hover:underline ${focusRing}`}>
               {name}
             </Link>
           ) : (
@@ -70,21 +61,20 @@ export function Journey({ steps, variant }: { steps: JourneyStep[]; variant: "pa
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-sm font-bold tracking-wide text-terracotta uppercase">Your journey</h2>
+      <h2 className={eyebrow}>Your journey</h2>
       {variant === "panel" ? (
         <ol className="flex flex-col">{items}</ol>
       ) : (
         <ol className="relative flex">
-          {/* One strand behind the whole row, from the first ball to the last. */}
-          <span aria-hidden="true" className="absolute top-5 right-[12.5%] left-[12.5%] h-0.5 bg-line" />
+          {/* One line behind the whole row, from the first circle to the last. */}
+          <span aria-hidden="true" className="absolute top-[13px] right-[12.5%] left-[12.5%] h-0.5 bg-rule" />
           {items}
         </ol>
       )}
-      {/* A small celebration for the newest finished step. */}
+      {/* A short note for the newest finished step. */}
       {lastDone && (
-        <p className="rounded-2xl bg-gold-pale px-4 py-3 font-semibold">
-          <span aria-hidden="true">🎉 </span>
-          You finished {lastDone.label}!{" "}
+        <p className="rounded-xl bg-tint px-4 py-3 text-[15px] font-semibold">
+          You finished {lastDone.label}.{" "}
           {currentId ? "On to the next step." : "That's the whole journey. Thank you!"}
         </p>
       )}
@@ -92,36 +82,25 @@ export function Journey({ steps, variant }: { steps: JourneyStep[]; variant: "pa
   );
 }
 
-// A ball of yarn when done, an empty dashed circle when not.
-function StepBall({ step, isCurrent }: { step: JourneyStep; isCurrent: boolean }) {
+// Filled with a check when done, a honey ring for the current step, empty otherwise.
+function StepDot({ done, isCurrent }: { done: boolean; isCurrent: boolean }) {
+  if (done) {
+    return (
+      <span aria-hidden="true" className="grid size-7 shrink-0 place-items-center rounded-full bg-blue text-card">
+        <svg viewBox="0 0 16 16" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <path d="M3 8.5l3 3 7-7" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </span>
+    );
+  }
   return (
-    <svg
-      viewBox="0 0 40 40"
+    <span
       aria-hidden="true"
-      className={`h-10 w-10 shrink-0 rounded-full bg-card ${isCurrent ? "ring-4 ring-gold" : ""}`}
+      className={`grid size-7 shrink-0 place-items-center rounded-full border-2 bg-card ${
+        isCurrent ? "border-gold" : "border-line"
+      }`}
     >
-      {step.done ? (
-        <>
-          <circle cx="20" cy="20" r="17" className={yarnColors[step.id]} />
-          {/* Strands wrapped around the ball */}
-          <g fill="none" strokeWidth="1.5" strokeLinecap="round" className="stroke-navy">
-            <path d="M8 13 Q20 25 31 8" />
-            <path d="M5 20 Q19 32 35 14" />
-            <path d="M7 27 Q20 37 35 22" />
-          </g>
-          <circle cx="20" cy="20" r="17" fill="none" strokeWidth="2.5" className="stroke-navy" />
-        </>
-      ) : (
-        <circle
-          cx="20"
-          cy="20"
-          r="17"
-          fill="none"
-          strokeWidth="2.5"
-          strokeDasharray={isCurrent ? undefined : "4 4"}
-          className={isCurrent ? "stroke-navy" : "stroke-muted"}
-        />
-      )}
-    </svg>
+      {isCurrent && <span className="size-2.5 rounded-full bg-gold" />}
+    </span>
   );
 }

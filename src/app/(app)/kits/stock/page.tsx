@@ -8,6 +8,8 @@
 import type { Metadata } from "next";
 import { stock } from "../_placeholder";
 import { OfficersOnly } from "@/components/officers-only";
+import { PortalPage } from "@/components/portal-page";
+import { card } from "@/components/portal-styles";
 import { SampleNote } from "@/components/sample-note";
 
 export const metadata: Metadata = { title: "Stock" };
@@ -15,27 +17,37 @@ export const metadata: Metadata = { title: "Stock" };
 export default function StockPage() {
   return (
     <OfficersOnly>
-      <div className="flex flex-col gap-6">
+      <PortalPage
+        eyebrow="Kits"
+        title="Stock"
+        lead="Supplies on hand. Each approved kit lowers the count."
+        back={{ href: "/kits", label: "Kits" }}
+      >
         <SampleNote />
-        <h1 className="font-display text-4xl font-semibold">Stock</h1>
-        <div className="overflow-x-auto">
+        <div className={`${card} overflow-x-auto p-0!`}>
           <table className="w-full border-collapse text-left">
             <thead>
-              <tr className="border-b border-line text-muted">
-                <th className="py-2 pr-4 font-semibold">Item</th>
-                <th className="py-2 pr-4 font-semibold">On hand</th>
-                <th className="py-2 font-semibold">Status</th>
+              <tr className="border-b border-rule text-xs tracking-[0.14em] text-muted uppercase">
+                <th className="px-6 py-4 font-bold">Item</th>
+                <th className="px-6 py-4 font-bold">On hand</th>
+                <th className="px-6 py-4 font-bold">Status</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-rule">
               {stock.map((item) => {
                 const low = item.quantity <= item.lowStockAt;
                 return (
-                  <tr key={item.id} className="border-b border-line">
-                    <td className="py-3 pr-4">{item.name}</td>
-                    <td className="py-3 pr-4">{item.quantity}</td>
-                    <td className={`py-3 font-semibold ${low ? "text-terracotta" : "text-ink"}`}>
-                      {low ? "Low, reorder" : "OK"}
+                  <tr key={item.id}>
+                    <td className="px-6 py-4 font-semibold">{item.name}</td>
+                    <td className="px-6 py-4 font-serif text-2xl">{item.quantity}</td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={`rounded-full px-2.5 py-0.5 text-[13px] font-bold ${
+                          low ? "bg-pink-pale text-navy" : "bg-mint-pale text-navy"
+                        }`}
+                      >
+                        {low ? "Low, reorder" : "OK"}
+                      </span>
                     </td>
                   </tr>
                 );
@@ -43,7 +55,7 @@ export default function StockPage() {
             </tbody>
           </table>
         </div>
-      </div>
+      </PortalPage>
     </OfficersOnly>
   );
 }

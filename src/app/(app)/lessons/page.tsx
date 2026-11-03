@@ -6,35 +6,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { lessons } from "./_placeholder";
+import { PortalPage } from "@/components/portal-page";
+import { cardLink, eyebrow } from "@/components/portal-styles";
 import { SampleNote } from "@/components/sample-note";
-import { card, pageTitle, tag } from "./_styles";
-import { YarnBall } from "./_yarn-ball";
 
 export const metadata: Metadata = { title: "Lessons" };
 
 export default function LessonsPage() {
   return (
-    <div className="flex flex-col gap-8">
+    <PortalPage
+      eyebrow="Lessons"
+      title="Learn to crochet, one step at a time."
+      lead="Short video lessons that take you from your first loop to your first plushie."
+    >
       <SampleNote />
-      <div className="flex items-center gap-4">
-        <h1 className={pageTitle}>Lessons</h1>
-        <YarnBall className="h-14 w-16 shrink-0" />
-      </div>
-      <ol className="flex flex-col gap-6">
+      <ol className="grid gap-6 md:grid-cols-3">
         {lessons.map((lesson) => (
           <li key={lesson.id}>
-            {/* The card tilts a little on hover, like picking up a plushie. */}
-            <Link
-              href={`/lessons/${lesson.id}`}
-              className={`${card} flex flex-col items-start gap-2 transition hover:-rotate-1 focus-visible:outline-solid focus-visible:outline-gold`}
-            >
-              <span className={tag}>Lesson {lesson.order}</span>
-              <span className="font-display text-2xl font-extrabold">{lesson.title}</span>
+            <Link href={`/lessons/${lesson.id}`} className={`${cardLink} flex h-full flex-col items-start gap-3`}>
+              <span className={eyebrow}>Lesson {lesson.order}</span>
+              <span className="font-serif text-3xl leading-tight">{lesson.title}</span>
               <span className="text-ink">{lesson.summary}</span>
+              <span className="mt-auto pt-2 font-bold text-blue">
+                Open lesson <span aria-hidden="true">→</span>
+              </span>
             </Link>
           </li>
         ))}
       </ol>
-    </div>
+    </PortalPage>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 // Owner: Megan (built by Nika). "Delete" asks first, because a deleted
 // message can't be brought back. "use client" is needed for the question.
+import { smallButton } from "@/components/portal-styles";
 import { deleteForm } from "./actions";
 
 export function DeleteButton({ kind, id, what }: { kind: "message" | "request"; id: string; what: string }) {
@@ -15,7 +16,7 @@ export function DeleteButton({ kind, id, what }: { kind: "message" | "request"; 
       <input type="hidden" name="id" value={id} />
       <button
         type="submit"
-        className="inline-flex min-h-11 items-center justify-center rounded-full border-2 border-navy px-4 font-bold hover:bg-pink-pale focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-gold"
+        className={`${smallButton} hover:border-pink hover:bg-pink-pale`}
       >
         Delete
       </button>

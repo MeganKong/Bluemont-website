@@ -1,5 +1,5 @@
-// Owner: Megan (shared; built by Adhya). One piece of feedback: tips on a
-// pale gold card, comments on a pale mint card, with who wrote it and when.
+// Owner: Megan (shared; built by Adhya). One piece of feedback: tips with a
+// honey edge, comments with a blue edge, with who wrote it and when.
 // Officers and volunteers both see it; `footer` holds the buttons for each.
 import type { Feedback } from "@/lib/types";
 import { formatDate } from "@/lib/work/format";
@@ -16,15 +16,15 @@ type FeedbackCardProps = {
 export function FeedbackCard({ feedback, from, isNew = false, footer }: FeedbackCardProps) {
   return (
     <article
-      className={`flex flex-col gap-3 rounded-2xl border-2 border-navy p-4 ${
-        feedback.kind === "tip" ? "bg-gold-pale" : "bg-mint-pale"
+      className={`flex flex-col gap-3 rounded-xl border border-l-4 border-rule bg-cream p-4 ${
+        feedback.kind === "tip" ? "border-l-gold" : "border-l-blue"
       }`}
     >
       <div className="flex flex-wrap items-center gap-2">
         <KindBadge kind={feedback.kind} />
         {isNew && <NewBadge label="New" />}
       </div>
-      <p className="text-lg whitespace-pre-line">{feedback.body}</p>
+      <p className="whitespace-pre-line">{feedback.body}</p>
       <p className="text-sm text-muted">
         From <strong className="text-navy">{from}</strong> ·{" "}
         <time dateTime={feedback.createdAt}>{formatDate(feedback.createdAt)}</time>

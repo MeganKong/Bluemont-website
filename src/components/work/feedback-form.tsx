@@ -5,13 +5,12 @@
 import { useActionState, useEffect, useState } from "react";
 import type { Feedback } from "@/lib/types";
 import { addFeedback, editFeedback, type WorkState } from "@/lib/work/actions";
-import { buttonMain } from "@/app/(app)/lessons/_styles";
+import { buttonMain, field, hint, label, smallButton } from "@/components/portal-styles";
 import { Message } from "./message";
-import { field, smallButton } from "./styles";
 
 const kinds = [
-  { value: "tip", icon: "💡", label: "Tip", hint: "Something to try", checked: "has-checked:bg-gold-pale" },
-  { value: "comment", icon: "💬", label: "Comment", hint: "Praise or notes", checked: "has-checked:bg-mint-pale" },
+  { value: "tip", label: "Tip", hint: "Something to try", checked: "has-checked:border-gold has-checked:bg-gold-pale" },
+  { value: "comment", label: "Comment", hint: "Praise or notes", checked: "has-checked:border-blue has-checked:bg-tint" },
 ] as const;
 
 type FeedbackFormProps =
@@ -38,16 +37,16 @@ export function FeedbackForm({ submissionId, feedback, onClose }: FeedbackFormPr
   }, [state, onClose]);
 
   return (
-    <form action={formAction} className="flex flex-col gap-4">
+    <form action={formAction} className="flex flex-col gap-5">
       <input type="hidden" name={feedback ? "feedbackId" : "submissionId"} value={id} />
 
       <fieldset className="flex flex-col gap-2">
-        <legend className="mb-2 font-bold">This is a…</legend>
+        <legend className="mb-2 text-[15px] font-bold">This is a…</legend>
         <div className="grid grid-cols-2 gap-3">
           {kinds.map((kind) => (
             <label
               key={kind.value}
-              className={`flex min-h-[64px] cursor-pointer flex-col items-center justify-center rounded-2xl border-3 border-navy bg-card px-3 py-2 text-center has-checked:shadow-[0_4px_0_var(--color-navy)] has-focus-visible:outline-4 has-focus-visible:outline-offset-2 has-focus-visible:outline-gold ${kind.checked}`}
+              className={`flex min-h-16 cursor-pointer flex-col items-center justify-center rounded-xl border-[1.5px] border-line bg-card px-3 py-2 text-center transition hover:border-navy/40 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-blue ${kind.checked}`}
             >
               <input
                 type="radio"
@@ -57,16 +56,14 @@ export function FeedbackForm({ submissionId, feedback, onClose }: FeedbackFormPr
                 defaultChecked={(feedback?.kind ?? "tip") === kind.value}
                 className="sr-only"
               />
-              <span className="text-lg font-extrabold">
-                <span aria-hidden="true">{kind.icon}</span> {kind.label}
-              </span>
+              <span className="font-bold">{kind.label}</span>
               <span className="text-sm text-muted">{kind.hint}</span>
             </label>
           ))}
         </div>
       </fieldset>
 
-      <label className="flex flex-col gap-1.5 font-bold">
+      <label className={label}>
         {feedback ? "Your feedback" : "Write your feedback"}
         <textarea
           name="body"
@@ -75,9 +72,9 @@ export function FeedbackForm({ submissionId, feedback, onClose }: FeedbackFormPr
           maxLength={1000}
           defaultValue={feedback?.body}
           onChange={(event) => setLength(event.target.value.length)}
-          className={`${field} font-normal`}
+          className={field}
         />
-        <span className="self-end text-sm font-normal text-muted">{length}/1000</span>
+        <span className={`${hint} self-end`}>{length}/1000</span>
       </label>
 
       {state.error && <Message kind="error">{state.error}</Message>}
@@ -86,12 +83,11 @@ export function FeedbackForm({ submissionId, feedback, onClose }: FeedbackFormPr
       )}
 
       <div className="flex flex-col gap-3 sm:flex-row">
-        {/* text-cream! because buttonMain's text color currently comes out navy. */}
-        <button type="submit" disabled={pending} className={`${buttonMain} text-cream! disabled:opacity-70`}>
+        <button type="submit" disabled={pending} className={buttonMain}>
           {pending ? "Saving…" : feedback ? "Save changes" : "Send feedback"}
         </button>
         {onClose && (
-          <button type="button" onClick={onClose} className={smallButton}>
+          <button type="button" onClick={onClose} className={`${smallButton} min-h-12`}>
             Cancel
           </button>
         )}

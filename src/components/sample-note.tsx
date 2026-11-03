@@ -2,7 +2,7 @@
 // Delete it from a page once that page uses real data from Supabase.
 export function SampleNote() {
   return (
-    <p className="self-start rounded-full bg-sand px-3 py-1 text-sm text-muted">
+    <p className="self-start rounded-full border border-rule bg-card px-3 py-1 text-[13px] font-semibold text-muted">
       Sample page · fake data
     </p>
   );

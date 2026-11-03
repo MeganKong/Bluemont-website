@@ -5,11 +5,11 @@
 export function WorkPhoto({ src, alt, className = "" }: { src: string | null; alt: string; className?: string }) {
   if (!src) {
     return (
-      <div className={`grid place-items-center bg-sand p-4 text-center font-bold text-muted ${className}`}>
+      <div className={`grid place-items-center bg-tint p-4 text-center font-bold text-muted ${className}`}>
         Photo unavailable
       </div>
     );
   }
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src={src} alt={alt} loading="lazy" className={`bg-sand ${className}`} />;
+  return <img src={src} alt={alt} loading="lazy" className={`bg-tint ${className}`} />;
 }
