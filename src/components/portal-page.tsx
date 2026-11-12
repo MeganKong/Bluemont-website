@@ -30,7 +30,7 @@ export function PortalPage({ eyebrow, title, lead, back, actions, width = "wide"
 
   return (
     <>
-      <section className="relative overflow-hidden bg-navy text-card">
+      <section className="relative overflow-hidden bg-navy text-card print:hidden">
         <Stars />
         <div
           className={`relative mx-auto flex ${maxWidth} flex-wrap items-end justify-between gap-x-8 gap-y-5 px-6 pt-6 pb-10 sm:pt-8 sm:pb-12`}

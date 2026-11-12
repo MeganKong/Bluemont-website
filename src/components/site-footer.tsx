@@ -32,7 +32,7 @@ const footerLink =
 
 export function SiteFooter() {
   return (
-    <footer className="bg-navy text-soft">
+    <footer className="bg-navy text-soft print:hidden">
       <div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-10 px-6 pt-16 pb-10 text-[15px]">
         <div className="flex max-w-sm flex-col gap-3">
           <Logo className="text-4xl text-card" />

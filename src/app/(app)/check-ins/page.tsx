@@ -2,24 +2,22 @@
 //
 // What this page will do (month 1 build plan):
 // - Each officer fills in a short weekly check-in: what they did, what's next.
-// - Officers RSVP to the weekly meeting. RSVPs close 24 hours before.
+// - Officers RSVP to this week's meeting, and see who's coming.
 // Done when: officers check in and RSVP, and everyone sees the history.
 //
-// Officers only: <OfficersOnly> keeps volunteers out.
+// Officers only: <OfficersOnly> keeps volunteers out, and the database only
+// lets officers read or write these. Data and saving:
+// src/lib/portal/data.ts and actions.ts.
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { checkIn, deleteCheckIn, rsvp } from "@/lib/portal/actions";
+import { getCheckIns, mondayOfThisWeek } from "@/lib/portal/data";
+import { formatDay } from "@/lib/portal/format";
+import { ActionForm } from "@/components/action-form";
 import { OfficersOnly } from "@/components/officers-only";
 import { PortalPage } from "@/components/portal-page";
-import {
-  card,
-  eyebrow,
-  field,
-  hint,
-  label,
-  smallButton,
-  smallButtonMain,
-} from "@/components/portal-styles";
+import { card, eyebrow, field, label, smallButton, smallButtonMain } from "@/components/portal-styles";
 import { SampleNote } from "@/components/sample-note";
-import { checkIns } from "../news/_placeholder";
 
 export const metadata: Metadata = { title: "Check-ins" };
 
@@ -32,66 +30,105 @@ export default function CheckInsPage() {
         lead="What you got done this week, and what's next."
         width="narrow"
       >
-        <SampleNote />
+        <Suspense fallback={<div className={`${card} min-h-48`} />}>
+          <CheckIns />
+        </Suspense>
+      </PortalPage>
+    </OfficersOnly>
+  );
+}
 
-        <section
-          aria-labelledby="meeting"
-          className={`${card} flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between`}
-        >
-          <div className="flex flex-col gap-1">
-            <h2 id="meeting" className={eyebrow}>
-              Weekly meeting
-            </h2>
-            <p className="font-bold">[day and time]</p>
-            <p className="text-sm text-muted">RSVP closes 24 hours before.</p>
-          </div>
-          <div className="flex gap-2">
-            <button disabled className={smallButtonMain}>
-              Going
-            </button>
-            <button disabled className={smallButton}>
-              Can&apos;t make it
-            </button>
-          </div>
-        </section>
+async function CheckIns() {
+  const { checkIns, rsvps, myId, sample } = await getCheckIns();
+  const thisWeek = mondayOfThisWeek();
+  const mine = checkIns.find((c) => c.week === thisWeek && c.officerId === myId);
+  const myRsvp = rsvps.find((r) => r.officerId === myId);
+  const going = rsvps.filter((r) => r.going).map((r) => r.officerName);
 
+  return (
+    <>
+      {sample && <SampleNote />}
+
+      <section
+        aria-labelledby="meeting"
+        className={`${card} flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between`}
+      >
+        <div className="flex flex-col gap-1">
+          <h2 id="meeting" className={eyebrow}>
+            This week&apos;s meeting
+          </h2>
+          <p className="text-ink">{going.length === 0 ? "Nobody has said they're going yet." : `Going: ${going.join(", ")}`}</p>
+        </div>
+        <ActionForm action={rsvp} className="flex flex-wrap gap-2">
+          <button
+            type="submit"
+            name="going"
+            value="yes"
+            aria-pressed={myRsvp?.going === true}
+            className={myRsvp?.going === true ? smallButtonMain : smallButton}
+          >
+            {myRsvp?.going === true && <span aria-hidden="true">✓</span>} Going
+          </button>
+          <button
+            type="submit"
+            name="going"
+            value="no"
+            aria-pressed={myRsvp?.going === false}
+            className={myRsvp?.going === false ? smallButtonMain : smallButton}
+          >
+            {myRsvp?.going === false && <span aria-hidden="true">✓</span>} Can&apos;t make it
+          </button>
+        </ActionForm>
+      </section>
+
+      {!mine && (
         <section aria-labelledby="this-week" className={`${card} flex flex-col gap-4`}>
           <h2 id="this-week" className={eyebrow}>
             This week&apos;s check-in
           </h2>
-          <label className={label}>
-            What did you get done?
-            <textarea rows={2} className={field} />
-          </label>
-          <label className={label}>
-            What&apos;s next?
-            <textarea rows={2} className={field} />
-          </label>
-          <button disabled className={`${smallButtonMain} self-start`}>
-            Submit
-          </button>
-          <p className={hint}>Check-ins and RSVPs start saving once they&apos;re in the database.</p>
+          <ActionForm action={checkIn} className="flex flex-col gap-4">
+            <label className={label}>
+              What did you get done?
+              <textarea name="done" required rows={2} maxLength={500} className={field} />
+            </label>
+            <label className={label}>
+              What&apos;s next?
+              <textarea name="next" required rows={2} maxLength={500} className={field} />
+            </label>
+            <button type="submit" className={`${smallButtonMain} self-start`}>
+              Submit
+            </button>
+          </ActionForm>
         </section>
+      )}
 
-        <section aria-labelledby="past" className="flex flex-col gap-4">
-          <h2 id="past" className={eyebrow}>
-            Past check-ins
-          </h2>
-          {checkIns.map((checkIn) => (
-            <article key={checkIn.id} className={`${card} flex flex-col gap-2`}>
-              <p className="font-bold">
-                {checkIn.officerName} <span className="font-normal text-muted">· week of {checkIn.week}</span>
-              </p>
-              <p className="text-ink">
-                <span className="font-semibold text-navy">Done:</span> {checkIn.done}
-              </p>
-              <p className="text-ink">
-                <span className="font-semibold text-navy">Next:</span> {checkIn.next}
-              </p>
-            </article>
-          ))}
-        </section>
-      </PortalPage>
-    </OfficersOnly>
+      <section aria-labelledby="past" className="flex flex-col gap-4">
+        <h2 id="past" className={eyebrow}>
+          Check-ins
+        </h2>
+        {checkIns.length === 0 && <p className="text-ink">No check-ins yet.</p>}
+        {checkIns.map((c) => (
+          <article key={c.id} className={`${card} flex flex-col gap-2`}>
+            <p className="font-bold">
+              {c.officerName} <span className="font-normal text-muted">· week of {formatDay(c.week)}</span>
+            </p>
+            <p className="text-ink">
+              <span className="font-semibold text-navy">Done:</span> {c.done}
+            </p>
+            <p className="text-ink">
+              <span className="font-semibold text-navy">Next:</span> {c.next}
+            </p>
+            {c.officerId === myId && (
+              <ActionForm action={deleteCheckIn} className="self-start">
+                <input type="hidden" name="id" value={c.id} />
+                <button type="submit" className={smallButton}>
+                  Delete
+                </button>
+              </ActionForm>
+            )}
+          </article>
+        ))}
+      </section>
+    </>
   );
 }
