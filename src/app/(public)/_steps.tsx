@@ -3,16 +3,18 @@
 import Image from "next/image";
 import alpacas from "./_images/velvet-alpacas.jpg";
 import orangeKnit from "./_images/orange-chenille-knit.jpg";
-import yarnBall from "./_images/velvet-yarn-ball.jpg";
+import chenilleSkeins from "./_images/chenille-yarn-skeins.jpg";
 
-// The photos are free to use; we still credit each photographer.
+// The photos are free to use; we still credit each photographer. A photo
+// under a Creative Commons licence (CC BY) must also link to that licence.
 const steps = [
   {
     title: "Learn",
     text: "Short video lessons take you from your first loop to your first plushie, at your own pace. No experience needed.",
-    photo: yarnBall,
-    alt: "Close-up of a ball of soft, chunky velvet yarn in a warm tan color",
-    credit: "Naomi Goff / Unsplash",
+    photo: chenilleSkeins,
+    alt: "Skeins of soft velvet chenille yarn in dark plum and dusty lilac",
+    credit: "LollyKnit / Flickr",
+    license: { name: "CC BY 2.0", url: "https://creativecommons.org/licenses/by/2.0/" },
   },
   {
     title: "Make",
@@ -43,7 +45,17 @@ export function Steps() {
               sizes="(min-width: 1024px) 370px, (min-width: 640px) 45vw, 90vw"
               className="h-64 w-full rounded-3xl object-cover"
             />
-            <figcaption className="text-xs text-ink">Photo: {step.credit}</figcaption>
+            <figcaption className="text-xs text-ink">
+              Photo: {step.credit}
+              {step.license && (
+                <>
+                  {", "}
+                  <a href={step.license.url} className="underline">
+                    {step.license.name}
+                  </a>
+                </>
+              )}
+            </figcaption>
           </figure>
           <span className="text-sm font-bold text-blue">Step {i + 1}</span>
           <h3 className="text-2xl font-bold">{step.title}</h3>
