@@ -13,12 +13,25 @@ export type Lesson = {
   steps: string[];
 };
 
+// A volunteer asking for a crochet kit (table: kit_requests).
 export type KitRequest = {
   id: string;
-  volunteerName: string;
+  volunteerName: string; // first name only
   kit: "starter" | "full";
   status: "pending" | "approved" | "picked_up";
-  requestedAt: string;
+  requestedAt: string; // date and time
+};
+
+// Hours a volunteer logged, waiting for or approved by an officer
+// (table: service_hours).
+export type ServiceHoursEntry = {
+  id: string;
+  volunteerName: string; // first name only
+  activity: string;
+  hours: number;
+  workedOn: string; // "YYYY-MM-DD"
+  status: "pending" | "approved" | "declined";
+  reviewedBy: string | null; // the officer's first name
 };
 
 export type StockItem = {
@@ -28,20 +41,32 @@ export type StockItem = {
   lowStockAt: number;
 };
 
+// An update from officers (table: news_posts). Events have a date, so they
+// also show under "Coming up".
 export type NewsPost = {
   id: string;
   title: string;
   body: string;
-  author: string;
-  postedAt: string;
+  author: string; // first name only
+  postedAt: string; // date and time
+  eventDate: string | null; // "YYYY-MM-DD"
 };
 
+// An officer's weekly check-in (table: check_ins).
 export type CheckIn = {
   id: string;
+  officerId: string | null;
   officerName: string;
-  week: string;
+  week: string; // the Monday of that week, "YYYY-MM-DD"
   done: string;
   next: string;
+};
+
+// An officer's answer for this week's meeting (table: meeting_rsvps).
+export type MeetingRsvp = {
+  officerId: string;
+  officerName: string;
+  going: boolean;
 };
 
 // A photo of a volunteer's crochet, shared for feedback (table: submissions).

@@ -61,7 +61,7 @@ export async function updateSession(request: NextRequest) {
 // The pages in src/app/(app). Add new signed-in pages here.
 // Officer-only pages also check the role themselves, with <OfficersOnly>
 // (see src/components/officers-only.tsx).
-const membersOnly = ["/dashboard", "/lessons", "/kits", "/news", "/check-ins", "/officer"];
+const membersOnly = ["/dashboard", "/lessons", "/kits", "/hours", "/news", "/check-ins", "/officer"];
 
 // A redirect has to carry the refreshed sign-in cookies, or people get signed out.
 function redirectKeepingCookies(path: string, request: NextRequest, from: NextResponse) {

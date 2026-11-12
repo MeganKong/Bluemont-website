@@ -65,7 +65,7 @@ export function SiteHeader({ links, button, quietLink, tone = "light", signOut }
   const t = tones[tone];
 
   return (
-    <header className={t.header}>
+    <header className={`${t.header} print:hidden`}>
       <nav aria-label="Main" className="mx-auto max-w-6xl px-6">
         <div className="flex items-center justify-between gap-6 py-5">
           <Link href="/" onClick={closeMenu} className={`rounded text-3xl ${focusRing}`}>
