@@ -3,7 +3,7 @@
 // straight on from the header.
 import Image from "next/image";
 import Link from "next/link";
-import crochetBunny from "../_images/crochet-bunny.jpg";
+import velvetFox from "../_images/velvet-fox.jpg";
 import { Stars } from "../_page-top";
 import { buttonHoney, buttonOutlineOnNight, eyebrowOnNight, wrap } from "../_styles";
 
@@ -34,8 +34,8 @@ export function Hero() {
 
         <div className="relative flex min-w-0 flex-[1_1_360px] justify-center">
           <Image
-            src={crochetBunny}
-            alt="A crocheted white bunny in a red dress beside a small child's hand"
+            src={velvetFox}
+            alt="A crocheted fox plushie made of soft velvet yarn, wearing a mint dress, standing in a garden"
             placeholder="blur"
             priority
             sizes="(min-width: 768px) 390px, 90vw"
@@ -45,6 +45,10 @@ export function Hero() {
             <b className="font-serif text-4xl leading-none font-normal text-blue">150+</b>
             <span className="text-[15px] text-ink">children have a handmade friend</span>
           </div>
+          {/* Free photo from Pexels; we credit the photographer anyway. */}
+          <p className="absolute -bottom-7 right-0 text-xs text-soft">
+            Photo: Larysa Isaieva / Pexels
+          </p>
         </div>
       </div>
     </section>
