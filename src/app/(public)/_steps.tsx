@@ -2,17 +2,17 @@
 // Used on the homepage and the Volunteer page.
 import Image from "next/image";
 import alpacas from "./_images/velvet-alpacas.jpg";
-import lilacBlanket from "./_images/lilac-chenille-blanket.jpg";
 import orangeKnit from "./_images/orange-chenille-knit.jpg";
+import yarnBall from "./_images/velvet-yarn-ball.jpg";
 
 // The photos are free to use; we still credit each photographer.
 const steps = [
   {
     title: "Learn",
     text: "Short video lessons take you from your first loop to your first plushie, at your own pace. No experience needed.",
-    photo: lilacBlanket,
-    alt: "Close-up of a soft blanket made from velvet yarn in lilac, purple and beige",
-    credit: "Alina Vilchenko / Pexels",
+    photo: yarnBall,
+    alt: "Close-up of a ball of soft, chunky velvet yarn in a warm tan color",
+    credit: "Naomi Goff / Unsplash",
   },
   {
     title: "Make",
