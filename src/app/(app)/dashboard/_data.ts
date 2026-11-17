@@ -23,7 +23,6 @@ export type Progress = {
   kitUnlocked: boolean;
   kit: KitRequest | null;
   work: Submission[];
-  sample: boolean;
 };
 
 const inOrder = [...lessons].sort((a, b) => a.order - b.order);
@@ -53,6 +52,5 @@ export async function getProgress(): Promise<Progress> {
     kitUnlocked: inOrder.length > 0 && done.has(inOrder[0].id),
     kit,
     work: myWork.submissions,
-    sample: myLessons.sample || myKit.sample || myWork.sample,
   };
 }

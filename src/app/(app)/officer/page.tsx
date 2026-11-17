@@ -7,8 +7,7 @@
 // Done when: only officers can see it (even by typing the address), and it
 // shows real data.
 //
-// Data: src/lib/work/data.ts and src/lib/portal/data.ts (sample data until
-// the database step is done). Signed-out visitors are sent to sign in by
+// Data: src/lib/work/data.ts and src/lib/portal/data.ts. Signed-out visitors are sent to sign in by
 // src/lib/supabase/proxy.ts; <OfficersOnly> keeps volunteers out.
 // Uses the portal look (src/components/portal-styles.ts), like the volunteer pages.
 import type { Metadata } from "next";
@@ -24,7 +23,6 @@ import { DateBox } from "@/components/date-box";
 import { OfficersOnly } from "@/components/officers-only";
 import { PortalPage } from "@/components/portal-page";
 import { buttonMain, card, cardLink, eyebrow, link, rows, smallButton, smallButtonMain } from "@/components/portal-styles";
-import { SampleNote } from "@/components/sample-note";
 
 export const metadata: Metadata = { title: "Officer dashboard" };
 
@@ -79,11 +77,9 @@ async function Dashboard() {
   const toReview = work.submissions.filter((s) => s.feedback.length === 0).length;
   const kitsWaiting = kits.requests.filter((r) => r.status === "pending").length;
   const lowStock = stock.items.filter((item) => item.quantity <= item.lowStockAt);
-  const sample = work.sample || hours.sample || kits.sample || stock.sample || comingUp.sample;
 
   return (
     <>
-      {sample && <SampleNote />}
 
       <ul className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Count href="/officer/work" label="Work to review" count={toReview} note="waiting for feedback" />

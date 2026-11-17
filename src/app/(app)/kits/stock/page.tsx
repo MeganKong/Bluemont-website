@@ -15,7 +15,6 @@ import { ActionForm } from "@/components/action-form";
 import { OfficersOnly } from "@/components/officers-only";
 import { PortalPage } from "@/components/portal-page";
 import { card, eyebrow, field, label, rows, smallButton, smallButtonMain } from "@/components/portal-styles";
-import { SampleNote } from "@/components/sample-note";
 
 export const metadata: Metadata = { title: "Stock" };
 
@@ -38,11 +37,10 @@ export default function StockPage() {
 }
 
 async function Stock() {
-  const { items, sample } = await getStock();
+  const { items } = await getStock();
 
   return (
     <>
-      {sample && <SampleNote />}
       <section aria-labelledby="supplies" className={`${card} flex flex-col gap-4`}>
         <h2 id="supplies" className={eyebrow}>
           Supplies
