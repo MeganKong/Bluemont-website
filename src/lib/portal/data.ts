@@ -6,42 +6,30 @@
 // supabase/migrations/*_volunteer_portal.sql): volunteers only ever receive
 // their own progress, kit and hours, whatever this code asks for.
 //
-// Until the database step is done (npx supabase db push), the tables don't
-// exist yet. Then these return the sample data from ./placeholder.ts with
-// sample: true, the pages show "Sample page · fake data", and saving is off.
+// If a table isn't in the database yet (npx supabase db push not run), these
+// return nothing, so pages show their empty state instead of breaking.
 import type { PostgrestError } from "@supabase/supabase-js";
 import { connection } from "next/server";
 import type { CheckIn, KitRequest, MeetingRsvp, NewsPost, ServiceHoursEntry, StockItem } from "@/lib/types";
 import { getMyRole } from "@/lib/roles";
 import { createClient } from "@/lib/supabase/server";
-import {
-  sampleCheckIns,
-  sampleDoneLessons,
-  sampleHoursToApprove,
-  sampleKitRequests,
-  sampleMyHours,
-  sampleMyKit,
-  sampleNews,
-  sampleRsvps,
-  sampleStock,
-} from "./placeholder";
 
 // ── Volunteers ──────────────────────────────────────────────────────────
 
 // The ids of the lessons they've marked complete.
-export async function getMyLessons(): Promise<{ done: string[]; sample: boolean }> {
+export async function getMyLessons(): Promise<{ done: string[]}> {
   const { supabase, myId } = await connect();
-  if (!myId) return { done: [], sample: false };
+  if (!myId) return { done: [] };
 
   const { data, error } = await supabase.from("lesson_progress").select("lesson_id").eq("volunteer_id", myId);
-  const { rows, sample } = settle(data, error, (row: { lesson_id: string }) => row.lesson_id, sampleDoneLessons, "lessons");
-  return { done: rows, sample };
+  const rows = settle(data, error, (row: { lesson_id: string }) => row.lesson_id, "lessons");
+  return { done: rows };
 }
 
 // Their newest kit request, or null if they haven't asked for one.
-export async function getMyKit(): Promise<{ kit: KitRequest | null; sample: boolean }> {
+export async function getMyKit(): Promise<{ kit: KitRequest | null}> {
   const { supabase, myId } = await connect();
-  if (!myId) return { kit: null, sample: false };
+  if (!myId) return { kit: null };
 
   const { data, error } = await supabase
     .from("kit_requests")
@@ -49,14 +37,14 @@ export async function getMyKit(): Promise<{ kit: KitRequest | null; sample: bool
     .eq("volunteer_id", myId)
     .order("requested_at", { ascending: false })
     .limit(1);
-  const { rows, sample } = settle(data, error, toKit, sampleMyKit ? [sampleMyKit] : [], "your kit");
-  return { kit: rows[0] ?? null, sample };
+  const rows = settle(data, error, toKit, "your kit");
+  return { kit: rows[0] ?? null };
 }
 
 // Every hour they've logged, newest first.
-export async function getMyHours(): Promise<{ entries: ServiceHoursEntry[]; sample: boolean }> {
+export async function getMyHours(): Promise<{ entries: ServiceHoursEntry[]}> {
   const { supabase, myId } = await connect();
-  if (!myId) return { entries: [], sample: false };
+  if (!myId) return { entries: [] };
 
   const { data, error } = await supabase
     .from("service_hours")
@@ -65,28 +53,28 @@ export async function getMyHours(): Promise<{ entries: ServiceHoursEntry[]; samp
     .order("worked_on", { ascending: false })
     .order("created_at", { ascending: false })
     .limit(500);
-  const { rows, sample } = settle(data, error, toHours, sampleMyHours(), "your hours");
-  return { entries: rows, sample };
+  const rows = settle(data, error, toHours, "your hours");
+  return { entries: rows };
 }
 
 // News for everyone signed in, newest first.
-export async function getNews(limit = 50): Promise<{ posts: NewsPost[]; sample: boolean }> {
+export async function getNews(limit = 50): Promise<{ posts: NewsPost[]}> {
   const { supabase, myId } = await connect();
-  if (!myId) return { posts: [], sample: false };
+  if (!myId) return { posts: [] };
 
   const { data, error } = await supabase
     .from("news_posts")
     .select("id, title, body, author_name, created_at, event_date")
     .order("created_at", { ascending: false })
     .limit(limit);
-  const { rows, sample } = settle(data, error, toNews, sampleNews().slice(0, limit), "news");
-  return { posts: rows, sample };
+  const rows = settle(data, error, toNews, "news");
+  return { posts: rows };
 }
 
 // Events from today on, soonest first (news posts with a date).
-export async function getComingUp(limit = 3): Promise<{ events: NewsPost[]; sample: boolean }> {
+export async function getComingUp(limit = 3): Promise<{ events: NewsPost[]}> {
   const { supabase, myId } = await connect();
-  if (!myId) return { events: [], sample: false };
+  if (!myId) return { events: [] };
 
   const today = new Date().toISOString().slice(0, 10);
   const { data, error } = await supabase
@@ -95,28 +83,27 @@ export async function getComingUp(limit = 3): Promise<{ events: NewsPost[]; samp
     .gte("event_date", today)
     .order("event_date", { ascending: true })
     .limit(limit);
-  const samples = sampleNews().filter((post) => post.eventDate && post.eventDate >= today);
-  const { rows, sample } = settle(data, error, toNews, samples.slice(0, limit), "events");
-  return { events: rows, sample };
+  const rows = settle(data, error, toNews, "events");
+  return { events: rows };
 }
 
 // ── Officers ────────────────────────────────────────────────────────────
 
 // Open requests (waiting or ready for pickup) first, then the latest pickups.
-export async function getKitRequests(): Promise<{ requests: KitRequest[]; sample: boolean }> {
+export async function getKitRequests(): Promise<{ requests: KitRequest[]}> {
   const { supabase } = await officers();
   const { data, error } = await supabase
     .from("kit_requests")
     .select(kitColumns)
     .order("requested_at", { ascending: true })
     .limit(300);
-  const { rows, sample } = settle(data, error, toKit, sampleKitRequests(), "kit requests");
+  const rows = settle(data, error, toKit, "kit requests");
   const order = { pending: 0, approved: 1, picked_up: 2 };
-  return { requests: rows.sort((a, b) => order[a.status] - order[b.status]), sample };
+  return { requests: rows.sort((a, b) => order[a.status] - order[b.status]) };
 }
 
 // Hours still waiting for an officer, oldest first, so nobody waits too long.
-export async function getHoursToApprove(): Promise<{ entries: ServiceHoursEntry[]; sample: boolean }> {
+export async function getHoursToApprove(): Promise<{ entries: ServiceHoursEntry[]}> {
   const { supabase } = await officers();
   const { data, error } = await supabase
     .from("service_hours")
@@ -124,17 +111,17 @@ export async function getHoursToApprove(): Promise<{ entries: ServiceHoursEntry[
     .eq("status", "pending")
     .order("created_at", { ascending: true })
     .limit(100);
-  const { rows, sample } = settle(data, error, toHours, sampleHoursToApprove(), "hours");
-  return { entries: rows, sample };
+  const rows = settle(data, error, toHours, "hours");
+  return { entries: rows };
 }
 
-export async function getStock(): Promise<{ items: StockItem[]; sample: boolean }> {
+export async function getStock(): Promise<{ items: StockItem[]}> {
   const { supabase } = await officers();
   const { data, error } = await supabase
     .from("stock_items")
     .select("id, name, quantity, low_stock_at")
     .order("name", { ascending: true });
-  const { rows, sample } = settle(
+  const rows = settle(
     data,
     error,
     (row: { id: string; name: string; quantity: number; low_stock_at: number }) => ({
@@ -143,10 +130,9 @@ export async function getStock(): Promise<{ items: StockItem[]; sample: boolean 
       quantity: row.quantity,
       lowStockAt: row.low_stock_at,
     }),
-    sampleStock,
     "stock",
   );
-  return { items: rows, sample };
+  return { items: rows };
 }
 
 // Check-ins, newest week first, and who's coming to this week's meeting.
@@ -154,7 +140,6 @@ export async function getCheckIns(): Promise<{
   checkIns: CheckIn[];
   rsvps: MeetingRsvp[];
   myId: string | null;
-  sample: boolean;
 }> {
   const { supabase, myId } = await officers();
   const thisWeek = mondayOfThisWeek();
@@ -167,7 +152,7 @@ export async function getCheckIns(): Promise<{
       .limit(100),
     supabase.from("meeting_rsvps").select("officer_id, officer_name, going").eq("week_of", thisWeek),
   ]);
-  const done = settle(
+  const checkInRows = settle(
     checkIns.data,
     checkIns.error,
     (row: { id: string; officer_id: string | null; officer_name: string; week_of: string; done: string; next: string }) => ({
@@ -178,10 +163,9 @@ export async function getCheckIns(): Promise<{
       done: row.done,
       next: row.next,
     }),
-    sampleCheckIns(),
     "check-ins",
   );
-  const going = settle(
+  const rsvpRows = settle(
     rsvps.data,
     rsvps.error,
     (row: { officer_id: string; officer_name: string; going: boolean }) => ({
@@ -189,10 +173,9 @@ export async function getCheckIns(): Promise<{
       officerName: row.officer_name,
       going: row.going,
     }),
-    sampleRsvps,
     "RSVPs",
   );
-  return { checkIns: done.rows, rsvps: going.rows, myId, sample: done.sample || going.sample };
+  return { checkIns: checkInRows, rsvps: rsvpRows, myId };
 }
 
 // The Monday that starts this week in California, "YYYY-MM-DD". Matches
@@ -221,19 +204,13 @@ async function officers() {
   return connect();
 }
 
-// The rows, or the sample rows if the tables aren't in the database yet.
-function settle<Row, T>(
-  data: unknown[] | null,
-  error: PostgrestError | null,
-  toItem: (row: Row) => T,
-  sampleRows: T[],
-  what: string,
-): { rows: T[]; sample: boolean } {
+// The rows, or none if the table isn't in the database yet.
+function settle<Row, T>(data: unknown[] | null, error: PostgrestError | null, toItem: (row: Row) => T, what: string): T[] {
   if (error) {
-    if (tablesMissing(error)) return { rows: sampleRows, sample: true };
+    if (tablesMissing(error)) return [];
     throw new Error(`Couldn't load ${what}: ${error.message}`);
   }
-  return { rows: ((data ?? []) as Row[]).map(toItem), sample: false };
+  return ((data ?? []) as Row[]).map(toItem);
 }
 
 // The tables aren't in the database yet (the migration hasn't been pushed).

@@ -17,7 +17,6 @@ import { ActionForm } from "@/components/action-form";
 import { OfficersOnly } from "@/components/officers-only";
 import { PortalPage } from "@/components/portal-page";
 import { card, eyebrow, field, label, smallButton, smallButtonMain } from "@/components/portal-styles";
-import { SampleNote } from "@/components/sample-note";
 
 export const metadata: Metadata = { title: "Check-ins" };
 
@@ -39,7 +38,7 @@ export default function CheckInsPage() {
 }
 
 async function CheckIns() {
-  const { checkIns, rsvps, myId, sample } = await getCheckIns();
+  const { checkIns, rsvps, myId } = await getCheckIns();
   const thisWeek = mondayOfThisWeek();
   const mine = checkIns.find((c) => c.week === thisWeek && c.officerId === myId);
   const myRsvp = rsvps.find((r) => r.officerId === myId);
@@ -47,7 +46,6 @@ async function CheckIns() {
 
   return (
     <>
-      {sample && <SampleNote />}
 
       <section
         aria-labelledby="meeting"

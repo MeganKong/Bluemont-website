@@ -15,18 +15,12 @@ import { tablesMissing } from "./data";
 // What a form shows after a submit: an error, or that it worked.
 export type ActionState = { error?: string; done?: boolean };
 
-const sampleOnly = "This is sample data, so nothing is saved. Saving starts once the database is set up.";
 const notReady = "This can't be saved yet: the database still needs its update (npx supabase db push).";
 const tryAgain = "Something went wrong and it wasn't saved. Please try again in a minute.";
 const officersOnly = "Only officers can do that.";
 
 function field(formData: FormData, name: string) {
   return String(formData.get(name) ?? "").trim();
-}
-
-// Sample rows (shown before the database is set up) have ids like "sample-2".
-function isSample(id: string) {
-  return id.startsWith("sample-");
 }
 
 function failed(error: PostgrestError): ActionState {
@@ -88,7 +82,6 @@ export async function requestKit(): Promise<ActionState> {
 // Volunteers can cancel a request while it's still waiting.
 export async function cancelKit(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const id = field(formData, "id");
-  if (isSample(id)) return { error: sampleOnly };
 
   const supabase = await createClient();
   const { data, error } = await supabase.from("kit_requests").delete().eq("id", id).select("id");
@@ -101,7 +94,6 @@ export async function cancelKit(_prev: ActionState, formData: FormData): Promise
 export async function setKitStatus(_prev: ActionState, formData: FormData): Promise<ActionState> {
   if (!(await isOfficer())) return { error: officersOnly };
   const id = field(formData, "id");
-  if (isSample(id)) return { error: sampleOnly };
   const status = field(formData, "status");
   if (status !== "pending" && status !== "approved" && status !== "picked_up") return { error: tryAgain };
 
@@ -136,7 +128,6 @@ export async function logHours(_prev: ActionState, formData: FormData): Promise<
 // Volunteers can delete hours while they're still waiting.
 export async function deleteHours(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const id = field(formData, "id");
-  if (isSample(id)) return { error: sampleOnly };
 
   const supabase = await createClient();
   const { data, error } = await supabase.from("service_hours").delete().eq("id", id).select("id");
@@ -149,7 +140,6 @@ export async function deleteHours(_prev: ActionState, formData: FormData): Promi
 export async function reviewHours(_prev: ActionState, formData: FormData): Promise<ActionState> {
   if (!(await isOfficer())) return { error: officersOnly };
   const id = field(formData, "id");
-  if (isSample(id)) return { error: sampleOnly };
   const status = field(formData, "status");
   if (status !== "approved" && status !== "declined") return { error: tryAgain };
 
@@ -182,7 +172,6 @@ export async function postNews(_prev: ActionState, formData: FormData): Promise<
 export async function deleteNews(_prev: ActionState, formData: FormData): Promise<ActionState> {
   if (!(await isOfficer())) return { error: officersOnly };
   const id = field(formData, "id");
-  if (isSample(id)) return { error: sampleOnly };
 
   const supabase = await createClient();
   const { error } = await supabase.from("news_posts").delete().eq("id", id);
@@ -210,7 +199,6 @@ export async function checkIn(_prev: ActionState, formData: FormData): Promise<A
 export async function deleteCheckIn(_prev: ActionState, formData: FormData): Promise<ActionState> {
   if (!(await isOfficer())) return { error: officersOnly };
   const id = field(formData, "id");
-  if (isSample(id)) return { error: sampleOnly };
 
   const supabase = await createClient();
   const { data, error } = await supabase.from("check_ins").delete().eq("id", id).select("id");
@@ -236,7 +224,6 @@ export async function rsvp(_prev: ActionState, formData: FormData): Promise<Acti
 export async function updateStock(_prev: ActionState, formData: FormData): Promise<ActionState> {
   if (!(await isOfficer())) return { error: officersOnly };
   const id = field(formData, "id");
-  if (isSample(id)) return { error: sampleOnly };
   const quantity = wholeNumber(field(formData, "quantity"));
   if (quantity === null) return { error: "Please enter a whole number, 0 or more." };
 
@@ -264,7 +251,6 @@ export async function addStock(_prev: ActionState, formData: FormData): Promise<
 export async function removeStock(_prev: ActionState, formData: FormData): Promise<ActionState> {
   if (!(await isOfficer())) return { error: officersOnly };
   const id = field(formData, "id");
-  if (isSample(id)) return { error: sampleOnly };
 
   const supabase = await createClient();
   const { error } = await supabase.from("stock_items").delete().eq("id", id);

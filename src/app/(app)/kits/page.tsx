@@ -5,8 +5,7 @@
 // - Officers approve requests on their own page (/kits/requests).
 // Done when: a kit unlocks after lesson 1 and an officer approves it.
 //
-// Data and saving: src/lib/portal/data.ts and actions.ts (sample data until
-// the database step is done).
+// Data and saving: src/lib/portal/data.ts and actions.ts.
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -19,7 +18,6 @@ import { ActionForm } from "@/components/action-form";
 import { IfOfficer } from "@/components/officers-only";
 import { PortalPage } from "@/components/portal-page";
 import { buttonMain, buttonSecondary, card, eyebrow, sectionTitle, smallButton } from "@/components/portal-styles";
-import { SampleNote } from "@/components/sample-note";
 import { lessons } from "../lessons/_placeholder";
 
 export const metadata: Metadata = { title: "My kit" };
@@ -51,7 +49,7 @@ export default function KitsPage() {
 }
 
 async function MyKit() {
-  const [{ done, sample: s1 }, { kit, sample: s2 }, { events }] = await Promise.all([
+  const [{ done }, { kit }, { events }] = await Promise.all([
     getMyLessons(),
     getMyKit(),
     getComingUp(1),
@@ -62,7 +60,6 @@ async function MyKit() {
 
   return (
     <>
-      {(s1 || s2) && <SampleNote />}
       <section aria-labelledby="kit" className={`${card} flex flex-col items-start gap-4`}>
         <h2 id="kit" className={eyebrow}>
           Starter kit

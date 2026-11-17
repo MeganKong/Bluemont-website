@@ -19,7 +19,6 @@ import { ActionForm } from "@/components/action-form";
 import { OfficersOnly } from "@/components/officers-only";
 import { PortalPage } from "@/components/portal-page";
 import { buttonSecondary, card, eyebrow, rows, smallButton, smallButtonMain } from "@/components/portal-styles";
-import { SampleNote } from "@/components/sample-note";
 
 export const metadata: Metadata = { title: "Kit requests" };
 
@@ -45,7 +44,7 @@ export default function KitRequestsPage() {
 }
 
 async function Requests() {
-  const { requests, sample } = await getKitRequests();
+  const { requests } = await getKitRequests();
   const groups: { status: KitRequest["status"]; title: string; empty: string }[] = [
     { status: "pending", title: "Waiting for approval", empty: "No requests waiting." },
     { status: "approved", title: "Ready for pickup", empty: "Nothing waiting for pickup." },
@@ -54,7 +53,6 @@ async function Requests() {
 
   return (
     <>
-      {sample && <SampleNote />}
       {groups.map((group) => {
         // Only the latest 20 pickups, so the list doesn't grow forever.
         const items = requests.filter((r) => r.status === group.status);

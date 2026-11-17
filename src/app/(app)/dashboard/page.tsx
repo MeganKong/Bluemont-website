@@ -7,8 +7,7 @@
 //   updates from officers. Nothing else, so it's quick to read.
 // Done when: it shows those for the real person.
 //
-// Data comes from ./_data.ts and src/lib/portal/data.ts (sample data until
-// the database step is done). Signed-out visitors are sent to sign in, and
+// Data comes from ./_data.ts and src/lib/portal/data.ts. Signed-out visitors are sent to sign in, and
 // officers to their own dashboard, by src/lib/supabase/proxy.ts.
 // Uses the portal look (src/components/portal-styles.ts).
 import type { Metadata } from "next";
@@ -24,7 +23,6 @@ import { ActionForm } from "@/components/action-form";
 import { DateBox } from "@/components/date-box";
 import { PortalPage } from "@/components/portal-page";
 import { buttonMain, buttonSecondary, card, cardLink, eyebrow, link, rows, tag } from "@/components/portal-styles";
-import { SampleNote } from "@/components/sample-note";
 import { lessons } from "../lessons/_placeholder";
 import { getProgress, type Progress } from "./_data";
 import { Journey } from "./_journey";
@@ -78,7 +76,6 @@ async function Home() {
 
   return (
     <>
-      {(progress.sample || hours.sample || news.sample) && <SampleNote />}
 
       <NextStep progress={progress} event={comingUp.events[0] ?? null} />
 

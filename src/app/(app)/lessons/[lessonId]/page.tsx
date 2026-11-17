@@ -16,7 +16,6 @@ import { getMyLessons } from "@/lib/portal/data";
 import { ActionForm } from "@/components/action-form";
 import { PortalPage } from "@/components/portal-page";
 import { buttonMain, card, eyebrow, focusRing, link } from "@/components/portal-styles";
-import { SampleNote } from "@/components/sample-note";
 
 // Tells Next.js which lesson pages exist, so it can build them ahead of time.
 export function generateStaticParams() {
@@ -80,13 +79,12 @@ async function Lesson({ params }: { params: Params }) {
 
 // "Mark complete", or once it's done, a link to the next lesson.
 async function Finish({ lesson }: { lesson: LessonType }) {
-  const { done, sample } = await getMyLessons();
+  const { done } = await getMyLessons();
   const next = lessons.find((l) => l.order === lesson.order + 1);
 
   if (!done.includes(lesson.id)) {
     return (
       <>
-        {sample && <SampleNote />}
         <ActionForm action={completeLesson} className="flex flex-col items-start gap-3">
           <input type="hidden" name="lessonId" value={lesson.id} />
           <button type="submit" className={buttonMain}>

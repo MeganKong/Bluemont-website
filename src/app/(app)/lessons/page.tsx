@@ -4,8 +4,7 @@
 // - List the 3 starter lessons in order, showing which ones are done.
 // Done when: volunteers see their lessons and their progress.
 //
-// Which lessons are done comes from src/lib/portal/data.ts (sample data
-// until the database step is done).
+// Which lessons are done comes from src/lib/portal/data.ts.
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -13,7 +12,6 @@ import { lessons } from "./_placeholder";
 import { getMyLessons } from "@/lib/portal/data";
 import { PortalPage } from "@/components/portal-page";
 import { card, rows } from "@/components/portal-styles";
-import { SampleNote } from "@/components/sample-note";
 
 export const metadata: Metadata = { title: "Lessons" };
 
@@ -36,13 +34,12 @@ export default function LessonsPage() {
 }
 
 async function LessonList() {
-  const { done, sample } = await getMyLessons();
+  const { done } = await getMyLessons();
   const finished = inOrder.filter((lesson) => done.includes(lesson.id)).length;
   const nextId = inOrder.find((lesson) => !done.includes(lesson.id))?.id;
 
   return (
     <>
-      {sample && <SampleNote />}
       <div className="flex flex-col gap-2">
         <p className="font-bold">
           {finished} of {inOrder.length} done

@@ -6,8 +6,7 @@
 //   under "Coming up" on the dashboards.
 // Done when: officers can post news and volunteers see it.
 //
-// Data and saving: src/lib/portal/data.ts and actions.ts (sample data until
-// the database step is done). Only officers see the post form and Delete,
+// Data and saving: src/lib/portal/data.ts and actions.ts. Only officers see the post form and Delete,
 // and the database only lets officers post or delete.
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -20,7 +19,6 @@ import { ActionForm } from "@/components/action-form";
 import { DateBox } from "@/components/date-box";
 import { PortalPage } from "@/components/portal-page";
 import { card, field, hint, label, smallButton, smallButtonMain } from "@/components/portal-styles";
-import { SampleNote } from "@/components/sample-note";
 
 export const metadata: Metadata = { title: "Updates" };
 
@@ -35,12 +33,11 @@ export default function NewsPage() {
 }
 
 async function News() {
-  const [{ posts, sample }, role] = await Promise.all([getNews(), getMyRole()]);
+  const [{ posts }, role] = await Promise.all([getNews(), getMyRole()]);
   const isOfficer = role === "officer";
 
   return (
     <>
-      {sample && <SampleNote />}
       {isOfficer && <PostForm />}
 
       {posts.length === 0 ? (

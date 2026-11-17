@@ -8,8 +8,7 @@
 // Done when: a volunteer logs hours, an officer approves them, and the
 // total goes up.
 //
-// Data and saving: src/lib/portal/data.ts and actions.ts (sample data until
-// the database step is done).
+// Data and saving: src/lib/portal/data.ts and actions.ts.
 import type { Metadata } from "next";
 import { connection } from "next/server";
 import { Suspense } from "react";
@@ -21,7 +20,6 @@ import { formatDay, formatHours, hoursLabel } from "@/lib/portal/format";
 import { ActionForm } from "@/components/action-form";
 import { PortalPage } from "@/components/portal-page";
 import { bigNumber, card, eyebrow, field, label, rows, smallButton, smallButtonMain } from "@/components/portal-styles";
-import { SampleNote } from "@/components/sample-note";
 import { PrintButton } from "./print-button";
 
 export const metadata: Metadata = { title: "Hours" };
@@ -43,14 +41,13 @@ export default function HoursPage() {
 }
 
 async function Hours() {
-  const { entries, sample } = await getMyHours();
+  const { entries } = await getMyHours();
   const approved = entries.filter((e) => e.status === "approved");
   const total = approved.reduce((sum, e) => sum + e.hours, 0);
   const waiting = entries.filter((e) => e.status === "pending").reduce((sum, e) => sum + e.hours, 0);
 
   return (
     <>
-      {sample && <SampleNote />}
       <PrintHeading total={total} />
 
       <section aria-labelledby="total" className={`${card} flex flex-col gap-2`}>
