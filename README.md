@@ -54,6 +54,13 @@ API Keys > secret key). The sign-in page uses it, on the server only, to say
 "No account found with that email". Without it, sign-in still works but shows
 a more general message. Never put `NEXT_PUBLIC_` in front of it.
 
+**Emails** (confirm sign-up, reset password) are sent from the foundation's
+Google Workspace account through Supabase. The setup steps are in
+[docs/email-setup.md](docs/email-setup.md), and the email designs are in
+`supabase/templates/`. If you change a template, paste the new version into
+Supabase too: the files here are the master copy, but Supabase doesn't read
+them automatically.
+
 ## Weekly workflow
 
 1. `git switch main && git pull`: get everyone's latest work.
@@ -66,5 +73,5 @@ a more general message. Never put `NEXT_PUBLIC_` in front of it.
 
 ## Coming next
 
-- Supabase is connected; logins and tables come as each owner builds
+- Before the pilot (#11): lesson videos (#6), parent consent (#4), email sender ([docs/email-setup.md](docs/email-setup.md))
 - Month 2: donate page, badges, service-hour certificates, pickup slots
